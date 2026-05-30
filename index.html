@@ -529,6 +529,28 @@ a { color: inherit; }
    WELCOME STATE
 ═══════════════════════════════════════════════════════ */
 .welcome { padding: 8px 0 16px; }
+.section-hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hist-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid var(--bdr);border-radius:100px;background:var(--card);font-size:11px;font-weight:600;cursor:pointer;color:var(--txt2);transition:all .15s;white-space:nowrap;}
+.hist-btn:hover,.hist-btn.on{border-color:var(--pri);color:var(--pri);background:#eff6ff;}
+.hist-panel{background:var(--card);border-radius:var(--r);padding:14px;box-shadow:var(--shad);margin-bottom:16px;border:1.5px solid #bfdbfe;}
+.hist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--bdr);}
+.hist-header span{font-size:12px;font-weight:700;color:var(--txt2);}
+.hist-clear{padding:4px 10px;border:1.5px solid #fca5a5;border-radius:100px;background:#fff;color:#dc2626;font-size:11px;font-weight:600;cursor:pointer;}
+.hist-empty{font-size:12px;color:var(--txt3);text-align:center;padding:12px 0;}
+.hist-entry{padding:10px 0;border-bottom:1px solid var(--bdr);}
+.hist-entry:last-child{border-bottom:none;padding-bottom:0;}
+.hist-entry-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;}
+.hist-date{font-size:12px;font-weight:700;}
+.hist-season-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;}
+.hs-sum{background:#fef9c3;color:#854d0e;}
+.hs-win{background:#e0f2fe;color:#0369a1;}
+.hist-sun{font-size:10px;color:var(--txt3);}
+.hist-dests{display:flex;flex-wrap:wrap;gap:5px;}
+.hist-dest-pill{font-size:11px;background:#f1f5f9;padding:3px 8px;border-radius:100px;color:var(--txt2);}
+.hist-dest-pill strong{color:var(--pri);}
+.hist-more{font-size:11px;color:var(--txt3);padding:3px 6px;}
+.daily-empty .win-note{display:inline-flex;align-items:center;gap:6px;background:#e0f2fe;color:#0369a1;font-size:12px;font-weight:600;padding:6px 14px;border-radius:100px;margin-top:10px;}
+
 </style>
 </head>
 <body>
@@ -635,11 +657,9 @@ a { color: inherit; }
   <div class="daily-wrap">
     <div class="section-hdr">
       <h2>🔥 Today's Best Deals</h2>
-      <div class="upd-info" id="updInfo">
-        <div class="status-dot none" id="statusDot"></div>
-        <span id="updAt">Waiting for first daily search…</span>
-      </div>
+      <div class="section-hdr-right"><button class="hist-btn" id="histBtn" onclick="toggleHistory()">📋 History</button><div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Waiting…</span></div></div>
     </div>
+    <div id="histPanel" class="hist-panel" style="display:none;"></div>
     <div id="dailyDealsArea"></div>
   </div>
 
@@ -923,86 +943,88 @@ const SD = {
 ═══════════════════════════════════════════════════════ */
 (function init(){
   setSeason('summer');
-  renderDailyDeals();
+  saveToHistory();
 })();
 
 /* ═══════════════════════════════════════════════════════
    DAILY DEALS RENDER
 ═══════════════════════════════════════════════════════ */
 function renderDailyDeals(){
-  var area = document.getElementById('dailyDealsArea');
-  var dot  = document.getElementById('statusDot');
-  var upd  = document.getElementById('updAt');
-
-  if(!DAILY_DEALS || !DAILY_DEALS.destinations || !DAILY_DEALS.destinations.length){
-    dot.className = 'status-dot none';
-    upd.textContent = 'Daily search runs at 10:00 AM';
-    area.innerHTML = '<div class="daily-empty">'
-      +'<div class="ico">⏰</div>'
-      +'<h3>Daily search not yet run</h3>'
-      +'<p>Every morning at 10:00 AM this page automatically<br>searches popular destinations for Sunday deals<br>departing between 04:00–08:00.</p>'
-      +'<div class="next-run">⏰ Next run: 10:00 AM today</div>'
-      +'</div>';
+  var area=document.getElementById('dailyDealsArea'),dot=document.getElementById('statusDot'),upd=document.getElementById('updAt');
+  if(S.season==='winter'){
+    dot.className='status-dot none';upd.textContent='Winter season selected';
+    area.innerHTML='<div class="daily-empty"><div class="ico">\u2744\uFE0F</div><h3>Winter Deals Not Yet Available</h3><p>Winter deals will appear here once the daily task runs for the Nov 2026\u2013Jan 2027 window.</p><div class="win-note">\uD83D\uDCC5 Winter window: Nov 2026 \u2013 Jan 2027</div></div>';
     return;
   }
-
-  // Check freshness (stale if > 26h old)
-  var updTime = new Date(DAILY_DEALS.updatedAt);
-  var ageh = (Date.now() - updTime) / 3600000;
-  dot.className = 'status-dot' + (ageh > 26 ? ' stale' : '');
-  upd.textContent = 'Updated ' + updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-
-  var items = DAILY_DEALS.destinations;
-  var html = '<div class="deals-grid">';
+  if(S.season==='custom'){
+    dot.className='status-dot none';upd.textContent='Custom dates selected';
+    area.innerHTML='<div class="daily-empty"><div class="ico">\uD83D\uDCC5</div><h3>Custom Dates Mode</h3><p>Pre-computed deals are only available for Summer and Winter seasons.<br>Use the search below to find deals for your custom dates.</p></div>';
+    return;
+  }
+  if(!DAILY_DEALS||!DAILY_DEALS.destinations||!DAILY_DEALS.destinations.length||DAILY_DEALS.season!=='summer'){
+    dot.className='status-dot none';upd.textContent='Daily search runs at 10:00 AM';
+    area.innerHTML='<div class="daily-empty"><div class="ico">\u23F0</div><h3>Daily search not yet run</h3><p>Every morning at 10:00 AM this page automatically searches popular destinations for Sunday deals departing between 04:00\u201308:00.</p><div class="next-run">\u23F0 Next run: 10:00 AM today</div></div>';
+    return;
+  }
+  var updTime=new Date(DAILY_DEALS.updatedAt),ageh=(Date.now()-updTime)/3600000;
+  dot.className='status-dot'+(ageh>26?' stale':'');
+  upd.textContent='Updated '+updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  var items=DAILY_DEALS.destinations,html='<div class="deals-grid">';
   items.forEach(function(d,i){
-    var f = d.flight, h = d.hotel;
-    var typeMap = { beach:'🏖️ Beach', city:'🏙️ City', exotic:'🌴 Exotic', ski:'⛷️ Ski' };
-    var typeCls = { beach:'t-beach', city:'t-city', exotic:'t-exotic', ski:'t-ski' };
-    var stops = f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops';
-
-    html += '<div class="deal-card'+(i===0?' top-deal':'')+'">'
-      +'<div class="deal-card-hdr">'
-        +'<div>'
-          +'<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div>'
-          +'<span class="type-badge '+typeCls[d.type]+'">'+typeMap[d.type]+'</span>'
-        +'</div>'
-        +'<div class="deal-price-blk">'
-          +'<div class="deal-total">$'+d.totalUSD.toLocaleString()+'</div>'
-          +'<div class="deal-pp">≈ $'+d.perPersonUSD.toLocaleString()+'/person</div>'
-        +'</div>'
-      +'</div>'
+    var f=d.flight,h=d.hotel,typeMap={beach:'\uD83C\uDFD6\uFE0F Beach',city:'\uD83C\uDFD9\uFE0F City',exotic:'\uD83C\uDF34 Exotic',ski:'\u26F7\uFE0F Ski'},typeCls={beach:'t-beach',city:'t-city',exotic:'t-exotic',ski:'t-ski'};
+    var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
+    html+='<div class="deal-card'+(i===0?' top-deal':'')+'"><div class="deal-card-hdr"><div>'
+      +'<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div>'
+      +'<span class="type-badge '+typeCls[d.type]+'">'+typeMap[d.type]+'</span></div>'
+      +'<div class="deal-price-blk"><div class="deal-total">$'+d.totalUSD.toLocaleString()+'</div><div class="deal-pp">\u2248 $'+d.perPersonUSD.toLocaleString()+'/person</div></div></div>'
       +'<div class="deal-divider"></div>'
-      +'<div class="deal-seg">'
-        +'<div class="deal-seg-lbl">✈️ Flight · '+stops+'</div>'
-        +'<div class="deal-seg-row">'
-          +'<span class="deal-time">'+(f.departsLocal?f.departsLocal.substring(11,16):'—')+'</span>'
-          +'<span class="deal-route">TLV → '+d.dest+' · '+(f.durationSec?fdur(f.durationSec):'')+'<br>'+fdt(f.departsLocal)+' → returns '+fdt(f.returnDeparts)+'</span>'
-          +'<span class="deal-seg-price">$'+f.price.toLocaleString()+'</span>'
-        +'</div>'
-      +'</div>'
-      +(h?'<div class="deal-divider"></div>'
-        +'<div class="deal-hotel">'
-          +'<div>'
-            +'<div class="deal-hotel-name">🏨 '+h.name+'</div>'
-            +'<div class="deal-hotel-meta">'
-              +'<div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span> &nbsp;'+slbl(h.score)+' · '+h.nights+' nights</div>'
-            +'</div>'
-          +'</div>'
-          +'<div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div>'
-        +'</div>':'')
+      +'<div class="deal-seg"><div class="deal-seg-lbl">\u2708\uFE0F Flight \u00B7 '+stops+'</div>'
+      +'<div class="deal-seg-row"><span class="deal-time">'+(f.departsLocal?f.departsLocal.substring(11,16):'\u2014')+'</span>'
+      +'<span class="deal-route">TLV \u2192 '+d.dest+' \u00B7 '+(f.durationSec?fdur(f.durationSec):'')+'<br>'+fdt(f.departsLocal)+' \u2192 returns '+fdt(f.returnDeparts)+'</span>'
+      +'<span class="deal-seg-price">$'+f.price.toLocaleString()+'</span></div></div>'
+      +(h?'<div class="deal-divider"></div><div class="deal-hotel"><div><div class="deal-hotel-name">\uD83C\uDFE8 '+h.name+'</div>'
+      +'<div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span> \u00A0'+slbl(h.score)+' \u00B7 '+h.nights+' nights</div></div></div>'
+      +'<div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div></div>':'')
       +'<div class="deal-cta">'
-        +(f.link?'<a class="cta-btn cta-pri" href="'+f.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')
-        +(h&&h.link?'<a class="cta-btn cta-sec" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'')
-      +'</div>'
-    +'</div>';
+      +(f.link?'<a class="cta-btn cta-pri" href="'+f.link+'" target="_blank" rel="noopener">\u2708\uFE0F Book Flight</a>':'')
+      +(h&&h.link?'<a class="cta-btn cta-sec" href="'+h.link+'" target="_blank" rel="noopener">\uD83C\uDFE8 Book Hotel</a>':'')
+      +'</div></div>';
   });
-  html += '</div>';
-  area.innerHTML = html;
+  html+='</div>';area.innerHTML=html;
 }
+/* HISTORY */
+function saveToHistory(){
+  if(!DAILY_DEALS||!DAILY_DEALS.updatedAt||!DAILY_DEALS.destinations||!DAILY_DEALS.destinations.length)return;
+  var key='tlv_deals_history',hist=[];
+  try{hist=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}
+  if(hist.length&&hist[0].updatedAt===DAILY_DEALS.updatedAt)return;
+  hist.unshift({updatedAt:DAILY_DEALS.updatedAt,season:DAILY_DEALS.season,nextSunday:DAILY_DEALS.nextSunday,destinations:DAILY_DEALS.destinations});
+  hist=hist.slice(0,30);try{localStorage.setItem(key,JSON.stringify(hist));}catch(e){}
+}
+function toggleHistory(){
+  var p=document.getElementById('histPanel'),b=document.getElementById('histBtn');
+  if(p.style.display==='none'){renderHistory();p.style.display='block';b.classList.add('on');}
+  else{p.style.display='none';b.classList.remove('on');}
+}
+function renderHistory(){
+  var p=document.getElementById('histPanel'),hist=[];
+  try{hist=JSON.parse(localStorage.getItem('tlv_deals_history')||'[]');}catch(e){}
+  if(!hist.length){p.innerHTML='<div class="hist-empty">No history yet \u2014 each daily refresh is saved here automatically.</div>';return;}
+  var out='<div class="hist-header"><span>'+hist.length+' saved refresh'+(hist.length>1?'es':'')+'</span><button class="hist-clear" onclick="clearHistory()">\uD83D\uDDD1 Clear all</button></div>';
+  hist.forEach(function(e){
+    var dt=new Date(e.updatedAt).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+    out+='<div class="hist-entry"><div class="hist-entry-hdr"><span class="hist-date">'+dt+'</span>'
+      +'<span class="hist-season-badge '+(e.season==='summer'?'hs-sum':'hs-win')+'">'+(e.season==='summer'?'\u2600\uFE0F Summer':'\u2744\uFE0F Winter')+'</span>'
+      +'<span class="hist-sun">\uD83D\uDCC5 '+e.nextSunday+'</span></div>'
+      +'<div class="hist-dests">'
+      +(e.destinations||[]).slice(0,5).map(function(d){return'<span class="hist-dest-pill">'+d.flag+' '+d.dest+' <strong>$'+d.totalUSD.toLocaleString()+'</strong></span>';}).join('')
+      +((e.destinations||[]).length>5?'<span class="hist-more">+'+(e.destinations.length-5)+' more</span>':'')
+      +'</div></div>';
+  });
+  p.innerHTML=out;
+}
+function clearHistory(){try{localStorage.removeItem('tlv_deals_history');}catch(e){}renderHistory();}
 
-/* ═══════════════════════════════════════════════════════
-   SEASON / MODE / PAX
-═══════════════════════════════════════════════════════ */
 function setSeason(s){
   S.season=s;
   document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));
@@ -1011,6 +1033,7 @@ function setSeason(s){
     document.getElementById('dateFrom').value=SD[s].from;
     document.getElementById('dateTo').value=SD[s].to;
   }
+  renderDailyDeals();
 }
 function setMode(m){
   S.mode=m;
