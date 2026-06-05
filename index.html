@@ -3,7 +3,7 @@
 {
   "name": "Travel Deals Tlv",
   "schemaVersion": 1,
-  "description": "Travel Deals Finder from TLV — mobile-first responsive design for iOS, Android &amp; PC. Auto-populated Daily Deals section (updated by 10 AM scheduled task), manual search with Sunday 04–08 departure filter, min 4-day stay, packages + flights + hotels tabs.",
+  "description": "Travel Deals Finder from TLV â mobile-first responsive design for iOS, Android &amp; PC. Auto-populated Daily Deals section (updated by 10 AM scheduled task), manual search with Sunday 04â08 departure filter, min 4-day stay, packages + flights + hotels tabs.",
   "mcpTools": [
     "mcp__a7e92804-f66b-4b72-affb-e58df442b684__search-flight",
     "mcp__32f9c931-9eb0-4e61-9b31-470e653259fa__accommodations_search"
@@ -20,12 +20,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<title>✈️ TLV Travel Deals</title>
-<meta name="description" content="Daily flight + hotel deals from Tel Aviv — auto-updated every morning">
+<title>âï¸ TLV Travel Deals</title>
+<meta name="description" content="Daily flight + hotel deals from Tel Aviv â auto-updated every morning">
 <style>
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    ROOT VARIABLES
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 :root {
   color-scheme: light;
   --pri: #0066cc;
@@ -46,25 +46,25 @@
   --touch: 44px; /* min touch target */
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    RESET & BASE
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { -webkit-text-size-adjust: 100%; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--txt); min-height: 100vh; font-size: 14px; }
 input, button, select { font-family: inherit; }
 a { color: inherit; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    TYPOGRAPHY HELPERS
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--txt2); display: block; margin-bottom: 8px; }
 .muted { color: var(--txt2); }
 .light { color: var(--txt3); }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    HEADER GRADIENT
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .hdr {
   background: linear-gradient(140deg, #09407a 0%, #0066cc 50%, #003fa3 100%);
   color: #fff;
@@ -74,16 +74,16 @@ a { color: inherit; }
 .hdr-top h1 { font-size: clamp(17px, 4.5vw, 22px); font-weight: 800; letter-spacing: -.3px; }
 .hdr-top .sub { font-size: 11px; opacity: .75; margin-top: 4px; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    SEARCH PANEL (inside header, white card)
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .spanel {
   background: var(--card);
   border-radius: var(--r) var(--r) 0 0;
   padding: clamp(14px,4vw,20px) clamp(12px,4vw,18px);
 }
 
-/* Season chips — horizontally scrollable on mobile */
+/* Season chips â horizontally scrollable on mobile */
 .schips {
   display: flex;
   gap: 8px;
@@ -113,7 +113,7 @@ a { color: inherit; }
 }
 .schip.on { border-color: var(--pri); background: #eff6ff; color: var(--pri); font-weight: 700; }
 
-/* Search row — stacks on mobile, row on tablet+ */
+/* Search row â stacks on mobile, row on tablet+ */
 .srow {
   display: flex;
   flex-direction: column;
@@ -247,14 +247,14 @@ a { color: inherit; }
 .sbtn:active { transform: translateY(0); }
 .sbtn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    MAIN CONTENT
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .main { padding: clamp(12px,4vw,16px); }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    DAILY DEALS SECTION
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .daily-wrap { margin-bottom: 20px; }
 .section-hdr {
   display: flex;
@@ -270,7 +270,7 @@ a { color: inherit; }
 .status-dot.stale { background: var(--amber); }
 .status-dot.none { background: var(--txt3); }
 
-/* Deals grid — 1 col mobile, 2 col tablet, 3 col desktop */
+/* Deals grid â 1 col mobile, 2 col tablet, 3 col desktop */
 .deals-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -366,9 +366,9 @@ a { color: inherit; }
 .daily-empty p { font-size: 12px; color: var(--txt2); line-height: 1.6; }
 .daily-empty .next-run { display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: var(--pri); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; margin-top: 10px; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    LOADING
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .ldwrap { text-align: center; padding: 40px 20px; display: none; }
 .ldwrap.vis { display: block; }
 .spin { width: 36px; height: 36px; border: 3px solid var(--bdr); border-top-color: var(--pri); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 14px; }
@@ -376,9 +376,9 @@ a { color: inherit; }
 .lmsg { font-size: 14px; font-weight: 600; color: #374151; }
 .lsub { font-size: 12px; color: var(--txt3); margin-top: 4px; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    MANUAL SEARCH RESULTS
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .res { display: none; }
 .res.vis { display: block; }
 .reshdr { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -419,9 +419,9 @@ a { color: inherit; }
 /* Cards container */
 .cards { display: flex; flex-direction: column; gap: 12px; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    FLIGHT CARD
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .fcard {
   background: var(--card);
   border-radius: var(--r);
@@ -474,9 +474,9 @@ a { color: inherit; }
 }
 .bbtn:hover { background: var(--pri-d); }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    HOTEL CARD
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .hcard { background: var(--card); border-radius: var(--r); padding: 14px; box-shadow: var(--shad); border: 1.5px solid transparent; transition: all .2s; }
 .hcard:hover { border-color: #bfdbfe; }
 .hhdr { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 10px; align-items: flex-start; }
@@ -493,9 +493,9 @@ a { color: inherit; }
 .facs { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
 .ftag { background: #f1f5f9; color: var(--txt2); font-size: 10px; padding: 3px 8px; border-radius: 100px; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    PACKAGE CARD
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .pkgcard { background: linear-gradient(145deg,#eff6ff,#f0fdf4); border: 2px solid #bfdbfe; border-radius: var(--r); padding: 14px; box-shadow: var(--shad); }
 .pkgcard.ptop { border-color: #6ee7b7; background: linear-gradient(145deg,#ecfdf5,#eff6ff); }
 .pkghdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; gap: 8px; flex-wrap: wrap; }
@@ -514,9 +514,9 @@ a { color: inherit; }
 .pkglink:hover { text-decoration: underline; }
 .pkgfoot { margin-top: 10px; padding-top: 10px; border-top: 1px solid #bfdbfe; font-size: 11px; color: #64748b; text-align: center; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    EMPTY STATES
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .empty { text-align: center; padding: 32px 20px; color: var(--txt2); }
 .empty .ico { font-size: 32px; margin-bottom: 10px; }
 .empty h3 { font-size: 14px; font-weight: 700; color: var(--txt); margin-bottom: 5px; }
@@ -525,9 +525,9 @@ a { color: inherit; }
 /* Cmpare bar */
 .cmpbar { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 12px; padding: 10px 12px; background: #fefce8; border: 1px solid #fde68a; border-radius: var(--rs); font-size: 12px; color: #92400e; }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    WELCOME STATE
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 .welcome { padding: 8px 0 16px; }
 .section-hdr-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
 .hist-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid var(--bdr);border-radius:100px;background:var(--card);font-size:11px;font-weight:600;cursor:pointer;color:var(--txt2);transition:all .15s;white-space:nowrap;}
@@ -555,11 +555,11 @@ a { color: inherit; }
 </head>
 <body>
 
-<!-- ══════════ HEADER + SEARCH ══════════ -->
+<!-- ââââââââââ HEADER + SEARCH ââââââââââ -->
 <div class="hdr">
   <div class="hdr-top">
-    <h1>✈️ TLV Travel Deals</h1>
-    <div class="sub">From Tel Aviv · Booking.com &amp; eDreams · Updated daily at 10:00</div>
+    <h1>âï¸ TLV Travel Deals</h1>
+    <div class="sub">From Tel Aviv Â· Booking.com &amp; eDreams Â· Updated daily at 10:00</div>
   </div>
 
   <div class="spanel">
@@ -567,16 +567,16 @@ a { color: inherit; }
     <!-- Season -->
     <span class="lbl">Season</span>
     <div class="schips" id="schips">
-      <button class="schip on" data-s="summer" onclick="setSeason('summer')">☀️ Summer Jun–Aug 2026</button>
-      <button class="schip" data-s="winter" onclick="setSeason('winter')">❄️ Winter Nov 26–Jan 27</button>
-      <button class="schip" data-s="custom" onclick="setSeason('custom')">📅 Custom Dates</button>
+      <button class="schip on" data-s="summer" onclick="setSeason('summer')">âï¸ Summer JunâAug 2026</button>
+      <button class="schip" data-s="winter" onclick="setSeason('winter')">âï¸ Winter Nov 26âJan 27</button>
+      <button class="schip" data-s="custom" onclick="setSeason('custom')">ð Custom Dates</button>
     </div>
 
     <!-- Destination + Dates -->
     <div class="srow">
       <div class="fg fg-dest">
         <label class="lbl" style="margin-bottom:4px;">Destination</label>
-        <input type="text" id="dest" placeholder="City or country…" autocomplete="off" />
+        <input type="text" id="dest" placeholder="City or countryâ¦" autocomplete="off" />
       </div>
       <div class="fg fg-date">
         <label class="lbl" style="margin-bottom:4px;">Departure</label>
@@ -592,9 +592,9 @@ a { color: inherit; }
     <div style="margin-bottom:12px;">
       <span class="lbl">Search For</span>
       <div class="tgrp">
-        <button class="tbtn on" data-m="package" onclick="setMode('package')">🏨✈️ Package</button>
-        <button class="tbtn" data-m="flights" onclick="setMode('flights')">✈️ Flights</button>
-        <button class="tbtn" data-m="hotels" onclick="setMode('hotels')">🏨 Hotels</button>
+        <button class="tbtn on" data-m="package" onclick="setMode('package')">ð¨âï¸ Package</button>
+        <button class="tbtn" data-m="flights" onclick="setMode('flights')">âï¸ Flights</button>
+        <button class="tbtn" data-m="hotels" onclick="setMode('hotels')">ð¨ Hotels</button>
       </div>
     </div>
 
@@ -602,18 +602,18 @@ a { color: inherit; }
     <div>
       <span class="lbl">Passengers</span>
       <div class="tgrp">
-        <button class="tbtn on" data-p="couple" onclick="setPax('couple')">👫 Couple (2)</button>
-        <button class="tbtn" data-p="family" onclick="setPax('family')">👨‍👩‍👧‍👦 Family (6)</button>
+        <button class="tbtn on" data-p="couple" onclick="setPax('couple')">ð« Couple (2)</button>
+        <button class="tbtn" data-p="family" onclick="setPax('family')">ð¨âð©âð§âð¦ Family (6)</button>
       </div>
       <div id="paxcfg" style="display:none;">
         <div class="paxbox">
           <div class="paxrow">
             <div><div class="paxlbl">Adults</div><div class="paxsub">Age 13+</div></div>
-            <div class="ctr"><button class="cbtn" onclick="adj('a',-1)">−</button><span class="cval" id="aV">4</span><button class="cbtn" onclick="adj('a',1)">+</button></div>
+            <div class="ctr"><button class="cbtn" onclick="adj('a',-1)">â</button><span class="cval" id="aV">4</span><button class="cbtn" onclick="adj('a',1)">+</button></div>
           </div>
           <div class="paxrow">
-            <div><div class="paxlbl">Children</div><div class="paxsub">Age 3–12</div></div>
-            <div class="ctr"><button class="cbtn" onclick="adj('c',-1)">−</button><span class="cval" id="cV">2</span><button class="cbtn" onclick="adj('c',1)">+</button></div>
+            <div><div class="paxlbl">Children</div><div class="paxsub">Age 3â12</div></div>
+            <div class="ctr"><button class="cbtn" onclick="adj('c',-1)">â</button><span class="cval" id="cV">2</span><button class="cbtn" onclick="adj('c',1)">+</button></div>
           </div>
           <div class="paxrow" id="agesRow" style="display:none;">
             <div><div class="paxlbl" style="font-size:12px;">Ages</div></div>
@@ -632,7 +632,7 @@ a { color: inherit; }
       <label class="filter-item">
         <span>Time:</span>
         <input type="time" id="tFrom" value="04:00">
-        <span>–</span>
+        <span>â</span>
         <input type="time" id="tTo" value="08:00">
       </label>
       <label class="filter-item">
@@ -642,35 +642,35 @@ a { color: inherit; }
       </label>
     </div>
 
-    <button class="sbtn" id="sbtn" disabled style="opacity:.45;cursor:not-allowed;">🔍 Search Deals</button>
+    <button class="sbtn" id="sbtn" disabled style="opacity:.45;cursor:not-allowed;">ð Search Deals</button>
     <div style="text-align:center;font-size:11px;color:#94a3b8;margin-top:8px;">
-      ✨ Daily deals refresh automatically each morning &nbsp;·&nbsp;
+      â¨ Daily deals refresh automatically each morning &nbsp;Â·&nbsp;
       Manual search requires the <strong style="color:#64748b;">Cowork desktop app</strong>
     </div>
   </div>
 </div>
 
-<!-- ══════════ MAIN ══════════ -->
+<!-- ââââââââââ MAIN ââââââââââ -->
 <div class="main">
 
-  <!-- ── DAILY DEALS SECTION ── -->
+  <!-- ââ DAILY DEALS SECTION ââ -->
   <div class="daily-wrap">
     <div class="section-hdr">
-      <h2>🔥 Today's Best Deals</h2>
-      <div class="section-hdr-right"><button class="hist-btn" id="histBtn" onclick="toggleHistory()">📋 History</button><div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Waiting…</span></div></div>
+      <h2>ð¥ Today's Best Deals</h2>
+      <div class="section-hdr-right"><button class="hist-btn" id="histBtn" onclick="toggleHistory()">ð History</button><div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Waitingâ¦</span></div></div>
     </div>
     <div id="histPanel" class="hist-panel" style="display:none;"></div>
     <div id="dailyDealsArea"></div>
   </div>
 
-  <!-- ── LOADING ── -->
+  <!-- ââ LOADING ââ -->
   <div class="ldwrap" id="ldwrap">
     <div class="spin"></div>
-    <div class="lmsg" id="lmsg">Searching deals…</div>
+    <div class="lmsg" id="lmsg">Searching dealsâ¦</div>
     <div class="lsub" id="lsub">Checking Booking.com &amp; eDreams</div>
   </div>
 
-  <!-- ── MANUAL SEARCH RESULTS ── -->
+  <!-- ââ MANUAL SEARCH RESULTS ââ -->
   <div class="res" id="res">
     <div class="reshdr">
       <div>
@@ -680,25 +680,25 @@ a { color: inherit; }
       <span class="cpill" id="rcnt"></span>
     </div>
     <div class="tabs" id="tabs">
-      <button class="tab on" id="tPkg" onclick="showTab('Pkg')">🏨✈️ Packages <span class="bdg" id="bPkg">0</span></button>
-      <button class="tab" id="tFly" onclick="showTab('Fly')">✈️ Flights <span class="bdg" id="bFly">0</span></button>
-      <button class="tab" id="tHot" onclick="showTab('Hot')">🏨 Hotels <span class="bdg" id="bHot">0</span></button>
+      <button class="tab on" id="tPkg" onclick="showTab('Pkg')">ð¨âï¸ Packages <span class="bdg" id="bPkg">0</span></button>
+      <button class="tab" id="tFly" onclick="showTab('Fly')">âï¸ Flights <span class="bdg" id="bFly">0</span></button>
+      <button class="tab" id="tHot" onclick="showTab('Hot')">ð¨ Hotels <span class="bdg" id="bHot">0</span></button>
     </div>
     <div class="tpanel on" id="pPkg"><div id="pkgCards" class="cards"></div></div>
     <div class="tpanel" id="pFly">
       <div class="sortbar"><span>Sort:</span>
-        <button class="sc on" onclick="sortFly('price',this)">💰 Price</button>
-        <button class="sc" onclick="sortFly('dur',this)">⚡ Fastest</button>
-        <button class="sc" onclick="sortFly('stops',this)">🎯 Direct</button>
+        <button class="sc on" onclick="sortFly('price',this)">ð° Price</button>
+        <button class="sc" onclick="sortFly('dur',this)">â¡ Fastest</button>
+        <button class="sc" onclick="sortFly('stops',this)">ð¯ Direct</button>
       </div>
       <div id="flyCards" class="cards"></div>
     </div>
     <div class="tpanel" id="pHot">
-      <div class="cmpbar">ℹ️ Hotels from <strong style="margin-left:3px;">Booking.com</strong>. Click cards to compare on other providers.</div>
+      <div class="cmpbar">â¹ï¸ Hotels from <strong style="margin-left:3px;">Booking.com</strong>. Click cards to compare on other providers.</div>
       <div class="sortbar"><span>Sort:</span>
-        <button class="sc on" onclick="sortHot('price',this)">💰 Price</button>
-        <button class="sc" onclick="sortHot('score',this)">⭐ Rating</button>
-        <button class="sc" onclick="sortHot('stars',this)">🏆 Stars</button>
+        <button class="sc on" onclick="sortHot('price',this)">ð° Price</button>
+        <button class="sc" onclick="sortHot('score',this)">â­ Rating</button>
+        <button class="sc" onclick="sortHot('stars',this)">ð Stars</button>
       </div>
       <div id="hotCards" class="cards"></div>
     </div>
@@ -707,8 +707,8 @@ a { color: inherit; }
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   DAILY_DEALS — populated by scheduled task
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+   DAILY_DEALS â populated by scheduled task
    Structure:
    {
      updatedAt: "ISO string",
@@ -722,209 +722,58 @@ a { color: inherit; }
        totalUSD, perPersonUSD
      }]
    }
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 // ═══ DAILY_DEALS_START ═══
 const DAILY_DEALS = {
-  "updatedAt": "2026-05-30T07:00:00.000Z",
+  "updatedAt": "2026-06-04T10:00:00.000Z",
   "season": "summer",
-  "nextSunday": "2026-06-14",
-  "destinations": [
+  "weeks": [
     {
-      "dest": "Santorini",
-      "flag": "🇬🇷",
-      "type": "beach",
-      "flight": {
-        "price": 792,
-        "departsLocal": "2026-06-14T07:20:00",
-        "arrivesLocal": "2026-06-14T18:00:00",
-        "durationSec": 38400,
-        "stops": 2,
-        "stopCity": "Heraklion",
-        "returnDeparts": "2026-06-21T16:35:00",
-        "returnDuration": 36600,
-        "link": "https://on.kiwi.com/RqnYUX"
-      },
-      "hotel": {
-        "name": "Kýma Perissa",
-        "score": 9.0,
-        "stars": 3,
-        "reviews": 136,
-        "priceUSD": 440,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/gr/kyma-perissa.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 1232,
-      "perPersonUSD": 616
+      "label": "Sun 14 Jun",
+      "departure": "2026-06-14",
+      "return": "2026-06-21",
+      "destinations": [
+        {"dest":"Santorini","flag":"🇬🇷","type":"beach","flight":{"price":899,"departsLocal":"2026-06-14T07:20:00","arrivesLocal":"2026-06-14T14:25:00","durationSec":25500,"stops":2,"stopCity":"Heraklion","returnDeparts":"2026-06-21T16:35:00","returnDuration":36600,"link":"https://on.kiwi.com/SVMuF1"},"hotel":{"name":"Altea Apartments","score":9.3,"stars":4,"reviews":328,"priceUSD":660,"nights":7,"link":"https://www.booking.com/hotel/gr/altea-apartments-fira2.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1559,"perPersonUSD":780},
+        {"dest":"Rome","flag":"🇮🇹","type":"city","flight":{"price":937,"departsLocal":"2026-06-14T06:30:00","arrivesLocal":"2026-06-14T12:00:00","durationSec":23400,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-21T22:20:00","returnDuration":48600,"link":"https://on.kiwi.com/ImpgWq"},"hotel":{"name":"San Faustino Rome Colosseum","score":8.5,"stars":4,"reviews":427,"priceUSD":1030,"nights":7,"link":"https://www.booking.com/hotel/it/residenza-san-faustino.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1967,"perPersonUSD":984},
+        {"dest":"Antalya","flag":"🇹🇷","type":"beach","flight":{"price":1466,"departsLocal":"2026-06-14T05:35:00","arrivesLocal":"2026-06-14T22:30:00","durationSec":60900,"stops":1,"stopCity":"Prague","returnDeparts":"2026-06-21T23:20:00","returnDuration":105300,"link":"https://on.kiwi.com/Beq6PH"},"hotel":{"name":"Old Town Point Hotel & Spa","score":8.0,"stars":4,"reviews":3519,"priceUSD":517,"nights":7,"link":"https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1983,"perPersonUSD":992},
+        {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":1043,"departsLocal":"2026-06-14T05:20:00","arrivesLocal":"2026-06-14T16:40:00","durationSec":44400,"stops":1,"stopCity":"Larnaca","returnDeparts":"2026-06-21T20:35:00","returnDuration":54900,"link":"https://on.kiwi.com/H0wJrJ"},"hotel":{"name":"City Stay Vienna – Lugeck","score":8.3,"stars":4,"reviews":4801,"priceUSD":1028,"nights":7,"link":"https://www.booking.com/hotel/at/studio-54-sonnenfelsgasse.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2071,"perPersonUSD":1036},
+        {"dest":"Amsterdam","flag":"🇳🇱","type":"city","flight":{"price":1272,"departsLocal":"2026-06-14T06:30:00","arrivesLocal":"2026-06-14T13:10:00","durationSec":27600,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-21T12:20:00","returnDuration":48300,"link":"https://on.kiwi.com/jgnO1d"},"hotel":{"name":"YOTEL Amsterdam","score":8.3,"stars":4,"reviews":6627,"priceUSD":1150,"nights":7,"link":"https://www.booking.com/hotel/nl/yotel-amsterdam.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2422,"perPersonUSD":1211},
+        {"dest":"Barcelona","flag":"🇪🇸","type":"city","flight":{"price":1181,"departsLocal":"2026-06-14T05:00:00","arrivesLocal":"2026-06-14T11:15:00","durationSec":26100,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-21T17:35:00","returnDuration":15300,"link":"https://on.kiwi.com/uIeEdL"},"hotel":{"name":"Hostal Orleans","score":8.7,"stars":2,"reviews":2568,"priceUSD":1582,"nights":7,"link":"https://www.booking.com/hotel/es/hostal-orleans.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2763,"perPersonUSD":1382}
+      ]
     },
     {
-      "dest": "Rome",
-      "flag": "🇮🇹",
-      "type": "city",
-      "flight": {
-        "price": 822,
-        "departsLocal": "2026-06-14T06:30:00",
-        "arrivesLocal": "2026-06-14T12:00:00",
-        "durationSec": 23400,
-        "stops": 1,
-        "stopCity": "Athens",
-        "returnDeparts": "2026-06-21T22:20:00",
-        "returnDuration": 48600,
-        "link": "https://on.kiwi.com/vGuUpM"
-      },
-      "hotel": {
-        "name": "Albergo Enrica",
-        "score": 8.7,
-        "stars": 1,
-        "reviews": 494,
-        "priceUSD": 858,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/it/albergo-enrica.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 1680,
-      "perPersonUSD": 840
+      "label": "Sun 21 Jun",
+      "departure": "2026-06-21",
+      "return": "2026-06-28",
+      "destinations": [
+        {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":1004,"departsLocal":"2026-06-21T06:30:00","arrivesLocal":"2026-06-21T11:35:00","durationSec":21900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T17:45:00","returnDuration":12300,"link":"https://on.kiwi.com/Tsbzjp"},"hotel":{"name":"IntercityHotel Wien","score":8.2,"stars":4,"reviews":5191,"priceUSD":774,"nights":7,"link":"https://www.booking.com/hotel/at/intercityhotelwien.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1778,"perPersonUSD":889},
+        {"dest":"Santorini","flag":"🇬🇷","type":"beach","flight":{"price":1113,"departsLocal":"2026-06-21T06:30:00","arrivesLocal":"2026-06-21T10:55:00","durationSec":15900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T08:25:00","returnDuration":15900,"link":"https://on.kiwi.com/DLSGTU"},"hotel":{"name":"Glaros Hotel","score":8.6,"stars":3,"reviews":235,"priceUSD":703,"nights":7,"link":"https://www.booking.com/hotel/gr/glaros-kamari.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1816,"perPersonUSD":908},
+        {"dest":"Rome","flag":"🇮🇹","type":"city","flight":{"price":940,"departsLocal":"2026-06-21T05:00:00","arrivesLocal":"2026-06-21T21:30:00","durationSec":63000,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T22:20:00","returnDuration":48600,"link":"https://on.kiwi.com/xOWTEm"},"hotel":{"name":"Charme & Chic Prestige","score":8.6,"stars":4,"reviews":526,"priceUSD":954,"nights":7,"link":"https://www.booking.com/hotel/it/charme-amp-chic.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1894,"perPersonUSD":947},
+        {"dest":"Antalya","flag":"🇹🇷","type":"beach","flight":{"price":1665,"departsLocal":"2026-06-21T05:35:00","arrivesLocal":"2026-06-21T22:30:00","durationSec":60900,"stops":1,"stopCity":"Prague","returnDeparts":"2026-06-28T09:25:00","returnDuration":69000,"link":"https://on.kiwi.com/qBOBHY"},"hotel":{"name":"Old Town Point Hotel & Spa","score":8.0,"stars":4,"reviews":3518,"priceUSD":517,"nights":7,"link":"https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2182,"perPersonUSD":1091},
+        {"dest":"Barcelona","flag":"🇪🇸","type":"city","flight":{"price":1039,"departsLocal":"2026-06-21T05:00:00","arrivesLocal":"2026-06-21T11:15:00","durationSec":26100,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T09:50:00","returnDuration":35700,"link":"https://on.kiwi.com/Wca6XO"},"hotel":{"name":"Barceló Sants","score":8.7,"stars":4,"reviews":7264,"priceUSD":1446,"nights":7,"link":"https://www.booking.com/hotel/es/barcelo-sants.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2485,"perPersonUSD":1243},
+        {"dest":"Amsterdam","flag":"🇳🇱","type":"city","flight":{"price":1451,"departsLocal":"2026-06-21T06:30:00","arrivesLocal":"2026-06-21T13:10:00","durationSec":27600,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T12:20:00","returnDuration":48300,"link":"https://on.kiwi.com/PpQlaz"},"hotel":{"name":"Ruby Emma Hotel Amsterdam by IHG","score":8.7,"stars":4,"reviews":7786,"priceUSD":1305,"nights":7,"link":"https://www.booking.com/hotel/nl/ruby-emma.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2756,"perPersonUSD":1378}
+      ]
     },
     {
-      "dest": "Vienna",
-      "flag": "🇦🇹",
-      "type": "city",
-      "flight": {
-        "price": 905,
-        "departsLocal": "2026-06-14T06:30:00",
-        "arrivesLocal": "2026-06-14T11:35:00",
-        "durationSec": 21900,
-        "stops": 1,
-        "stopCity": "Athens",
-        "returnDeparts": "2026-06-21T17:45:00",
-        "returnDuration": 12300,
-        "link": "https://on.kiwi.com/b30RmT"
-      },
-      "hotel": {
-        "name": "Ruby Marie Hotel Vienna",
-        "score": 8.5,
-        "stars": 4,
-        "reviews": 5770,
-        "priceUSD": 981,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/at/ruby-marie-vienna-wien2.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 1886,
-      "perPersonUSD": 943
-    },
-    {
-      "dest": "Mykonos",
-      "flag": "🇬🇷",
-      "type": "beach",
-      "flight": {
-        "price": 725,
-        "departsLocal": "2026-06-14T05:30:00",
-        "arrivesLocal": "2026-06-14T18:50:00",
-        "durationSec": 48000,
-        "stops": 1,
-        "stopCity": "Heraklion",
-        "returnDeparts": "2026-06-21T23:45:00",
-        "returnDuration": 47100,
-        "link": "https://on.kiwi.com/4IhR1V"
-      },
-      "hotel": {
-        "name": "Rhenia Hotel",
-        "score": 9.1,
-        "stars": 4,
-        "reviews": 131,
-        "priceUSD": 1292,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/gr/rhenia.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 2017,
-      "perPersonUSD": 1008
-    },
-    {
-      "dest": "Antalya",
-      "flag": "🇹🇷",
-      "type": "beach",
-      "flight": {
-        "price": 1414,
-        "departsLocal": "2026-06-14T05:35:00",
-        "arrivesLocal": "2026-06-14T22:30:00",
-        "durationSec": 60900,
-        "stops": 1,
-        "stopCity": "Prague",
-        "returnDeparts": "2026-06-21T23:20:00",
-        "returnDuration": 105300,
-        "link": "https://on.kiwi.com/4yjwtB"
-      },
-      "hotel": {
-        "name": "Old Town Point Hotel & Spa",
-        "score": 8.0,
-        "stars": 4,
-        "reviews": 3521,
-        "priceUSD": 608,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 2022,
-      "perPersonUSD": 1011
-    },
-    {
-      "dest": "Amsterdam",
-      "flag": "🇳🇱",
-      "type": "city",
-      "flight": {
-        "price": 853,
-        "departsLocal": "2026-06-14T06:30:00",
-        "arrivesLocal": "2026-06-14T13:10:00",
-        "durationSec": 27600,
-        "stops": 1,
-        "stopCity": "Athens",
-        "returnDeparts": "2026-06-21T12:20:00",
-        "returnDuration": 48300,
-        "link": "https://on.kiwi.com/3wrUFh"
-      },
-      "hotel": {
-        "name": "Bob W Amsterdam Noord",
-        "score": 8.6,
-        "stars": 4,
-        "reviews": 4181,
-        "priceUSD": 1368,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/nl/bob-w-noord.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 2221,
-      "perPersonUSD": 1110
-    },
-    {
-      "dest": "Barcelona",
-      "flag": "🇪🇸",
-      "type": "city",
-      "flight": {
-        "price": 1061,
-        "departsLocal": "2026-06-14T05:00:00",
-        "arrivesLocal": "2026-06-15T01:00:00",
-        "durationSec": 75600,
-        "stops": 1,
-        "stopCity": "Athens",
-        "returnDeparts": "2026-06-21T17:35:00",
-        "returnDuration": 15300,
-        "link": "https://on.kiwi.com/pjzMQv"
-      },
-      "hotel": {
-        "name": "Hotel Via Augusta",
-        "score": 8.4,
-        "stars": 2,
-        "reviews": 1829,
-        "priceUSD": 1637,
-        "nights": 7,
-        "link": "https://www.booking.com/hotel/es/viaaugusta.html?aid=8132308&checkin=2026-06-14&checkout=2026-06-21&no_rooms=1&group_adults=2&selected_currency=USD"
-      },
-      "totalUSD": 2698,
-      "perPersonUSD": 1349
+      "label": "Sun 28 Jun",
+      "departure": "2026-06-28",
+      "return": "2026-07-05",
+      "destinations": [
+        {"dest":"Santorini","flag":"🇬🇷","type":"beach","flight":{"price":775,"departsLocal":"2026-06-28T05:00:00","arrivesLocal":"2026-06-28T08:05:00","durationSec":21900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T08:25:00","returnDuration":15900,"link":"https://on.kiwi.com/cTtULL"},"hotel":{"name":"Abelonas Village","score":9.6,"stars":4,"reviews":494,"priceUSD":625,"nights":7,"link":"https://www.booking.com/hotel/gr/abelonas-village.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1400,"perPersonUSD":700},
+        {"dest":"Rome","flag":"🇮🇹","type":"city","flight":{"price":610,"departsLocal":"2026-06-28T06:30:00","arrivesLocal":"2026-06-28T12:00:00","durationSec":23400,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T05:30:00","returnDuration":12600,"link":"https://on.kiwi.com/5HBFly"},"hotel":{"name":"Charme & Chic Prestige","score":8.6,"stars":4,"reviews":526,"priceUSD":954,"nights":7,"link":"https://www.booking.com/hotel/it/charme-amp-chic.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1564,"perPersonUSD":782},
+        {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":1032,"departsLocal":"2026-06-28T06:30:00","arrivesLocal":"2026-06-28T11:35:00","durationSec":21900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T17:45:00","returnDuration":12300,"link":"https://on.kiwi.com/ZSuqjR"},"hotel":{"name":"The Social Hub Vienna","score":8.9,"stars":4,"reviews":467,"priceUSD":592,"nights":7,"link":"https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1624,"perPersonUSD":812},
+        {"dest":"Amsterdam","flag":"🇳🇱","type":"city","flight":{"price":1247,"departsLocal":"2026-06-28T05:05:00","arrivesLocal":"2026-06-28T12:40:00","durationSec":30900,"stops":1,"stopCity":"Warsaw","returnDeparts":"2026-07-05T17:45:00","returnDuration":25500,"link":"https://on.kiwi.com/vC3T65"},"hotel":{"name":"Leonardo Royal Hotel Amsterdam","score":8.6,"stars":4,"reviews":8538,"priceUSD":1085,"nights":7,"link":"https://www.booking.com/hotel/nl/leonardo-royal-amsterdam.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2332,"perPersonUSD":1166},
+        {"dest":"Antalya","flag":"🇹🇷","type":"beach","flight":{"price":1692,"departsLocal":"2026-06-28T04:50:00","arrivesLocal":"2026-06-28T11:20:00","durationSec":23400,"stops":1,"stopCity":"Sofia","returnDeparts":"2026-07-05T07:20:00","returnDuration":42000,"link":"https://on.kiwi.com/K3Zq6S"},"hotel":{"name":"Old Town Point Hotel & Spa","score":8.0,"stars":4,"reviews":3518,"priceUSD":713,"nights":7,"link":"https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2405,"perPersonUSD":1203},
+        {"dest":"Barcelona","flag":"🇪🇸","type":"city","flight":{"price":1037,"departsLocal":"2026-06-28T05:00:00","arrivesLocal":"2026-06-28T11:15:00","durationSec":26100,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T01:55:00","returnDuration":35700,"link":"https://on.kiwi.com/xUk3Y8"},"hotel":{"name":"Leonardo Hotel Barcelona Las Ramblas","score":8.3,"stars":3,"reviews":2792,"priceUSD":1704,"nights":7,"link":"https://www.booking.com/hotel/es/leonardo-hotel-barcelona-las-ramblas.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2741,"perPersonUSD":1371}
+      ]
     }
   ]
 };
 // ═══ DAILY_DEALS_END ═══
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    STATE
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 const S = {
   season:'summer', mode:'package', paxMode:'couple',
   adults:2, children:0, childAges:[],
@@ -938,17 +787,17 @@ const SD = {
   winter:{ from:'2026-11-23', to:'2026-11-30' }
 };
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    INIT
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 (function init(){
   setSeason('summer');
   saveToHistory();
 })();
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    DAILY DEALS RENDER
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function renderDailyDeals(){
   var area=document.getElementById('dailyDealsArea'),dot=document.getElementById('statusDot'),upd=document.getElementById('updAt');
   if(S.season==='winter'){
@@ -1076,9 +925,9 @@ function refreshAges(){
 }
 function updateFilters(){}
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    TABS
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function showTab(t){
   S.activeTab=t;
   ['Pkg','Fly','Hot'].forEach(function(id){
@@ -1089,18 +938,18 @@ function showTab(t){
   document.getElementById('p'+t).classList.add('on');
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    HELPERS
-═══════════════════════════════════════════════════════ */
-function ftm(s){return s?s.substring(11,16):'—';}
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
+function ftm(s){return s?s.substring(11,16):'â';}
 function fdt(s){if(!s)return'';var d=new Date(s.length===10?s+'T00:00:00':s);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
 function fdur(s){var h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h+'h'+(m?' '+m+'m':'');}
 function nts(f,t){if(!f||!t)return 7;return Math.round((new Date(t)-new Date(f))/86400000);}
-function stars(n){return'★'.repeat(n||0)+'☆'.repeat(Math.max(0,5-(n||0)));}
+function stars(n){return'â'.repeat(n||0)+'â'.repeat(Math.max(0,5-(n||0)));}
 function slbl(s){if(s>=9.2)return'Exceptional';if(s>=8.5)return'Excellent';if(s>=8)return'Very Good';if(s>=7)return'Good';return'Okay';}
 function totPax(){return S.paxMode==='couple'?2:S.adults+S.children;}
 function getStops(f){return f.layovers?f.layovers.length:0;}
-function dmy(s){return s?s.split('-').reverse().join('/'):'';} // YYYY-MM-DD → DD/MM/YYYY
+function dmy(s){return s?s.split('-').reverse().join('/'):'';} // YYYY-MM-DD â DD/MM/YYYY
 var KFACS=['Free WiFi','Swimming pool','Outdoor pool','Indoor pool','Restaurant','Spa','Fitness','Free parking','Breakfast','Air conditioning','Family rooms','Pets allowed','Beach','Bar'];
 function kfac(arr){if(!arr)return[];return arr.filter(function(f){return KFACS.some(function(k){return f.toLowerCase().indexOf(k.toLowerCase())>=0;});}).slice(0,5);}
 function isSunday(s){return new Date(s+'T00:00:00').getDay()===0;}
@@ -1113,9 +962,9 @@ function nextSundayInWindow(from){
   return d.toISOString().substring(0,10);
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    SEARCH
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 async function doSearch(){
   if(typeof window.cowork === 'undefined'){ alert('Manual search requires the Cowork desktop app.'); return; }
   var dest=document.getElementById('dest').value.trim();
@@ -1141,7 +990,7 @@ async function doSearch(){
   document.getElementById('res').classList.remove('vis');
   document.getElementById('ldwrap').classList.add('vis');
   document.getElementById('sbtn').disabled=true;
-  setld('🔍 Searching '+dest+'…',fdt(searchFrom)+' – '+fdt(to)+' · '+totPax()+' travellers');
+  setld('ð Searching '+dest+'â¦',fdt(searchFrom)+' â '+fdt(to)+' Â· '+totPax()+' travellers');
 
   try{
     var tasks=[];
@@ -1199,13 +1048,13 @@ async function callHotels(dest,from,to){
   return {type:'hotels',data:hotels};
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    RENDER ALL
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function renderAll(){
   var d=S.last,n=nts(d.from,d.to),pax=totPax();
   document.getElementById('rtitle').textContent='Deals to '+d.dest;
-  document.getElementById('rmeta').textContent=fdt(d.from)+' – '+fdt(d.to)+' · '+n+' nights · '+pax+' travellers · from TLV';
+  document.getElementById('rmeta').textContent=fdt(d.from)+' â '+fdt(d.to)+' Â· '+n+' nights Â· '+pax+' travellers Â· from TLV';
   document.getElementById('rcnt').textContent=(S.flights.length+S.hotels.length)+' results';
   document.getElementById('bFly').textContent=S.flights.length;
   document.getElementById('bHot').textContent=S.hotels.length;
@@ -1220,9 +1069,9 @@ function renderAll(){
   document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    RENDER FLIGHTS
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function sortFly(m,el){S.fSort=m;document.querySelectorAll('#pFly .sc').forEach(c=>c.classList.remove('on'));if(el)el.classList.add('on');renderFlights();}
 function renderFlights(){
   var box=document.getElementById('flyCards');
@@ -1232,45 +1081,45 @@ function renderFlights(){
     if(S.fSort==='stops')return getStops(a)-getStops(b);
     return 0;
   }).slice(0,15);
-  if(!list.length){box.innerHTML='<div class="empty"><div class="ico">✈️</div><h3>No flights found</h3><p>Try wider dates or another destination.</p></div>';return;}
+  if(!list.length){box.innerHTML='<div class="empty"><div class="ico">âï¸</div><h3>No flights found</h3><p>Try wider dates or another destination.</p></div>';return;}
   var cheapest=list[0].price,fastest=Math.min.apply(null,list.map(function(f){return f.totalDurationInSeconds;}));
   box.innerHTML=list.map(function(f,i){
     var stops=getStops(f),rs=f.return&&f.return.layovers?f.return.layovers.length:0;
     var slout=stops===0?'Direct':stops===1?'via '+f.layovers[0].city:stops+' stops';
     var rlout=rs===0?'Direct':rs===1?'via '+f.return.layovers[0].city:rs+' stops';
     var badge='';
-    if(i===0&&f.price===cheapest)badge='<div class="dbadge db-best">💰 Best Price</div>';
-    else if(f.totalDurationInSeconds===fastest)badge='<div class="dbadge db-fast">⚡ Fastest</div>';
-    else if(stops===0)badge='<div class="dbadge db-dir">🎯 Direct</div>';
+    if(i===0&&f.price===cheapest)badge='<div class="dbadge db-best">ð° Best Price</div>';
+    else if(f.totalDurationInSeconds===fastest)badge='<div class="dbadge db-fast">â¡ Fastest</div>';
+    else if(stops===0)badge='<div class="dbadge db-dir">ð¯ Direct</div>';
     return '<div class="fcard'+(i===0?' ftop':'')+'">'
       +badge
-      +'<div class="seglbl">✈️ OUTBOUND &nbsp;·&nbsp; '+slout.toUpperCase()+'</div>'
+      +'<div class="seglbl">âï¸ OUTBOUND &nbsp;Â·&nbsp; '+slout.toUpperCase()+'</div>'
       +'<div class="frow">'
         +'<div class="fe"><div class="tm">'+ftm(f.departure&&f.departure.local)+'</div><div class="dt">'+fdt(f.departure&&f.departure.local)+'</div><div class="ap">TLV</div></div>'
         +'<div class="fmid"><div class="fdur">'+fdur(f.durationInSeconds)+'</div>'
-          +'<div class="fpath"><div class="fline"></div>'+(stops>0?'<div class="fsdot"></div>':'<div class="farr">→</div>')+'<div class="fline"></div></div>'
-          +'<div class="slbl '+(stops===0?'sdir':'sstop')+'">'+(stops===0?'✓ Direct':slout)+'</div>'
+          +'<div class="fpath"><div class="fline"></div>'+(stops>0?'<div class="fsdot"></div>':'<div class="farr">â</div>')+'<div class="fline"></div></div>'
+          +'<div class="slbl '+(stops===0?'sdir':'sstop')+'">'+(stops===0?'â Direct':slout)+'</div>'
         +'</div>'
         +'<div class="fe"><div class="tm">'+ftm(f.arrival&&f.arrival.local)+'</div><div class="dt">'+fdt(f.arrival&&f.arrival.local)+'</div><div class="ap">'+f.flyTo+'</div></div>'
       +'</div>'
-      +(f.return?'<div class="retseg"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#94a3b8;margin-bottom:6px;">↩️ RETURN &nbsp;·&nbsp; '+rlout.toUpperCase()+'</div>'
+      +(f.return?'<div class="retseg"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#94a3b8;margin-bottom:6px;">â©ï¸ RETURN &nbsp;Â·&nbsp; '+rlout.toUpperCase()+'</div>'
         +'<div style="display:flex;align-items:center;gap:10px;font-size:13px;flex-wrap:wrap;">'
           +'<span style="font-weight:800;">'+ftm(f.return.departure&&f.return.departure.local)+'</span>'
-          +'<span style="color:#94a3b8;font-size:11px;">——— '+fdur(f.return.durationInSeconds)+' ———</span>'
+          +'<span style="color:#94a3b8;font-size:11px;">âââ '+fdur(f.return.durationInSeconds)+' âââ</span>'
           +'<span style="font-weight:800;">'+ftm(f.return.arrival&&f.return.arrival.local)+'</span>'
-          +'<span style="font-size:10px;color:#64748b;">'+fdt(f.return.departure&&f.return.departure.local)+' – '+fdt(f.return.arrival&&f.return.arrival.local)+'</span>'
+          +'<span style="font-size:10px;color:#64748b;">'+fdt(f.return.departure&&f.return.departure.local)+' â '+fdt(f.return.arrival&&f.return.arrival.local)+'</span>'
         +'</div></div>':'')
       +'<div class="cfoot">'
-        +'<div><div class="pbig">$'+f.price.toLocaleString()+'</div><span class="psub">total · '+totPax()+' pax · round trip</span></div>'
-        +'<a class="bbtn" href="'+f.deepLink+'" target="_blank" rel="noopener">Book →</a>'
+        +'<div><div class="pbig">$'+f.price.toLocaleString()+'</div><span class="psub">total Â· '+totPax()+' pax Â· round trip</span></div>'
+        +'<a class="bbtn" href="'+f.deepLink+'" target="_blank" rel="noopener">Book â</a>'
       +'</div>'
     +'</div>';
   }).join('');
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    RENDER HOTELS
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function sortHot(m,el){S.hSort=m;document.querySelectorAll('#pHot .sc').forEach(c=>c.classList.remove('on'));if(el)el.classList.add('on');renderHotels();}
 function renderHotels(){
   var box=document.getElementById('hotCards');
@@ -1281,37 +1130,37 @@ function renderHotels(){
     if(S.hSort==='stars')return(b.rating&&b.rating.stars||0)-(a.rating&&a.rating.stars||0);
     return 0;
   });
-  if(!list.length){box.innerHTML='<div class="empty"><div class="ico">🏨</div><h3>No hotels found</h3><p>Try different dates or destination.</p></div>';return;}
+  if(!list.length){box.innerHTML='<div class="empty"><div class="ico">ð¨</div><h3>No hotels found</h3><p>Try different dates or destination.</p></div>';return;}
   box.innerHTML=list.map(function(h){
     var kf=kfac(h.facilities||[]),pn=Math.round((h.priceUSD||0)/n),sc=h.rating&&h.rating.review_score||0,st=h.rating&&h.rating.stars||0;
     var loc=[h.location&&h.location.district_name,h.location&&h.location.city_name].filter(Boolean).join(', ');
     return '<div class="hcard">'
       +'<div class="hhdr"><div>'
         +'<div class="hname">'+h.name+'</div>'
-        +'<div class="hmeta"><span class="hstars">'+stars(st)+'</span><span class="rscore">'+sc.toFixed(1)+'</span><span class="rtxt">'+slbl(sc)+' · '+(h.rating&&h.rating.number_of_reviews||0).toLocaleString()+' reviews</span></div>'
-        +'<div class="hloc">📍 '+loc+'</div>'
+        +'<div class="hmeta"><span class="hstars">'+stars(st)+'</span><span class="rscore">'+sc.toFixed(1)+'</span><span class="rtxt">'+slbl(sc)+' Â· '+(h.rating&&h.rating.number_of_reviews||0).toLocaleString()+' reviews</span></div>'
+        +'<div class="hloc">ð '+loc+'</div>'
       +'</div><div class="hpblk">'
         +'<div class="hprice">$'+(h.priceUSD||0).toLocaleString()+'</div>'
         +'<div class="hpsub">'+n+' nights total</div>'
-        +'<div style="font-size:10px;color:#94a3b8;margin-top:1px;">≈ $'+pn+'/night</div>'
+        +'<div style="font-size:10px;color:#94a3b8;margin-top:1px;">â $'+pn+'/night</div>'
         +'<span class="srcpill sbk">booking.com</span>'
       +'</div></div>'
       +(kf.length?'<div class="facs">'+kf.map(function(f){return'<span class="ftag">'+f+'</span>';}).join('')+'</div>':'')
       +'<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;">'
-        +'<div style="font-size:11px;color:#64748b;">'+n+' nights · '+(S.last&&S.last.dest||'')+'</div>'
-        +'<a class="bbtn" href="'+h.url+'" target="_blank" rel="noopener">Book →</a>'
+        +'<div style="font-size:11px;color:#64748b;">'+n+' nights Â· '+(S.last&&S.last.dest||'')+'</div>'
+        +'<a class="bbtn" href="'+h.url+'" target="_blank" rel="noopener">Book â</a>'
       +'</div>'
     +'</div>';
   }).join('');
 }
 
-/* ═══════════════════════════════════════════════════════
+/* âââââââââââââââââââââââââââââââââââââââââââââââââââââââ
    RENDER PACKAGES
-═══════════════════════════════════════════════════════ */
+âââââââââââââââââââââââââââââââââââââââââââââââââââââââ */
 function renderPackages(n){
   var box=document.getElementById('pkgCards');
   if(!S.flights.length||!S.hotels.length){
-    box.innerHTML='<div class="empty"><div class="ico">📦</div><h3>'+(S.mode!=='package'?'Package mode not selected':'No complete packages found')+'</h3><p>'+(S.mode!=='package'?'Switch to Package to see combined deals.':'Try a different destination or dates.')+'</p></div>';
+    box.innerHTML='<div class="empty"><div class="ico">ð¦</div><h3>'+(S.mode!=='package'?'Package mode not selected':'No complete packages found')+'</h3><p>'+(S.mode!=='package'?'Switch to Package to see combined deals.':'Try a different destination or dates.')+'</p></div>';
     document.getElementById('bPkg').textContent='0';return;
   }
   var tf=[].concat(S.flights).sort(function(a,b){return a.price-b.price;}).slice(0,3);
@@ -1323,26 +1172,26 @@ function renderPackages(n){
   box.innerHTML=show.map(function(pkg,i){
     var f=pkg.f,h=pkg.h,fst=getStops(f),pp=Math.round(pkg.tot/totPax());
     return '<div class="pkgcard'+(i===0?' ptop':'')+'">'
-      +'<div class="pkghdr"><div class="pkglbl">'+(i===0?'🏆 Best Deal':i===1?'⭐ Runner-Up':'📦 Package '+(i+1))+'</div>'
-        +'<div class="pkgtot">$'+pkg.tot.toLocaleString()+'<span class="pkgtotsub">≈ $'+pp.toLocaleString()+'/person</span></div>'
+      +'<div class="pkghdr"><div class="pkglbl">'+(i===0?'ð Best Deal':i===1?'â­ Runner-Up':'ð¦ Package '+(i+1))+'</div>'
+        +'<div class="pkgtot">$'+pkg.tot.toLocaleString()+'<span class="pkgtotsub">â $'+pp.toLocaleString()+'/person</span></div>'
       +'</div>'
       +'<div class="pkgitems">'
-        +'<div class="pkgitem"><div class="pkgicon">✈️</div>'
-          +'<div class="pkginfo"><div class="pkgtitle">'+f.cityFrom+' → '+f.cityTo+'</div>'
+        +'<div class="pkgitem"><div class="pkgicon">âï¸</div>'
+          +'<div class="pkginfo"><div class="pkgtitle">'+f.cityFrom+' â '+f.cityTo+'</div>'
             +'<div class="pkgdetail">'+fdt(f.departure&&f.departure.local)+' '+ftm(f.departure&&f.departure.local)
-              +' · '+(fst===0?'Direct':fst===1?'1 stop via '+f.layovers[0].city:fst+' stops')
-              +' · Returns '+fdt(f.return&&f.return.departure&&f.return.departure.local)+'</div>'
+              +' Â· '+(fst===0?'Direct':fst===1?'1 stop via '+f.layovers[0].city:fst+' stops')
+              +' Â· Returns '+fdt(f.return&&f.return.departure&&f.return.departure.local)+'</div>'
           +'</div>'
-          +'<div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div><a class="pkglink" href="'+f.deepLink+'" target="_blank">eDreams →</a></div>'
+          +'<div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div><a class="pkglink" href="'+f.deepLink+'" target="_blank">eDreams â</a></div>'
         +'</div>'
-        +'<div class="pkgitem"><div class="pkgicon">🏨</div>'
+        +'<div class="pkgitem"><div class="pkgicon">ð¨</div>'
           +'<div class="pkginfo"><div class="pkgtitle">'+h.name+'</div>'
-            +'<div class="pkgdetail">'+(h.rating&&h.rating.stars||0)+'★ · '+(h.rating&&h.rating.review_score||0).toFixed(1)+' score · '+n+' nights · '+[h.location&&h.location.district_name,h.location&&h.location.city_name].filter(Boolean).join(', ')+'</div>'
+            +'<div class="pkgdetail">'+(h.rating&&h.rating.stars||0)+'â Â· '+(h.rating&&h.rating.review_score||0).toFixed(1)+' score Â· '+n+' nights Â· '+[h.location&&h.location.district_name,h.location&&h.location.city_name].filter(Boolean).join(', ')+'</div>'
           +'</div>'
-          +'<div class="pkgpcol"><div class="pkgprice">$'+(h.priceUSD||0).toLocaleString()+'</div><a class="pkglink" href="'+h.url+'" target="_blank">Booking.com →</a></div>'
+          +'<div class="pkgpcol"><div class="pkgprice">$'+(h.priceUSD||0).toLocaleString()+'</div><a class="pkglink" href="'+h.url+'" target="_blank">Booking.com â</a></div>'
         +'</div>'
       +'</div>'
-      +'<div class="pkgfoot">Prices from eDreams + Booking.com · Click links to book each part separately</div>'
+      +'<div class="pkgfoot">Prices from eDreams + Booking.com Â· Click links to book each part separately</div>'
     +'</div>';
   }).join('');
 }
