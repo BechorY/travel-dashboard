@@ -199,6 +199,15 @@ input,button,select{font-family:inherit}a{color:inherit}
 .empty h3{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:5px}
 .empty p{font-size:12px;line-height:1.5}
 .cmpbar{display:flex;align-items:flex-start;gap:8px;margin-bottom:12px;padding:10px 12px;background:#fefce8;border:1px solid #fde68a;border-radius:var(--rs);font-size:12px;color:#92400e}
+/* On desktop there is no toggle button, so the panel must never stay collapsed. */
+@media(min-width:600px){.spanel-body.collapsed{max-height:600px;opacity:1;pointer-events:auto}}
+/* Floating "Back to Search" — appears once the search panel is scrolled away. */
+.backsearch{position:fixed;right:16px;bottom:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:60;display:none;align-items:center;justify-content:center;gap:7px;padding:12px 20px;min-height:var(--touch);border:none;border-radius:100px;background:var(--pri);color:#fff;font-size:13px;font-weight:700;box-shadow:0 6px 22px rgba(0,0,0,.28);cursor:pointer;opacity:0;transform:translateY(10px);transition:opacity .22s ease,transform .22s ease,background .15s}
+.backsearch.vis{display:flex;opacity:1;transform:none}
+.backsearch:hover{background:var(--pri-d)}
+.backsearch:active{transform:scale(.96)}
+@media(max-width:599px){.backsearch{right:12px;left:auto;padding:12px 18px}}
+@media(prefers-reduced-motion:reduce){.backsearch{transition:none}}
 </style>
 </head>
 <body>
@@ -237,8 +246,10 @@ input,button,select{font-family:inherit}a{color:inherit}
       </div>
     </div>
     <div class="filters">
-      <label class="filter-item"><input type="checkbox" id="chkSun" checked> Sunday departures only</label>
-      <label class="filter-item"><span>Time:</span><input type="time" id="tFrom" value="04:00"><span>&#8211;</span><input type="time" id="tTo" value="08:00"></label>
+      <label class="filter-item"><input type="checkbox" id="chkSun" checked> Sun</label>
+      <label class="filter-item"><input type="time" id="tFrom" value="04:00"><span>&#8211;</span><input type="time" id="tTo" value="08:00"></label>
+      <label class="filter-item"><input type="checkbox" id="chkSat" checked> Sat night from</label>
+      <label class="filter-item"><input type="time" id="satFrom" value="19:00"></label>
       <label class="filter-item"><span>Min stay:</span><input type="number" id="minDays" value="4" min="1" max="30"><span>days</span></label>
     </div>
     <button class="sbtn" id="sbtn" onclick="doSearch()">&#128269; Search Deals</button>
@@ -248,12 +259,12 @@ input,button,select{font-family:inherit}a{color:inherit}
 <div class="main">
   <div class="daily-wrap">
     <div class="section-hdr">
-      <h2>&#128293; Best Deals &#8212; 2 Weeks</h2>
-      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Updated 15 Jun · 10:30</span></div>
+      <h2 id="dealsHeading">&#128293; Best Deals</h2>
+      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Updated 16 Jun · 10:30</span></div>
     </div>
     <div id="weekTabsArea"><div class="week-tabs">
 <button class="wtab on" onclick="setWeek(0)"><span class="wlabel">Sun 21 Jun</span><span class="wprice">from $1,942</span></button>
-<button class="wtab" onclick="setWeek(1)"><span class="wlabel">Sun 28 Jun</span><span class="wprice">from $1,794</span></button>
+<button class="wtab" onclick="setWeek(1)"><span class="wlabel">Sun 28 Jun</span><span class="wprice">from $1,661</span></button>
 </div></div>
     <div id="dailyDealsArea"></div>
   </div>
@@ -277,57 +288,735 @@ input,button,select{font-family:inherit}a{color:inherit}
     </div>
   </div>
 </div>
+<button class="backsearch" id="backSearchBtn" onclick="backToSearch()" aria-label="Back to search">&#128269; Back to Search</button>
 <script>
 // ═══ DAILY_DEALS_START ═══
 const DAILY_DEALS = {
-  "updatedAt": "2026-06-15T07:30:00.000Z",
-  "season": "summer",
-  "weeks": [
+ "updatedAt": "2026-09-05T17:58:24.000Z",
+ "season": "winter",
+ "nextSunday": "2026-11-01",
+ "weeks": [
+  {
+   "label": "Sun 1 Nov",
+   "departure": "2026-11-01",
+   "return": "2026-11-08",
+   "destinations": [
     {
-      "label": "Sun 21 Jun",
-      "departure": "2026-06-21",
-      "return": "2026-06-28",
-      "destinations": [
-        {"dest":"Santorini","flag":"🇬🇷","type":"beach","flight":{"price":1518,"departsLocal":"2026-06-21T06:30:00","arrivesLocal":"2026-06-21T10:55:00","durationSec":15900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T08:25:00","returnDuration":15900,"link":"https://www.kiwi.com/en/search/results/tel-aviv-yafo-israel/santorini-greece/2026-06-21/2026-06-28"},"hotel":{"name":"ALMA THERA Boutique Hotel","score":9.4,"stars":4,"reviews":258,"priceUSD":424,"nights":7,"link":"https://www.booking.com/hotel/gr/threes-harites.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1942,"perPersonUSD":971},
-        {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":1254,"departsLocal":"2026-06-21T06:30:00","arrivesLocal":"2026-06-21T12:35:00","durationSec":21900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T17:45:00","returnDuration":12300,"link":"https://www.kiwi.com/en/search/results/tel-aviv-yafo-israel/vienna-austria/2026-06-21/2026-06-28"},"hotel":{"name":"Zoku Vienna","score":9.1,"stars":4,"reviews":6058,"priceUSD":759,"nights":7,"link":"https://www.booking.com/hotel/at/zoku-vienna.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2013,"perPersonUSD":1007},
-        {"dest":"Rome","flag":"🇮🇹","type":"city","flight":{"price":1202,"departsLocal":"2026-06-21T06:00:00","arrivesLocal":"2026-06-21T13:00:00","durationSec":25200,"stops":1,"stopCity":"Kraków","returnDeparts":"2026-06-28T22:20:00","returnDuration":48600,"link":"https://on.kiwi.com/BISH6x"},"hotel":{"name":"Cicero Rome Center","score":8.3,"stars":4,"reviews":803,"priceUSD":1024,"nights":7,"link":"https://www.booking.com/hotel/it/cicero-rome-center.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2226,"perPersonUSD":1113},
-        {"dest":"Antalya","flag":"🇹🇷","type":"beach","flight":{"price":2071,"departsLocal":"2026-06-21T06:00:00","arrivesLocal":"2026-06-21T13:55:00","durationSec":28500,"stops":1,"stopCity":"Vienna","returnDeparts":"2026-06-28T10:30:00","returnDuration":66300,"link":"https://on.kiwi.com/2mDmzN"},"hotel":{"name":"Old Town Point Hotel & Spa Antalya","score":8.0,"stars":4,"reviews":3516,"priceUSD":510,"nights":7,"link":"https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2581,"perPersonUSD":1291},
-        {"dest":"Barcelona","flag":"🇪🇸","type":"city","flight":{"price":1949,"departsLocal":"2026-06-21T05:00:00","arrivesLocal":"2026-06-21T12:15:00","durationSec":26100,"stops":1,"stopCity":"Athens","returnDeparts":"2026-06-28T01:55:00","returnDuration":35700,"link":"https://on.kiwi.com/Bwhfpi"},"hotel":{"name":"Hostal Orleans","score":8.7,"stars":2,"reviews":2558,"priceUSD":1104,"nights":7,"link":"https://www.booking.com/hotel/es/hostal-orleans.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":3053,"perPersonUSD":1527},
-        {"dest":"Amsterdam","flag":"🇳🇱","type":"city","flight":{"price":2072,"departsLocal":"2026-06-21T04:00:00","arrivesLocal":"2026-06-21T11:40:00","durationSec":27600,"stops":1,"stopCity":"Heraklion","returnDeparts":"2026-06-28T11:40:00","returnDuration":38400,"link":"https://www.kiwi.com/en/search/results/tel-aviv-yafo-israel/amsterdam-netherlands/2026-06-21/2026-06-28"},"hotel":{"name":"YOTEL Amsterdam","score":8.3,"stars":4,"reviews":6609,"priceUSD":1117,"nights":7,"link":"https://www.booking.com/hotel/nl/yotel-amsterdam.html?aid=8132308&checkin=2026-06-21&checkout=2026-06-28&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":3189,"perPersonUSD":1595}
-      ]
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 305,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-10-31T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-08T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/gt84w9"
+     },
+     "hotel": {
+      "name": "Moxy Budapest Downtown",
+      "score": 8.8,
+      "stars": 3,
+      "reviews": 308,
+      "priceUSD": 711,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/moxy-budapest-downtown.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1016,
+     "perPersonUSD": 508
     },
     {
-      "label": "Sun 28 Jun",
-      "departure": "2026-06-28",
-      "return": "2026-07-05",
-      "destinations": [
-        {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":1025,"departsLocal":"2026-06-28T06:30:00","arrivesLocal":"2026-06-28T11:35:00","durationSec":21900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T17:45:00","returnDuration":12300,"link":"https://on.kiwi.com/0xuApQ"},"hotel":{"name":"IntercityHotel Wien","score":8.2,"stars":4,"reviews":5208,"priceUSD":769,"nights":7,"link":"https://www.booking.com/hotel/at/intercityhotelwien.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1794,"perPersonUSD":897},
-        {"dest":"Rome","flag":"🇮🇹","type":"city","flight":{"price":1002,"departsLocal":"2026-06-28T05:40:00","arrivesLocal":"2026-06-28T13:00:00","durationSec":26400,"stops":1,"stopCity":"Kraków","returnDeparts":"2026-07-05T22:20:00","returnDuration":48600,"link":"https://on.kiwi.com/YJDqf7"},"hotel":{"name":"Cicero Rome Center","score":8.3,"stars":4,"reviews":802,"priceUSD":1192,"nights":7,"link":"https://www.booking.com/hotel/it/cicero-rome-center.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2194,"perPersonUSD":1097},
-        {"dest":"Santorini","flag":"🇬🇷","type":"beach","flight":{"price":1453,"departsLocal":"2026-06-28T06:30:00","arrivesLocal":"2026-06-28T10:55:00","durationSec":15900,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T08:25:00","returnDuration":15900,"link":"https://on.kiwi.com/S5qOqk"},"hotel":{"name":"Sigal Villa","score":9.4,"stars":4,"reviews":265,"priceUSD":880,"nights":7,"link":"https://www.booking.com/hotel/gr/sigal-villa.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2333,"perPersonUSD":1167},
-        {"dest":"Antalya","flag":"🇹🇷","type":"beach","flight":{"price":1753,"departsLocal":"2026-06-28T05:35:00","arrivesLocal":"2026-06-29T08:40:00","durationSec":97500,"stops":1,"stopCity":"Prague","returnDeparts":"2026-07-05T10:30:00","returnDuration":66300,"link":"https://on.kiwi.com/Ua2vcb"},"hotel":{"name":"Old Town Point Hotel & Spa Antalya","score":8.0,"stars":4,"reviews":3520,"priceUSD":760,"nights":7,"link":"https://www.booking.com/hotel/tr/old-town-point-amp-spa-antalya.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2513,"perPersonUSD":1257},
-        {"dest":"Barcelona","flag":"🇪🇸","type":"city","flight":{"price":1419,"departsLocal":"2026-06-28T05:35:00","arrivesLocal":"2026-06-28T14:10:00","durationSec":30900,"stops":1,"stopCity":"Prague","returnDeparts":"2026-07-05T01:55:00","returnDuration":35700,"link":"https://on.kiwi.com/Z37ZK2"},"hotel":{"name":"Som Nit Port Vell","score":8.5,"stars":4,"reviews":807,"priceUSD":1494,"nights":7,"link":"https://www.booking.com/hotel/es/hostal-miramar.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2913,"perPersonUSD":1457},
-        {"dest":"Amsterdam","flag":"🇳🇱","type":"city","flight":{"price":1801,"departsLocal":"2026-06-28T06:30:00","arrivesLocal":"2026-06-28T13:10:00","durationSec":27600,"stops":1,"stopCity":"Athens","returnDeparts":"2026-07-05T11:40:00","returnDuration":38400,"link":"https://on.kiwi.com/zt5kt9"},"hotel":{"name":"Ruby Emma Hotel Amsterdam","score":8.7,"stars":4,"reviews":7779,"priceUSD":1234,"nights":7,"link":"https://www.booking.com/hotel/nl/ruby-emma.html?aid=8132308&checkin=2026-06-28&checkout=2026-07-05&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":3035,"perPersonUSD":1518}
-      ]
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 600,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-11-01T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-08T07:25:00",
+      "returnDuration": 36600,
+      "link": "https://kiwi.com/u/4dzq2b"
+     },
+     "hotel": {
+      "name": "Belvedere",
+      "score": 8.3,
+      "stars": 4,
+      "reviews": 8083,
+      "priceUSD": 613,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/belvedereprague.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1213,
+     "perPersonUSD": 606
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 765,
+      "departsLocal": "2026-10-31T19:35:00",
+      "arrivesLocal": "2026-11-01T08:00:00",
+      "durationSec": 48300,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-08T05:55:00",
+      "returnDuration": 53700,
+      "link": "https://kiwi.com/u/6dyxmrw"
+     },
+     "hotel": {
+      "name": "Superbude Wien Prater",
+      "score": 9.0,
+      "stars": 4,
+      "reviews": 8328,
+      "priceUSD": 701,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/superbude-hostel-wien-prater.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1466,
+     "perPersonUSD": 733
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 795,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-11-01T20:55:00",
+      "durationSec": 84300,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-08T17:30:00",
+      "returnDuration": 12900,
+      "link": "https://kiwi.com/u/sss6gr"
+     },
+     "hotel": {
+      "name": "Grand Heights Dubai Hotel Apartments",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3240,
+      "priceUSD": 742,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/grand-midwest-reve.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1537,
+     "perPersonUSD": 768
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 1031,
+      "departsLocal": "2026-11-01T05:50:00",
+      "arrivesLocal": "2026-11-01T17:30:00",
+      "durationSec": 49200,
+      "stops": 1,
+      "stopCity": "Bucharest",
+      "returnDeparts": "2026-11-08T09:30:00",
+      "returnDuration": 51900,
+      "link": "https://kiwi.com/u/6c5gg6s"
+     },
+     "hotel": {
+      "name": "Ona Alborada",
+      "score": 8.3,
+      "stars": 3,
+      "reviews": 8484,
+      "priceUSD": 984,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-11-01&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2015,
+     "perPersonUSD": 1008
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 1753,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-11-01T17:55:00",
+      "durationSec": 62700,
+      "stops": 1,
+      "stopCity": "Abu Dhabi",
+      "returnDeparts": "2026-11-08T15:30:00",
+      "returnDuration": 47400,
+      "link": "https://kiwi.com/u/pw2zks"
+     },
+     "hotel": {
+      "name": "La Moon At Phuket - SHA Extra Plus",
+      "score": 8.2,
+      "stars": 3,
+      "reviews": 906,
+      "priceUSD": 268,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2021,
+     "perPersonUSD": 1010
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 2313,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-11-01T11:45:00",
+      "durationSec": 40500,
+      "stops": 1,
+      "stopCity": "Abu Dhabi",
+      "returnDeparts": "2026-11-08T06:20:00",
+      "returnDuration": 54000,
+      "link": "https://kiwi.com/u/fdnyz4"
+     },
+     "hotel": {
+      "name": "Baiyoke Sky Hotel",
+      "score": 8.3,
+      "stars": 4,
+      "reviews": 11157,
+      "priceUSD": 569,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/baiyoke-sky.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2882,
+     "perPersonUSD": 1441
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 1955,
+      "departsLocal": "2026-11-01T06:20:00",
+      "arrivesLocal": "2026-11-02T05:05:00",
+      "durationSec": 71100,
+      "stops": 1,
+      "stopCity": "Abu Dhabi",
+      "returnDeparts": "2026-11-08T09:35:00",
+      "returnDuration": 101400,
+      "link": "https://kiwi.com/u/jqjctw"
+     },
+     "hotel": {
+      "name": "Sheraton Maldives Full Moon Resort & Spa",
+      "score": 9.1,
+      "stars": 5,
+      "reviews": 771,
+      "priceUSD": 3179,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/mv/sheraton-maldives-full-moon-resort-amp-spa.html?aid=8132308&checkin=2026-11-01&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 5134,
+     "perPersonUSD": 2567
     }
-  ]
+   ]
+  },
+  {
+   "label": "Sun 8 Nov",
+   "departure": "2026-11-08",
+   "return": "2026-11-15",
+   "destinations": [
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 282,
+      "departsLocal": "2026-11-07T19:30:00",
+      "arrivesLocal": "2026-11-07T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-15T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/h4867q"
+     },
+     "hotel": {
+      "name": "Moxy Budapest Downtown",
+      "score": 8.8,
+      "stars": 3,
+      "reviews": 308,
+      "priceUSD": 753,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/moxy-budapest-downtown.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1035,
+     "perPersonUSD": 518
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 547,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-08T08:00:00",
+      "durationSec": 48300,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-15T06:20:00",
+      "returnDuration": 27000,
+      "link": "https://kiwi.com/u/2xxdp83"
+     },
+     "hotel": {
+      "name": "smartments Wien Heiligenstadt",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3824,
+      "priceUSD": 577,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/smartments-business-wien-heiligenstadt.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1124,
+     "perPersonUSD": 562
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 612,
+      "departsLocal": "2026-11-07T19:30:00",
+      "arrivesLocal": "2026-11-08T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-15T07:25:00",
+      "returnDuration": 23700,
+      "link": "https://kiwi.com/u/r5f7hn6"
+     },
+     "hotel": {
+      "name": "Belvedere",
+      "score": 8.3,
+      "stars": 4,
+      "reviews": 8083,
+      "priceUSD": 571,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/belvedereprague.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1183,
+     "perPersonUSD": 592
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 803,
+      "departsLocal": "2026-11-07T20:30:00",
+      "arrivesLocal": "2026-11-08T17:00:00",
+      "durationSec": 66600,
+      "stops": 1,
+      "stopCity": "Larnaca",
+      "returnDeparts": "2026-11-15T14:15:00",
+      "returnDuration": 12900,
+      "link": "https://kiwi.com/u/jpxfm3"
+     },
+     "hotel": {
+      "name": "Grand Heights Dubai Hotel Apartments",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3240,
+      "priceUSD": 742,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/grand-midwest-reve.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1545,
+     "perPersonUSD": 772
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 760,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-08T10:05:00",
+      "durationSec": 59400,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-15T06:00:00",
+      "returnDuration": 48900,
+      "link": "https://kiwi.com/u/k642m7"
+     },
+     "hotel": {
+      "name": "Ona Alborada",
+      "score": 8.3,
+      "stars": 3,
+      "reviews": 8484,
+      "priceUSD": 1124,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1884,
+     "perPersonUSD": 942
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 1887,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-09T08:05:00",
+      "durationSec": 113400,
+      "stops": 3,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-15T20:20:00",
+      "returnDuration": 80100,
+      "link": "https://kiwi.com/u/pdzuz4"
+     },
+     "hotel": {
+      "name": "La Moon At Phuket - SHA Extra Plus",
+      "score": 8.2,
+      "stars": 3,
+      "reviews": 906,
+      "priceUSD": 271,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2158,
+     "perPersonUSD": 1079
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 1910,
+      "departsLocal": "2026-11-07T22:20:00",
+      "arrivesLocal": "2026-11-08T20:10:00",
+      "durationSec": 60600,
+      "stops": 1,
+      "stopCity": "Dubai",
+      "returnDeparts": "2026-11-15T23:00:00",
+      "returnDuration": 67500,
+      "link": "https://kiwi.com/u/n7t76x"
+     },
+     "hotel": {
+      "name": "Oakwood Hotel & Residence Bangkok",
+      "score": 8.2,
+      "stars": 4,
+      "reviews": 2077,
+      "priceUSD": 425,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/oakwood-hotel-and-residence-bangkok-sathorn.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2335,
+     "perPersonUSD": 1168
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 1750,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-09T08:10:00",
+      "durationSec": 120900,
+      "stops": 3,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-15T23:30:00",
+      "returnDuration": 69600,
+      "link": "https://kiwi.com/u/cyxbb3"
+     },
+     "hotel": {
+      "name": "Marukab Plaza",
+      "score": 8.1,
+      "stars": 4,
+      "reviews": 1443,
+      "priceUSD": 1537,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/marukab-plaza.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 3287,
+     "perPersonUSD": 1644
+    }
+   ]
+  },
+  {
+   "label": "Sun 15 Nov",
+   "departure": "2026-11-15",
+   "return": "2026-11-22",
+   "destinations": [
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 282,
+      "departsLocal": "2026-11-14T19:30:00",
+      "arrivesLocal": "2026-11-14T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-22T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/75hmmy"
+     },
+     "hotel": {
+      "name": "Elisabeth Downtown Apartments by FirstHost",
+      "score": 8.8,
+      "stars": 4,
+      "reviews": 3964,
+      "priceUSD": 710,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/urbanrent-holding-fiok.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 992,
+     "perPersonUSD": 496
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 621,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-15T08:00:00",
+      "durationSec": 48300,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T06:20:00",
+      "returnDuration": 27000,
+      "link": "https://kiwi.com/u/9rrj8b"
+     },
+     "hotel": {
+      "name": "smartments Wien Heiligenstadt",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3824,
+      "priceUSD": 607,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/smartments-business-wien-heiligenstadt.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1228,
+     "perPersonUSD": 614
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 612,
+      "departsLocal": "2026-11-14T19:30:00",
+      "arrivesLocal": "2026-11-15T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-22T07:25:00",
+      "returnDuration": 23700,
+      "link": "https://kiwi.com/u/cxxth7"
+     },
+     "hotel": {
+      "name": "Belvedere",
+      "score": 8.3,
+      "stars": 4,
+      "reviews": 8083,
+      "priceUSD": 618,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/belvedereprague.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1230,
+     "perPersonUSD": 615
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 803,
+      "departsLocal": "2026-11-14T20:30:00",
+      "arrivesLocal": "2026-11-15T17:00:00",
+      "durationSec": 66600,
+      "stops": 1,
+      "stopCity": "Larnaca",
+      "returnDeparts": "2026-11-22T14:15:00",
+      "returnDuration": 12900,
+      "link": "https://kiwi.com/u/vf53q3"
+     },
+     "hotel": {
+      "name": "Grand Heights Dubai Hotel Apartments",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3240,
+      "priceUSD": 742,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/grand-midwest-reve.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1545,
+     "perPersonUSD": 772
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 687,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-15T10:05:00",
+      "durationSec": 59400,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T18:35:00",
+      "returnDuration": 48000,
+      "link": "https://kiwi.com/u/dtzd4k"
+     },
+     "hotel": {
+      "name": "Ona Alborada",
+      "score": 8.3,
+      "stars": 3,
+      "reviews": 8484,
+      "priceUSD": 1124,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1811,
+     "perPersonUSD": 906
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 1682,
+      "departsLocal": "2026-11-14T19:10:00",
+      "arrivesLocal": "2026-11-16T08:05:00",
+      "durationSec": 114900,
+      "stops": 2,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-11-22T21:15:00",
+      "returnDuration": 65700,
+      "link": "https://kiwi.com/u/3xk5vq"
+     },
+     "hotel": {
+      "name": "La Moon At Phuket - SHA Extra Plus",
+      "score": 8.2,
+      "stars": 3,
+      "reviews": 906,
+      "priceUSD": 271,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1953,
+     "perPersonUSD": 976
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 1776,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-16T08:10:00",
+      "durationSec": 120900,
+      "stops": 3,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T10:15:00",
+      "returnDuration": 42600,
+      "link": "https://kiwi.com/u/ymvpqq"
+     },
+     "hotel": {
+      "name": "Summer Beach Maldives",
+      "score": 8.4,
+      "stars": 4,
+      "reviews": 1771,
+      "priceUSD": 1543,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/summer-beach.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 3319,
+     "perPersonUSD": 1660
+    }
+   ]
+  }
+ ]
 };
 // ═══ DAILY_DEALS_END ═══
-
 const S={season:'summer',mode:'package',paxMode:'couple',adults:2,children:0,childAges:[],flights:[],hotels:[],fSort:'price',hSort:'price',activeTab:'Pkg',activeWeek:0,last:null};
-const SD={summer:{from:'2026-06-22',to:'2026-06-29'},winter:{from:'2026-11-23',to:'2026-11-30'}};
+// Season windows were hard-coded to fixed 2026 dates, so once a season passed
+// the picker handed the search dates in the past. Compute them from today.
+function isoDate(d){
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+}
+function addDays(iso,n){var d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return isoDate(d);}
+function seasonWindow(s,today){
+  var y=today.getFullYear();
+  var w = s==='summer'
+    ? {start:new Date(y,5,1),  end:new Date(y,7,31)}      // 1 Jun – 31 Aug
+    : {start:new Date(y,10,1), end:new Date(y+1,0,31)};   // 1 Nov – 31 Jan
+  if(w.end<today){                                        // window already closed → next year
+    w = s==='summer'
+      ? {start:new Date(y+1,5,1),  end:new Date(y+1,7,31)}
+      : {start:new Date(y+1,10,1), end:new Date(y+2,0,31)};
+  }
+  return w;
+}
+function seasonDates(s){
+  var today=new Date(); today.setHours(0,0,0,0);
+  var w=seasonWindow(s,today);
+  var d=new Date(w.start<today?today:w.start);
+  while(d.getDay()!==0)d.setDate(d.getDate()+1);          // first Sunday in window
+  if(d>w.end){d=new Date(w.start);while(d.getDay()!==0)d.setDate(d.getDate()+1);}
+  var ret=new Date(d);ret.setDate(ret.getDate()+7);
+  return {from:isoDate(d),to:isoDate(ret)};
+}
+const SD={get summer(){return seasonDates('summer');},get winter(){return seasonDates('winter');}};
 var searchOpen=false;
 function toggleSearch(){searchOpen=!searchOpen;var b=document.getElementById('spanelBody');var ico=document.getElementById('stoggleIco');if(searchOpen){b.classList.remove('collapsed');ico.textContent='▲';}else{b.classList.add('collapsed');ico.textContent='▼';}}
 
 function setWeek(i){S.activeWeek=i;renderDailyDeals();}
+
+// ── Back to Search ────────────────────────────────────────────────
+// Scrolls to the top and makes sure the search panel is actually open.
+// On mobile the panel starts collapsed behind a toggle, so expand it first.
+function backToSearch(){
+  var body=document.getElementById('spanelBody');
+  var isMobile=window.matchMedia('(max-width:599px)').matches;
+  if(isMobile&&body&&body.classList.contains('collapsed')){toggleSearch();}
+  scrollToTop();
+  setTimeout(function(){
+    var d=document.getElementById('dest');
+    // Focus the destination field on desktop only — focusing on mobile pops
+    // the keyboard up over the panel the user just asked to see.
+    if(d&&!isMobile){try{d.focus({preventScroll:true});}catch(e){d.focus();}}
+  },450);
+}
+// Some engines (and some embedded webviews) silently ignore behavior:'smooth'
+// and simply do nothing, which would leave the button dead. Try smooth, then
+// hard-jump if we haven't actually moved.
+function scrollToTop(){
+  var start=window.scrollY;
+  try{window.scrollTo({top:0,left:0,behavior:'smooth'});}catch(e){}
+  setTimeout(function(){
+    if(window.scrollY>0&&window.scrollY>=start)window.scrollTo(0,0);
+  },600);
+}
+function updateBackSearchBtn(){
+  var btn=document.getElementById('backSearchBtn');
+  if(!btn)return;
+  if(window.scrollY>240)btn.classList.add('vis');else btn.classList.remove('vis');
+}
+window.addEventListener('scroll',updateBackSearchBtn,{passive:true});
+window.addEventListener('resize',updateBackSearchBtn,{passive:true});
 
 function renderDailyDeals(){
   var area=document.getElementById('dailyDealsArea');
   var tabArea=document.getElementById('weekTabsArea');
   var dot=document.getElementById('statusDot');
   var upd=document.getElementById('updAt');
-  if(S.season==='winter'){dot.className='status-dot none';upd.textContent='Winter season selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">❄️</div><h3>Winter Deals Not Yet Available</h3><p>Winter deals will be published when the search runs for Nov 2026 – Jan 2027.</p></div>';return;}
   if(S.season==='custom'){dot.className='status-dot none';upd.textContent='Custom dates selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">📅</div><h3>Custom Dates Mode</h3><p>Use the search below to find deals for your custom dates.</p></div>';return;}
-  if(!DAILY_DEALS||!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!=='summer'){dot.className='status-dot none';upd.textContent='Daily search runs at 10:00 AM';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">⏰</div><h3>Daily search not yet run</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  if(!DAILY_DEALS||!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Daily search not yet run')+'</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  var _hd=document.getElementById('dealsHeading');
+  if(_hd){var _n=DAILY_DEALS.weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
   dot.className='status-dot'+(ageh>26?' stale':'');
@@ -376,21 +1065,96 @@ function isSunday(s){return new Date(s+'T00:00:00').getDay()===0;}
 function inTimeRange(local){if(!local)return true;var t=local.substring(11,16),tF=document.getElementById('tFrom').value||'04:00',tT=document.getElementById('tTo').value||'08:00';return t>=tF&&t<=tT;}
 function meetsMinDays(from,to){var mn=parseInt(document.getElementById('minDays').value)||4;return nts(from,to)>=mn;}
 function setld(m,s){document.getElementById('lmsg').textContent=m;document.getElementById('lsub').textContent=s;}
-function nextSundayInWindow(from){var d=new Date(from+'T00:00:00');while(d.getDay()!==0)d.setDate(d.getDate()+1);return d.toISOString().substring(0,10);}
+// Must use local date parts, not toISOString(): the Date is local midnight, so
+// in any timezone east of UTC (Israel = UTC+2/+3) toISOString() rolls back to
+// the previous day — which turned every Sunday search into a Saturday one and
+// then failed the Sunday filter, yielding zero flights.
+function nextSundayInWindow(from){var d=new Date(from+'T00:00:00');while(d.getDay()!==0)d.setDate(d.getDate()+1);return isoDate(d);}
+
+// ── Live vs offline ───────────────────────────────────────────────
+// window.cowork only exists inside the Claude desktop artifact. On GitHub
+// Pages it is undefined, so live Kiwi/Booking calls are impossible. Rather
+// than throwing (which used to surface as a misleading "No flights found"),
+// fall back to filtering the deals baked into DAILY_DEALS by the daily task.
+function hasLiveBridge(){
+  return !!(window.cowork && typeof window.cowork.callMcpTool==='function');
+}
+function allBakedDeals(){
+  if(!DAILY_DEALS||!DAILY_DEALS.weeks)return[];
+  var out=[];
+  DAILY_DEALS.weeks.forEach(function(w){
+    (w.destinations||[]).forEach(function(d){out.push({week:w,deal:d});});
+  });
+  return out;
+}
+function localSearch(q){
+  var needle=(q||'').trim().toLowerCase();
+  var all=allBakedDeals();
+  if(!needle)return all;
+  return all.filter(function(x){return x.deal.dest.toLowerCase().indexOf(needle)>=0;});
+}
+function renderLocalResults(q,matches){
+  document.getElementById('rtitle').textContent=q?('Pre-loaded deals matching "'+q+'"'):'All pre-loaded deals';
+  document.getElementById('rmeta').textContent='From today’s 10:00 update · '+totPax()+' travellers · from TLV';
+  document.getElementById('rcnt').textContent=matches.length+' result'+(matches.length===1?'':'s');
+  ['Fly','Hot'].forEach(function(id){document.getElementById('t'+id).style.display='none';});
+  document.getElementById('tPkg').style.display='';
+  var box=document.getElementById('pkgCards');
+  document.getElementById('bPkg').textContent=matches.length;
+  if(!matches.length){
+    box.innerHTML='<div class="empty"><div class="ico">🔍</div><h3>No pre-loaded deal for that destination</h3>'
+      +'<p>This page carries the destinations from today’s 10:00 search.<br>Try one of: '
+      +allBakedDeals().map(function(x){return x.deal.dest;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ')
+      +'</p></div>';
+  }else{
+    box.innerHTML=matches.map(function(x,i){
+      var d=x.deal,f=d.flight,h=d.hotel;
+      var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
+      return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+d.flag+' '+d.dest+' · '+x.week.label+'</div>'
+        +'<div><div class="pkgtot">$'+d.totalUSD.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+d.perPersonUSD.toLocaleString()+'/person</span></div></div>'
+        +'<div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo">'
+        +'<div class="pkgtitle">Flight · '+stops+'</div><div class="pkgdetail">'+fdt(f.departsLocal)+' '+ftm(f.departsLocal)+' TLV → '+d.dest+' · '+fdur(f.durationSec)+'</div></div>'
+        +'<div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div>'+(f.link?'<a class="pkglink" href="'+f.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>'
+        +(h?'<div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div>'
+        +'<div class="pkgdetail"><span class="rscore">'+h.score.toFixed(1)+'</span> '+slbl(h.score)+' · '+h.nights+' nights</div></div>'
+        +'<div class="pkgpcol"><div class="pkgprice">$'+h.priceUSD.toLocaleString()+'</div>'+(h.link?'<a class="pkglink" href="'+h.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>':'')
+        +'</div><div class="pkgfoot">✅ '+(h?h.nights:7)+' nights · '+totPax()+' travellers · total $'+d.totalUSD.toLocaleString()+'</div></div>';
+    }).join('');
+  }
+  showTab('Pkg');
+  document.getElementById('res').classList.add('vis');
+  document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+}
 
 async function doSearch(){
   var dest=document.getElementById('dest').value.trim(),from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value,de=document.getElementById('dest');
+  // Offline (GitHub Pages): filter the baked-in deals instead of calling MCP.
+  if(!hasLiveBridge()){
+    document.getElementById('ldwrap').classList.remove('vis');
+    renderLocalResults(dest,localSearch(dest));
+    return;
+  }
   if(!dest){de.classList.add('err');de.focus();setTimeout(function(){de.classList.remove('err');},2500);return;}
   if(!from||!to){alert('Please choose departure and return dates.');return;}
   if(from>=to){alert('Return date must be after departure date.');return;}
-  var chkSun=document.getElementById('chkSun').checked,searchFrom=from;
-  if(chkSun){searchFrom=nextSundayInWindow(from);if(searchFrom>to){alert('No Sunday found in date range.');return;}}
+  // Saturday-night departures belong to the same weekend as the Sunday, so when
+  // that window is enabled we widen the API request back one day and let
+  // applyFilters() decide. Without this the Saturday flights are never fetched.
+  var wantSun=chk('chkSun',true), wantSat=chk('chkSat',false);
+  var searchFrom=from, depTo=null;
+  if(wantSun||wantSat){
+    var sun=nextSundayInWindow(from);
+    if(sun>to){alert('No Sunday found in date range.');return;}
+    var sat=addDays(sun,-1);
+    searchFrom = wantSat?sat:sun;
+    depTo      = wantSun?sun:sat;
+  }
   S.last={dest,from:searchFrom,to};S.flights=[];S.hotels=[];
   document.getElementById('res').classList.remove('vis');document.getElementById('ldwrap').classList.add('vis');document.getElementById('sbtn').disabled=true;
   setld('🔍 Searching '+dest+'…',fdt(searchFrom)+' – '+fdt(to)+' · '+totPax()+' travellers');
   try{
     var tasks=[];
-    if(S.mode!=='hotels')tasks.push(callFlights(dest,searchFrom,to));
+    if(S.mode!=='hotels')tasks.push(callFlights(dest,searchFrom,to,depTo));
     if(S.mode!=='flights')tasks.push(callHotels(dest,searchFrom,to));
     var rs=await Promise.allSettled(tasks);
     rs.forEach(function(r){if(r.status==='fulfilled'&&r.value){if(r.value.type==='flights')S.flights=r.value.data;if(r.value.type==='hotels')S.hotels=r.value.data;}});
@@ -398,8 +1162,66 @@ async function doSearch(){
   document.getElementById('ldwrap').classList.remove('vis');document.getElementById('sbtn').disabled=false;
   renderAll();
 }
-function applyFilters(list){var chkSun=document.getElementById('chkSun').checked;return list.filter(function(f){var ok=true;if(chkSun)ok=ok&&isSunday(f.departure&&f.departure.local?f.departure.local.substring(0,10):'');ok=ok&&inTimeRange(f.departure&&f.departure.local);ok=ok&&meetsMinDays(f.departure&&f.departure.local?f.departure.local.substring(0,10):'',f.return&&f.return.arrival&&f.return.arrival.local?f.return.arrival.local.substring(0,10):'');return ok;});}
-async function callFlights(dest,from,to){var r=await window.cowork.callMcpTool('mcp__a7e92804-f66b-4b72-affb-e58df442b684__search-flight',{flyFrom:'Tel Aviv',flyTo:dest,departureDate:dmy(from),returnDate:dmy(to),passengers:{adults:S.adults,children:S.children,infants:0},sort:'price',curr:'USD',departureDateFlexRange:3});var raw;try{raw=r.structuredContent||(r.content&&r.content[0]?JSON.parse(r.content[0].text):[]);}catch(e){raw=[];}var all=Array.isArray(raw)?raw:[];return{type:'flights',data:applyFilters(all)};}
+// Two accepted departure windows:
+//   Sunday   04:00–08:00  (early-morning start to the week)
+//   Saturday from 19:00   (Motzaei Shabbat — after Shabbat ends)
+// A flight qualifies if it falls in EITHER enabled window. With both boxes
+// unchecked there is no day/time restriction at all.
+function val(id,dflt){var el=document.getElementById(id);return(el&&el.value)?el.value:dflt;}
+function chk(id,dflt){var el=document.getElementById(id);return el?el.checked:dflt;}
+function dayTimeOK(local){
+  if(!local)return false;
+  var dow=new Date(local.substring(0,10)+'T00:00:00').getDay(); // 0=Sun … 6=Sat
+  var t=local.substring(11,16);
+  var sunOn=chk('chkSun',true), satOn=chk('chkSat',false);
+  if(!sunOn&&!satOn)return true;
+  if(sunOn&&dow===0&&t>=val('tFrom','04:00')&&t<=val('tTo','08:00'))return true;
+  if(satOn&&dow===6&&t>=val('satFrom','19:00'))return true;
+  return false;
+}
+function applyFilters(list){
+  return list.filter(function(f){
+    var dep=f.departure&&f.departure.local?f.departure.local:'';
+    if(!dayTimeOK(dep))return false;
+    var ret=f['return']&&f['return'].arrival&&f['return'].arrival.local?f['return'].arrival.local.substring(0,10):'';
+    return meetsMinDays(dep.substring(0,10),ret);
+  });
+}
+// The Kiwi tool returns {itineraries:[{price,outbound,inbound,bookingUrl,...}]}
+// but the renderers below expect a flatter legacy shape (departure.local,
+// layovers, deepLink, ...). Previously the code did Array.isArray(raw)?raw:[],
+// which is always false for that object — so every search silently produced
+// zero flights. Normalise here so the consumers keep working unchanged.
+function normalizeItinerary(it){
+  var ob=it.outbound||{}, ib=it.inbound||null, segs=ob.segments||[];
+  return {
+    price: it.price,
+    priceFormatted: it.priceFormatted,
+    departure:{local: ob.departureTime},
+    arrival:{local: ob.arrivalTime},
+    "return": ib?{departure:{local:ib.departureTime},arrival:{local:ib.arrivalTime}}:null,
+    // everything except the final leg is a layover
+    layovers: segs.slice(0,-1).map(function(s){return {city:s.toCity||s.to, code:s.to};}),
+    durationInSeconds: ob.durationSeconds,
+    totalDurationInSeconds: it.totalDurationSeconds,
+    deepLink: it.bookingUrl,
+    flyFrom: ob.from,
+    flyTo: ob.to
+  };
+}
+async function callFlights(dest,from,to,depTo){
+  var args={flyFrom:'Tel Aviv',flyTo:dest,departureDate:dmy(from),returnDate:dmy(to),
+    adults:S.adults,children:S.children,infants:0,sort:'price',currency:'USD'};
+  // explicit [departureDate .. departureDateTo] range covers Sat night + Sun morning
+  if(depTo&&depTo!==from)args.departureDateTo=dmy(depTo);
+  var r=await window.cowork.callMcpTool('mcp__a7e92804-f66b-4b72-affb-e58df442b684__search-flight',args);
+  var raw;
+  try{raw=r.structuredContent||(r.content&&r.content[0]?JSON.parse(r.content[0].text):{});}catch(e){raw={};}
+  var list = Array.isArray(raw) ? raw
+           : (raw && Array.isArray(raw.itineraries) ? raw.itineraries : []);
+  var all = list.map(normalizeItinerary).filter(function(f){return f.departure.local;});
+  return{type:'flights',data:applyFilters(all)};
+}
 async function callHotels(dest,from,to){var rooms=S.adults<=2?1:2;var args={destination:dest,checkin_date:from,checkout_date:to,number_of_adults:S.adults,number_of_rooms:rooms,currency:'USD',user_country_code:'il',user_locale:'en',user_query:'good value hotels in '+dest};if(S.childAges.length>0)args.children_ages=S.childAges;var r=await window.cowork.callMcpTool('mcp__32f9c931-9eb0-4e61-9b31-470e653259fa__accommodations_search',args);var raw;try{raw=r.structuredContent||(r.content&&r.content[0]?JSON.parse(r.content[0].text):{});}catch(e){raw={};}var hotels=(raw&&raw.accommodations)?raw.accommodations.map(function(h){var rv=h.price&&h.price.book||0,cur=h.price&&h.price.currency||'USD';return Object.assign({},h,{priceUSD:cur==='ILS'?Math.round(rv/3.65):Math.round(rv)});}):[]; return{type:'hotels',data:hotels};}
 function renderAll(){var d=S.last,n=nts(d.from,d.to),pax=totPax();document.getElementById('rtitle').textContent='Deals to '+d.dest;document.getElementById('rmeta').textContent=fdt(d.from)+' – '+fdt(d.to)+' · '+n+' nights · '+pax+' travellers · from TLV';document.getElementById('rcnt').textContent=(S.flights.length+S.hotels.length)+' results';document.getElementById('bFly').textContent=S.flights.length;document.getElementById('bHot').textContent=S.hotels.length;document.getElementById('tPkg').style.display=S.mode==='package'?'':'none';document.getElementById('tFly').style.display=S.mode!=='hotels'?'':'none';document.getElementById('tHot').style.display=S.mode!=='flights'?'':'none';renderFlights();renderHotels();renderPackages(n);if(S.mode==='flights')showTab('Fly');else if(S.mode==='hotels')showTab('Hot');else showTab('Pkg');document.getElementById('res').classList.add('vis');document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});}
 function sortFly(m,el){S.fSort=m;document.querySelectorAll('#pFly .sc').forEach(c=>c.classList.remove('on'));if(el)el.classList.add('on');renderFlights();}
@@ -409,8 +1231,33 @@ function renderHotels(){var box=document.getElementById('hotCards');var n=nts(S.
 function renderPackages(n){var box=document.getElementById('pkgCards');if(!S.flights.length||!S.hotels.length){box.innerHTML='<div class="empty"><div class="ico">📦</div><h3>No complete packages found</h3><p>Try a different destination or dates.</p></div>';document.getElementById('bPkg').textContent='0';return;}var tf=[].concat(S.flights).sort(function(a,b){return a.price-b.price;}).slice(0,3);var th=[].concat(S.hotels).sort(function(a,b){return(a.priceUSD||0)-(b.priceUSD||0);}).slice(0,4);var pkgs=[];tf.forEach(function(f){th.forEach(function(h){pkgs.push({f:f,h:h,tot:f.price+(h.priceUSD||0)});});});pkgs.sort(function(a,b){return a.tot-b.tot;});var show=pkgs.slice(0,6);document.getElementById('bPkg').textContent=show.length;box.innerHTML=show.map(function(pkg,i){var f=pkg.f,h=pkg.h,fst=getStops(f),pp=Math.round(pkg.tot/totPax()),nights=nts(S.last&&S.last.from,S.last&&S.last.to),lbl=i===0?'🏆 Best Deal':i===1?'⭐ Runner-Up':i===2?'💼 Great Value':'🔖 Good Pick';return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+lbl+'</div><div><div class="pkgtot">$'+pkg.tot.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+pp+'/person</span></div></div><div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo"><div class="pkgtitle">Flight · '+(fst===0?'Direct':fst+' stop'+(fst>1?'s':''))+'</div><div class="pkgdetail">'+fdt(f.departure&&f.departure.local)+' '+ftm(f.departure&&f.departure.local)+' TLV → '+ftm(f.arrival&&f.arrival.local)+' · '+fdur(f.durationInSeconds||0)+'</div></div><div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div><a class="pkglink" href="'+f.deepLink+'" target="_blank" rel="noopener">Book →</a></div></div><div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div><div class="pkgdetail"><span class="rscore">'+((h.rating&&h.rating.review_score)||0).toFixed(1)+'</span> '+slbl((h.rating&&h.rating.review_score)||0)+' · '+nights+' nights</div></div><div class="pkgpcol"><div class="pkgprice">$'+(h.priceUSD||0).toLocaleString()+'</div><a class="pkglink" href="'+h.url+'" target="_blank" rel="noopener">Book →</a></div></div></div><div class="pkgfoot">✅ '+nights+' nights · '+totPax()+' travellers · from $'+pkg.tot.toLocaleString()+'</div></div>';}).join('');}
 // ── bootstrap: run after all function declarations are hoisted ──
 window.onerror=function(msg,src,line,col,err){var u=document.getElementById('updAt');var d=document.getElementById('statusDot');if(u){u.textContent='JS error: '+msg+' (line '+line+')';}if(d){d.className='status-dot stale';}return false;};
-try{setSeason('summer');}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
+try{setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer');}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
+
+// Adapt the search panel to whichever environment we're running in.
+try{
+  if(!hasLiveBridge()){
+    var sb=document.getElementById('sbtn');
+    if(sb)sb.innerHTML='🔍 Search Deals';
+    var dsp=document.getElementById('dest');
+    if(dsp)dsp.placeholder='Filter by destination… (leave blank for all)';
+    // Date + passenger controls don't apply to pre-loaded deals — hide them
+    // rather than leave inputs that silently do nothing.
+    ['dateFrom','dateTo'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el&&el.parentElement)el.parentElement.style.display='none';
+    });
+    var flt=document.querySelector('.filters');
+    if(flt)flt.style.display='none';
+    var panel=document.getElementById('spanelBody');
+    if(panel){
+      var note=document.createElement('div');
+      note.style.cssText='margin-top:10px;padding:9px 11px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;line-height:1.5';
+      note.innerHTML='ℹ️ Showing the destinations from today’s 10:00 search. '
+        +'Live search over any date needs the Claude app — this public page has no API access.';
+      panel.appendChild(note);
+    }
+  }
+}catch(e){console.warn('offline-mode setup failed',e);}
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
