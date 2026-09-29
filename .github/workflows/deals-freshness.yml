@@ -17,5 +17,5 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Validate deals.json and check it is under 30h old
-        run: python3 scripts/validate_deals.py deals.json --max-age-hours 30
+      - name: Validate deals.json and check it is under 16 days old
+        run: python3 scripts/validate_deals.py deals.json --max-age-hours 384

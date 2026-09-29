@@ -27,6 +27,26 @@ def parse_iso_datetime(value: str) -> datetime:
     return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
 
 
+def season_window(season: str, today: date) -> tuple[date, date]:
+    """Season as the page defines it: summer 1 Jun-31 Aug, winter 1 Nov-31 Jan.
+
+    Returns this year's window, or next year's once this year's has closed.
+    Mirrors seasonWindow() in index.html.
+    """
+    def window(year: int) -> tuple[date, date]:
+        if season == "summer":
+            return date(year, 6, 1), date(year, 8, 31)
+        return date(year, 11, 1), date(year + 1, 1, 31)
+
+    start, end = window(today.year)
+    # Early January still belongs to the winter that began last November.
+    if season == "winter" and today <= date(today.year, 1, 31):
+        start, end = window(today.year - 1)
+    if end < today:
+        start, end = window(start.year + 1)
+    return start, end
+
+
 def check_destination(where: str, dest: dict, errors: list[str]) -> None:
     missing = [k for k in ("dest", "flag", "type", "flight", "totalUSD", "perPersonUSD") if k not in dest]
     if missing:
@@ -70,6 +90,7 @@ def validate(data: dict, today: date) -> list[str]:
         errors.append(f"weeks must be a list of 1-{MAX_WEEKS} entries")
         return errors
 
+    window = season_window(data["season"], today) if data.get("season") in VALID_SEASONS else None
     for i, week in enumerate(weeks):
         label = week.get("label", f"week {i}")
         try:
@@ -81,6 +102,10 @@ def validate(data: dict, today: date) -> list[str]:
         # Saturday-night flights leave the day before the week's Sunday.
         if departure - timedelta(days=1) < today:
             errors.append(f"{label}: departure {departure} is in the past")
+        if window and not window[0] <= departure <= window[1]:
+            errors.append(
+                f"{label}: departure {departure} outside {data['season']} window {window[0]}..{window[1]}"
+            )
         destinations = week.get("destinations") or []
         if not destinations:
             errors.append(f"{label}: no destinations")

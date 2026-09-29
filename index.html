@@ -217,7 +217,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 <div class="hdr">
   <div class="hdr-top">
     <h1>&#9992;&#65039; TLV Travel Deals</h1>
-    <div class="sub">From Tel Aviv &#183; Booking.com &amp; Kiwi &#183; Updated daily at 10:00</div>
+    <div class="sub">From Tel Aviv &#183; Booking.com &amp; Kiwi &#183; Updated every 2 weeks</div>
   </div>
   <div class="spanel">
     <button class="stoggle" id="stoggle" onclick="toggleSearch()">&#128269; Search &amp; Filters <span id="stoggleIco">&#9660;</span></button>
@@ -293,7 +293,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 // Deals live in deals.json (written by the daily cloud Routine) and are
 // fetched at runtime so the page never needs editing to refresh data.
 let DAILY_DEALS=null;
-const STALE_AFTER_HOURS=26;
+const STALE_AFTER_HOURS=16*24;   // refresh runs every 2 weeks + 2 days grace
 const RELOAD_AFTER_MS=30*60*1000;   // refetch when the app is reopened after this long
 var dealsLoadFailed=false, dealsLoadedAt=0;
 // A week's flights can leave on the Saturday night before its Sunday, so it
@@ -333,6 +333,8 @@ function isoDate(d){
 function addDays(iso,n){var d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return isoDate(d);}
 function seasonWindow(s,today){
   var y=today.getFullYear();
+  // January still belongs to the winter that began the previous November.
+  if(s==='winter'&&today.getMonth()===0)y-=1;
   var w = s==='summer'
     ? {start:new Date(y,5,1),  end:new Date(y,7,31)}      // 1 Jun – 31 Aug
     : {start:new Date(y,10,1), end:new Date(y+1,0,31)};   // 1 Nov – 31 Jan
@@ -398,7 +400,7 @@ function renderDailyDeals(){
   var upd=document.getElementById('updAt');
   if(S.season==='custom'){dot.className='status-dot none';upd.textContent='Custom dates selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">📅</div><h3>Custom Dates Mode</h3><p>Use the search below to find deals for your custom dates.</p></div>';return;}
   if(DAILY_DEALS===null){dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';tabArea.innerHTML='';area.innerHTML='';return;}
-  if(!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Daily search not yet run')+'</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  if(!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Deals search not yet run')+'</h3><p>Deals refresh every 2 weeks: Sunday trips, departing Saturday night or Sunday 04:00–08:00.</p></div>';return;}
   var weeks=upcomingWeeks();
   var _hd=document.getElementById('dealsHeading');
   if(_hd){var _n=weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
@@ -408,8 +410,8 @@ function renderDailyDeals(){
   var updLabel=updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   dot.className='status-dot'+(stale?' stale':'');
   upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
-  var banner=stale?'<div class="stale-banner">⚠️ Daily refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
-  if(!weeks.length){tabArea.innerHTML='';area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div><h3>All loaded trips have departed</h3><p>New deals appear after the next daily refresh.</p></div>';return;}
+  var banner=stale?'<div class="stale-banner">⚠️ Refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
+  if(!weeks.length){tabArea.innerHTML='';area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div><h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p></div>';return;}
   if(S.activeWeek>=weeks.length)S.activeWeek=0;
   var tabHtml='<div class="week-tabs">';
   weeks.forEach(function(w,i){var best=w.destinations&&w.destinations.length?w.destinations[0].totalUSD:null;tabHtml+='<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')">'+'<span class="wlabel">'+w.label+'</span>'+(best?'<span class="wprice">from $'+best.toLocaleString()+'</span>':'')+'</button>';});
@@ -440,9 +442,9 @@ var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','D
 function seasonChipLabels(){
   var today=new Date();today.setHours(0,0,0,0);
   var su=seasonWindow('summer',today), wi=seasonWindow('winter',today);
-  var yy=function(d){return String(d.getFullYear()).slice(-2);};
-  document.querySelector('[data-s="summer"]').textContent='☀️ Summer Jun–Aug '+su.start.getFullYear();
-  document.querySelector('[data-s="winter"]').textContent='❄️ Winter '+MONTHS[wi.start.getMonth()]+' '+yy(wi.start)+'–'+MONTHS[wi.end.getMonth()]+' '+yy(wi.end);
+  var fmt=function(d){return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear();};
+  document.querySelector('[data-s="summer"]').textContent='☀️ Summer 1 Jun – '+fmt(su.end);
+  document.querySelector('[data-s="winter"]').textContent='❄️ Winter '+fmt(wi.start)+' – '+fmt(wi.end);
 }
 function setSeason(s,auto){if(!auto)S.seasonPicked=true;S.season=s;document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}renderDailyDeals();}
 function setMode(m){S.mode=m;document.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-m="'+m+'"]').classList.add('on');}
@@ -492,7 +494,7 @@ function localSearch(q){
 }
 function renderLocalResults(q,matches){
   document.getElementById('rtitle').textContent=q?('Pre-loaded deals matching "'+q+'"'):'All pre-loaded deals';
-  document.getElementById('rmeta').textContent='From today’s 10:00 update · '+totPax()+' travellers · from TLV';
+  document.getElementById('rmeta').textContent='From the latest search · '+totPax()+' travellers · from TLV';
   document.getElementById('rcnt').textContent=matches.length+' result'+(matches.length===1?'':'s');
   ['Fly','Hot'].forEach(function(id){document.getElementById('t'+id).style.display='none';});
   document.getElementById('tPkg').style.display='';
@@ -500,7 +502,7 @@ function renderLocalResults(q,matches){
   document.getElementById('bPkg').textContent=matches.length;
   if(!matches.length){
     box.innerHTML='<div class="empty"><div class="ico">🔍</div><h3>No pre-loaded deal for that destination</h3>'
-      +'<p>This page carries the destinations from today’s 10:00 search.<br>Try one of: '
+      +'<p>This page carries the destinations from the latest search.<br>Try one of: '
       +allBakedDeals().map(function(x){return x.deal.dest;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ')
       +'</p></div>';
   }else{
@@ -528,6 +530,7 @@ async function doSearch(){
   // Offline (GitHub Pages): filter the baked-in deals instead of calling MCP.
   if(!hasLiveBridge()){
     document.getElementById('ldwrap').classList.remove('vis');
+    await loadDeals();   // pick up a newer deals.json if one was published
     renderLocalResults(dest,localSearch(dest));
     return;
   }
@@ -655,7 +658,7 @@ try{
     if(panel){
       var note=document.createElement('div');
       note.style.cssText='margin-top:10px;padding:9px 11px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;line-height:1.5';
-      note.innerHTML='ℹ️ Showing the destinations from today’s 10:00 search. '
+      note.innerHTML='ℹ️ Showing the destinations from the latest search. '
         +'Live search over any date needs the Claude app — this public page has no API access.';
       panel.appendChild(note);
     }
