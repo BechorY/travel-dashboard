@@ -1,0 +1,21 @@
+name: Deals freshness
+
+# Fails (and GitHub emails the repo owner) when the daily refresh Routine
+# has not updated deals.json, or when the published data is invalid.
+on:
+  schedule:
+    - cron: '0 9 * * *'   # 12:00 Israel summer time / 11:00 winter time
+  push:
+    paths: ['deals.json', 'scripts/validate_deals.py']
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate deals.json and check it is under 30h old
+        run: python3 scripts/validate_deals.py deals.json --max-age-hours 30

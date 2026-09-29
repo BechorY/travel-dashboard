@@ -18,6 +18,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TLV Deals">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230066cc%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 text-anchor=%22middle%22%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <title>&#9992;&#65039; TLV Travel Deals</title>
 <style>
 :root{color-scheme:light;--pri:#0066cc;--pri-d:#004d99;--acc:#ff6b35;--green:#16a34a;--amber:#d97706;--bg:#f0f4f8;--card:#ffffff;--bdr:#e2e8f0;--txt:#1a202c;--txt2:#64748b;--txt3:#94a3b8;--shad:0 2px 12px rgba(0,0,0,.07);--shad2:0 6px 24px rgba(0,0,0,.13);--r:14px;--rs:8px;--touch:44px}
@@ -33,7 +35,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 .spanel{background:var(--card);border-radius:var(--r) var(--r) 0 0;padding:clamp(14px,4vw,20px) clamp(12px,4vw,18px);overflow:hidden}
 .spanel-body{overflow:hidden;transition:max-height .3s ease,opacity .3s ease;max-height:600px;opacity:1}
 .spanel-body.collapsed{max-height:0;opacity:0;pointer-events:none}
-.stoggle{display:none;width:100%;padding:10px 14px;background:transparent;border:none;border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;cursor:pointer;text-align:center;gap:6px;align-items:center;justify-content:center}
+.stoggle{display:none;width:100%;padding:10px 14px;background:transparent;border:none;color:var(--pri);font-size:12px;font-weight:600;cursor:pointer;text-align:center;gap:6px;align-items:center;justify-content:center}
 @media(max-width:599px){.stoggle{display:flex}}
 .schips{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-bottom:14px;scrollbar-width:none}
 .schips::-webkit-scrollbar{display:none}
@@ -66,6 +68,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .status-dot.stale{background:var(--amber)}
 .status-dot.none{background:var(--txt3)}
+.stale-banner{margin-bottom:12px;padding:10px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--rs);font-size:12px;color:#92400e;line-height:1.5}
 .week-tabs{display:flex;gap:4px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .week-tabs::-webkit-scrollbar{display:none}
 .wtab{flex-shrink:0;padding:8px 14px;border:1.5px solid var(--bdr);border-radius:100px;background:var(--card);font-size:12px;font-weight:600;cursor:pointer;color:var(--txt2);transition:all .15s;white-space:nowrap;min-height:var(--touch);display:flex;flex-direction:column;align-items:center;gap:1px}
@@ -260,12 +263,9 @@ input,button,select{font-family:inherit}a{color:inherit}
   <div class="daily-wrap">
     <div class="section-hdr">
       <h2 id="dealsHeading">&#128293; Best Deals</h2>
-      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Updated 16 Jun · 10:30</span></div>
+      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Loading…</span></div>
     </div>
-    <div id="weekTabsArea"><div class="week-tabs">
-<button class="wtab on" onclick="setWeek(0)"><span class="wlabel">Sun 21 Jun</span><span class="wprice">from $1,942</span></button>
-<button class="wtab" onclick="setWeek(1)"><span class="wlabel">Sun 28 Jun</span><span class="wprice">from $1,661</span></button>
-</div></div>
+    <div id="weekTabsArea"></div>
     <div id="dailyDealsArea"></div>
   </div>
   <div class="ldwrap" id="ldwrap"><div class="spin"></div><div class="lmsg" id="lmsg">Searching deals&#8230;</div><div class="lsub" id="lsub">Checking Booking.com &amp; Kiwi</div></div>
@@ -290,60 +290,40 @@ input,button,select{font-family:inherit}a{color:inherit}
 </div>
 <button class="backsearch" id="backSearchBtn" onclick="backToSearch()" aria-label="Back to search">&#128269; Back to Search</button>
 <script>
-// ═══ DAILY_DEALS_START ═══
-const DAILY_DEALS = {
- "updatedAt": "2026-09-09T07:14:08.000Z",
- "season": "winter",
- "nextSunday": "2026-11-01",
- "weeks": [
-  {
-   "label": "Sun 1 Nov",
-   "departure": "2026-11-01",
-   "return": "2026-11-08",
-   "destinations": [
-    {"dest":"Budapest","flag":"🇭🇺","type":"city","flight":{"price":294,"departsLocal":"2026-10-31T19:30:00","arrivesLocal":"2026-10-31T22:05:00","durationSec":12900,"stops":0,"stopCity":null,"returnDeparts":"2026-11-08T05:00:00","returnDuration":11700,"link":"https://kiwi.com/u/qsr5tf"},"hotel":{"name":"Moxy Budapest Downtown","score":8.8,"stars":3,"reviews":324,"priceUSD":712,"nights":8,"link":"https://www.booking.com/hotel/hu/moxy-budapest-downtown.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1006,"perPersonUSD":503},
-    {"dest":"Prague","flag":"🇨🇿","type":"city","flight":{"price":588,"departsLocal":"2026-10-31T19:30:00","arrivesLocal":"2026-11-01T07:00:00","durationSec":45000,"stops":1,"stopCity":"Budapest","returnDeparts":"2026-11-08T07:25:00","returnDuration":36600,"link":"https://kiwi.com/u/cfw5sg"},"hotel":{"name":"CORU House","score":9.3,"stars":4,"reviews":1530,"priceUSD":744,"nights":8,"link":"https://www.booking.com/hotel/cz/coru-house-by-prague-days.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1332,"perPersonUSD":666},
-    {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":733,"departsLocal":"2026-10-31T19:35:00","arrivesLocal":"2026-11-01T08:00:00","durationSec":48300,"stops":1,"stopCity":"Rome","returnDeparts":"2026-11-08T05:55:00","returnDuration":53700,"link":"https://kiwi.com/u/p5fsgk"},"hotel":{"name":"Rioca Vienna Posto 1","score":9,"stars":4,"reviews":8298,"priceUSD":768,"nights":8,"link":"https://www.booking.com/hotel/at/rioca.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1501,"perPersonUSD":751},
-    {"dest":"Tenerife","flag":"🇪🇸","type":"beach","flight":{"price":763,"departsLocal":"2026-10-31T19:35:00","arrivesLocal":"2026-11-01T10:05:00","durationSec":59400,"stops":1,"stopCity":"Rome","returnDeparts":"2026-11-08T20:10:00","returnDuration":71400,"link":"https://kiwi.com/u/239cyh"},"hotel":{"name":"Ona Alborada","score":8.3,"stars":3,"reviews":8507,"priceUSD":1109,"nights":8,"link":"https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1872,"perPersonUSD":936},
-    {"dest":"Dubai","flag":"🇦🇪","type":"city","flight":{"price":1021,"departsLocal":"2026-10-31T19:30:00","arrivesLocal":"2026-11-01T20:55:00","durationSec":84300,"stops":1,"stopCity":"Budapest","returnDeparts":"2026-11-08T14:15:00","returnDuration":12900,"link":"https://kiwi.com/u/krhssu"},"hotel":{"name":"TRYP by Wyndham Dubai","score":8.6,"stars":4,"reviews":14540,"priceUSD":873,"nights":8,"link":"https://www.booking.com/hotel/ae/tryp-by-wyndham-dubai.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1894,"perPersonUSD":947},
-    {"dest":"Phuket","flag":"🇹🇭","type":"beach","flight":{"price":1916,"departsLocal":"2026-11-01T06:30:00","arrivesLocal":"2026-11-02T08:05:00","durationSec":74100,"stops":2,"stopCity":"Athens","returnDeparts":"2026-11-08T20:20:00","returnDuration":80100,"link":"https://kiwi.com/u/v6b22s"},"hotel":{"name":"La Moon At Phuket - SHA Extra Plus","score":8.2,"stars":3,"reviews":906,"priceUSD":237,"nights":7,"link":"https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-11-01&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2153,"perPersonUSD":1077},
-    {"dest":"Bangkok","flag":"🇹🇭","type":"exotic","flight":{"price":1781,"departsLocal":"2026-10-31T22:20:00","arrivesLocal":"2026-11-01T20:10:00","durationSec":60600,"stops":1,"stopCity":"Dubai","returnDeparts":"2026-11-08T23:00:00","returnDuration":47700,"link":"https://kiwi.com/u/twmfzn"},"hotel":{"name":"TARA Bangkok Riverside","score":8.7,"stars":4,"reviews":1049,"priceUSD":435,"nights":8,"link":"https://www.booking.com/hotel/th/glow-bangkok-riverside.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2216,"perPersonUSD":1108},
-    {"dest":"Maldives","flag":"🇲🇻","type":"beach","flight":{"price":2056,"departsLocal":"2026-10-31T22:20:00","arrivesLocal":"2026-11-01T15:25:00","durationSec":50700,"stops":1,"stopCity":"Dubai","returnDeparts":"2026-11-08T23:30:00","returnDuration":38700,"link":"https://kiwi.com/u/4xrjkzj"},"hotel":{"name":"Malahini Kuda Bandos","score":8.4,"stars":5,"reviews":1301,"priceUSD":2110,"nights":8,"link":"https://www.booking.com/hotel/mv/malahini-kuda-bandos-resort.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":4166,"perPersonUSD":2083}
-   ]
-  },
-  {
-   "label": "Sun 8 Nov",
-   "departure": "2026-11-08",
-   "return": "2026-11-15",
-   "destinations": [
-    {"dest":"Budapest","flag":"🇭🇺","type":"city","flight":{"price":281,"departsLocal":"2026-11-07T19:30:00","arrivesLocal":"2026-11-07T22:05:00","durationSec":12900,"stops":0,"stopCity":null,"returnDeparts":"2026-11-15T05:00:00","returnDuration":11700,"link":"https://kiwi.com/u/cf29tp"},"hotel":{"name":"Moxy Budapest Downtown","score":8.8,"stars":3,"reviews":324,"priceUSD":754,"nights":8,"link":"https://www.booking.com/hotel/hu/moxy-budapest-downtown.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1035,"perPersonUSD":518},
-    {"dest":"Prague","flag":"🇨🇿","type":"city","flight":{"price":539,"departsLocal":"2026-11-07T21:35:00","arrivesLocal":"2026-11-08T12:20:00","durationSec":56700,"stops":1,"stopCity":"Palermo","returnDeparts":"2026-11-15T09:10:00","returnDuration":28200,"link":"https://kiwi.com/u/qt52kq"},"hotel":{"name":"Belvedere","score":8.3,"stars":4,"reviews":8073,"priceUSD":643,"nights":8,"link":"https://www.booking.com/hotel/cz/belvedereprague.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1182,"perPersonUSD":591},
-    {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":580,"departsLocal":"2026-11-07T19:35:00","arrivesLocal":"2026-11-08T08:00:00","durationSec":48300,"stops":1,"stopCity":"Rome","returnDeparts":"2026-11-15T06:20:00","returnDuration":27000,"link":"https://kiwi.com/u/2th3yq9"},"hotel":{"name":"smartments Wien Hauptbahnhof - Serviced Apartments","score":8.2,"stars":4,"reviews":5842,"priceUSD":745,"nights":8,"link":"https://www.booking.com/hotel/at/smartments-business-wien.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1325,"perPersonUSD":663},
-    {"dest":"Dubai","flag":"🇦🇪","type":"city","flight":{"price":879,"departsLocal":"2026-11-07T19:30:00","arrivesLocal":"2026-11-08T20:55:00","durationSec":84300,"stops":1,"stopCity":"Budapest","returnDeparts":"2026-11-15T21:05:00","returnDuration":48000,"link":"https://kiwi.com/u/ukfz48"},"hotel":{"name":"TRYP by Wyndham Dubai","score":8.6,"stars":4,"reviews":14540,"priceUSD":840,"nights":8,"link":"https://www.booking.com/hotel/ae/tryp-by-wyndham-dubai.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1719,"perPersonUSD":860},
-    {"dest":"Phuket","flag":"🇹🇭","type":"beach","flight":{"price":1625,"departsLocal":"2026-11-08T06:20:00","arrivesLocal":"2026-11-08T23:50:00","durationSec":45000,"stops":1,"stopCity":"Abu Dhabi","returnDeparts":"2026-11-15T21:00:00","returnDuration":67500,"link":"https://kiwi.com/u/bjwtcu"},"hotel":{"name":"La Moon At Phuket - SHA Extra Plus","score":8.2,"stars":3,"reviews":906,"priceUSD":237,"nights":7,"link":"https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-11-08&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1862,"perPersonUSD":931},
-    {"dest":"Tenerife","flag":"🇪🇸","type":"beach","flight":{"price":750,"departsLocal":"2026-11-07T19:35:00","arrivesLocal":"2026-11-08T10:05:00","durationSec":59400,"stops":1,"stopCity":"Rome","returnDeparts":"2026-11-15T15:30:00","returnDuration":59400,"link":"https://kiwi.com/u/t3rxsu"},"hotel":{"name":"Ona Alborada","score":8.3,"stars":3,"reviews":8507,"priceUSD":1125,"nights":8,"link":"https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1875,"perPersonUSD":938},
-    {"dest":"Bangkok","flag":"🇹🇭","type":"exotic","flight":{"price":1630,"departsLocal":"2026-11-08T06:30:00","arrivesLocal":"2026-11-09T07:20:00","durationSec":71400,"stops":2,"stopCity":"Athens","returnDeparts":"2026-11-15T21:35:00","returnDuration":85500,"link":"https://kiwi.com/u/t36k6r"},"hotel":{"name":"Royal Princess Larn Luang - SHA Extra Plus","score":8.4,"stars":4,"reviews":2690,"priceUSD":326,"nights":7,"link":"https://www.booking.com/hotel/th/royal-princess-larn-luang.html?aid=8132308&checkin=2026-11-08&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1956,"perPersonUSD":978},
-    {"dest":"Maldives","flag":"🇲🇻","type":"beach","flight":{"price":1758,"departsLocal":"2026-11-07T19:35:00","arrivesLocal":"2026-11-09T08:10:00","durationSec":120900,"stops":3,"stopCity":"Rome","returnDeparts":"2026-11-15T23:30:00","returnDuration":69600,"link":"https://kiwi.com/u/z4rhgg"},"hotel":{"name":"Luxury 3BR - Airport Pickup - Rooftop SeaView Pool Gym Terrace Near Airport","score":10,"stars":4,"reviews":1,"priceUSD":1156,"nights":8,"link":"https://www.booking.com/hotel/mv/luxury-3br-apartment-with-rooftop-seaview-pool-gym-terrace-near-airport.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2914,"perPersonUSD":1457}
-   ]
-  },
-  {
-   "label": "Sun 15 Nov",
-   "departure": "2026-11-15",
-   "return": "2026-11-22",
-   "destinations": [
-    {"dest":"Budapest","flag":"🇭🇺","type":"city","flight":{"price":295,"departsLocal":"2026-11-14T19:30:00","arrivesLocal":"2026-11-14T22:05:00","durationSec":12900,"stops":0,"stopCity":null,"returnDeparts":"2026-11-22T05:00:00","returnDuration":11700,"link":"https://kiwi.com/u/jsyn3g"},"hotel":{"name":"Mamaison Vibe Hotel Downtown Budapest","score":9.2,"stars":4,"reviews":497,"priceUSD":965,"nights":8,"link":"https://www.booking.com/hotel/hu/mamaison-vibe-downtown-budapest.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1260,"perPersonUSD":630},
-    {"dest":"Prague","flag":"🇨🇿","type":"city","flight":{"price":530,"departsLocal":"2026-11-14T19:30:00","arrivesLocal":"2026-11-15T07:00:00","durationSec":45000,"stops":1,"stopCity":"Budapest","returnDeparts":"2026-11-22T10:55:00","returnDuration":35700,"link":"https://kiwi.com/u/ktkqfs"},"hotel":{"name":"Grand Hotel International - Czech Leading Hotels","score":9.2,"stars":4,"reviews":18371,"priceUSD":813,"nights":8,"link":"https://www.booking.com/hotel/cz/hotel-international-prague.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1343,"perPersonUSD":672},
-    {"dest":"Vienna","flag":"🇦🇹","type":"city","flight":{"price":550,"departsLocal":"2026-11-14T19:10:00","arrivesLocal":"2026-11-15T07:25:00","durationSec":47700,"stops":1,"stopCity":"Athens","returnDeparts":"2026-11-22T05:55:00","returnDuration":53700,"link":"https://kiwi.com/u/qwucz6"},"hotel":{"name":"Rioca Vienna Posto 1","score":9,"stars":4,"reviews":8298,"priceUSD":900,"nights":8,"link":"https://www.booking.com/hotel/at/rioca.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1450,"perPersonUSD":725},
-    {"dest":"Dubai","flag":"🇦🇪","type":"city","flight":{"price":803,"departsLocal":"2026-11-14T20:30:00","arrivesLocal":"2026-11-15T17:00:00","durationSec":66600,"stops":1,"stopCity":"Larnaca","returnDeparts":"2026-11-22T17:30:00","returnDuration":12900,"link":"https://kiwi.com/u/gwcw9s"},"hotel":{"name":"Holiday Inn Dubai Jumeirah Village Circle by IHG","score":8.6,"stars":3,"reviews":2955,"priceUSD":816,"nights":8,"link":"https://www.booking.com/hotel/ae/holiday-inn-dubai-village-circle-by-ihg.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1619,"perPersonUSD":810},
-    {"dest":"Tenerife","flag":"🇪🇸","type":"beach","flight":{"price":660,"departsLocal":"2026-11-14T19:35:00","arrivesLocal":"2026-11-15T10:05:00","durationSec":59400,"stops":1,"stopCity":"Rome","returnDeparts":"2026-11-22T18:35:00","returnDuration":48000,"link":"https://kiwi.com/u/7t9wmc"},"hotel":{"name":"Ona Alborada","score":8.3,"stars":3,"reviews":8507,"priceUSD":1125,"nights":8,"link":"https://www.booking.com/hotel/es/alborada-arona.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":1785,"perPersonUSD":893},
-    {"dest":"Phuket","flag":"🇹🇭","type":"beach","flight":{"price":1785,"departsLocal":"2026-11-14T19:30:00","arrivesLocal":"2026-11-16T06:15:00","durationSec":107100,"stops":1,"stopCity":"Abu Dhabi","returnDeparts":"2026-11-22T21:00:00","returnDuration":67500,"link":"https://kiwi.com/u/984b25"},"hotel":{"name":"La Moon At Phuket - SHA Extra Plus","score":8.2,"stars":3,"reviews":906,"priceUSD":271,"nights":8,"link":"https://www.booking.com/hotel/th/phuket-resotel.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2056,"perPersonUSD":1028},
-    {"dest":"Bangkok","flag":"🇹🇭","type":"exotic","flight":{"price":1702,"departsLocal":"2026-11-14T19:30:00","arrivesLocal":"2026-11-16T06:35:00","durationSec":108300,"stops":1,"stopCity":"Abu Dhabi","returnDeparts":"2026-11-22T19:55:00","returnDuration":71400,"link":"https://kiwi.com/u/nmb4x3"},"hotel":{"name":"TARA Bangkok Riverside","score":8.7,"stars":4,"reviews":1049,"priceUSD":457,"nights":8,"link":"https://www.booking.com/hotel/th/glow-bangkok-riverside.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":2159,"perPersonUSD":1080},
-    {"dest":"Maldives","flag":"🇲🇻","type":"beach","flight":{"price":1825,"departsLocal":"2026-11-15T07:00:00","arrivesLocal":"2026-11-16T08:10:00","durationSec":79800,"stops":2,"stopCity":"Tbilisi","returnDeparts":"2026-11-22T10:15:00","returnDuration":42600,"link":"https://kiwi.com/u/78k4n63"},"hotel":{"name":"Luxury 3BR - Airport Pickup - Rooftop SeaView Pool Gym Terrace Near Airport","score":10,"stars":4,"reviews":1,"priceUSD":1190,"nights":7,"link":"https://www.booking.com/hotel/mv/luxury-3br-apartment-with-rooftop-seaview-pool-gym-terrace-near-airport.html?aid=8132308&checkin=2026-11-15&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"},"totalUSD":3015,"perPersonUSD":1508}
-   ]
+// Deals live in deals.json (written by the daily cloud Routine) and are
+// fetched at runtime so the page never needs editing to refresh data.
+let DAILY_DEALS=null;
+const STALE_AFTER_HOURS=26;
+const RELOAD_AFTER_MS=30*60*1000;   // refetch when the app is reopened after this long
+var dealsLoadFailed=false, dealsLoadedAt=0;
+// A week's flights can leave on the Saturday night before its Sunday, so it
+// stays listed until that Saturday has passed.
+function upcomingWeeks(){
+  if(!DAILY_DEALS||!DAILY_DEALS.weeks)return[];
+  var today=isoDate(new Date());
+  return DAILY_DEALS.weeks.filter(function(w){return !w.departure||addDays(w.departure,-1)>=today;});
+}
+function ageLabel(hours){
+  if(hours<1)return'just now';
+  if(hours<24)return Math.floor(hours)+'h ago';
+  var days=Math.floor(hours/24);
+  return days+' day'+(days===1?'':'s')+' ago';
+}
+async function loadDeals(){
+  try{
+    var r=await fetch('deals.json?t='+Date.now(),{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    DAILY_DEALS=await r.json();
+    dealsLoadFailed=false;dealsLoadedAt=Date.now();
+  }catch(e){
+    console.error('deals.json load failed',e);
+    // Keep showing previously loaded deals rather than blanking the page.
+    if(DAILY_DEALS===null)dealsLoadFailed=true;
   }
- ]
-};
-// ═══ DAILY_DEALS_END ═══
+  var season=DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer';
+  // Don't override a season the user picked after the first load.
+  if(S.season==='custom'||S.seasonPicked)renderDailyDeals();else setSeason(season,true);
+}
 const S={season:'summer',mode:'package',paxMode:'couple',adults:2,children:0,childAges:[],flights:[],hotels:[],fSort:'price',hSort:'price',activeTab:'Pkg',activeWeek:0,last:null};
 // Season windows were hard-coded to fixed 2026 dates, so once a season passed
 // the picker handed the search dates in the past. Compute them from today.
@@ -417,19 +397,26 @@ function renderDailyDeals(){
   var dot=document.getElementById('statusDot');
   var upd=document.getElementById('updAt');
   if(S.season==='custom'){dot.className='status-dot none';upd.textContent='Custom dates selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">📅</div><h3>Custom Dates Mode</h3><p>Use the search below to find deals for your custom dates.</p></div>';return;}
-  if(!DAILY_DEALS||!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Daily search not yet run')+'</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  if(DAILY_DEALS===null){dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';tabArea.innerHTML='';area.innerHTML='';return;}
+  if(!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Daily search not yet run')+'</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  var weeks=upcomingWeeks();
   var _hd=document.getElementById('dealsHeading');
-  if(_hd){var _n=DAILY_DEALS.weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
+  if(_hd){var _n=weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
-  dot.className='status-dot'+(ageh>26?' stale':'');
-  upd.textContent='Updated '+updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  var stale=ageh>STALE_AFTER_HOURS;
+  var updLabel=updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  dot.className='status-dot'+(stale?' stale':'');
+  upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
+  var banner=stale?'<div class="stale-banner">⚠️ Daily refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
+  if(!weeks.length){tabArea.innerHTML='';area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div><h3>All loaded trips have departed</h3><p>New deals appear after the next daily refresh.</p></div>';return;}
+  if(S.activeWeek>=weeks.length)S.activeWeek=0;
   var tabHtml='<div class="week-tabs">';
-  DAILY_DEALS.weeks.forEach(function(w,i){var best=w.destinations&&w.destinations.length?w.destinations[0].totalUSD:null;tabHtml+='<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')">'+'<span class="wlabel">'+w.label+'</span>'+(best?'<span class="wprice">from $'+best.toLocaleString()+'</span>':'')+'</button>';});
+  weeks.forEach(function(w,i){var best=w.destinations&&w.destinations.length?w.destinations[0].totalUSD:null;tabHtml+='<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')">'+'<span class="wlabel">'+w.label+'</span>'+(best?'<span class="wprice">from $'+best.toLocaleString()+'</span>':'')+'</button>';});
   tabHtml+='</div>';tabArea.innerHTML=tabHtml;
-  var week=DAILY_DEALS.weeks[S.activeWeek];var items=week.destinations||[];
-  if(!items.length){area.innerHTML='<div class="daily-empty"><div class="ico">😞</div><h3>No deals found for this week</h3><p>Check back tomorrow or try the search below.</p></div>';return;}
-  var html='<div class="deals-grid">';
+  var week=weeks[S.activeWeek];var items=week.destinations||[];
+  if(!items.length){area.innerHTML=banner+'<div class="daily-empty"><div class="ico">😞</div><h3>No deals found for this week</h3><p>Check back tomorrow or try the search below.</p></div>';return;}
+  var html=banner+'<div class="deals-grid">';
   items.forEach(function(d,i){
     var f=d.flight,h=d.hotel;
     var typeMap={beach:'🏖️ Beach',city:'🏙️ City',exotic:'🌴 Exotic'};
@@ -449,7 +436,15 @@ function renderDailyDeals(){
   html+='</div>';area.innerHTML=html;
 }
 
-function setSeason(s){S.season=s;document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}renderDailyDeals();}
+var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function seasonChipLabels(){
+  var today=new Date();today.setHours(0,0,0,0);
+  var su=seasonWindow('summer',today), wi=seasonWindow('winter',today);
+  var yy=function(d){return String(d.getFullYear()).slice(-2);};
+  document.querySelector('[data-s="summer"]').textContent='☀️ Summer Jun–Aug '+su.start.getFullYear();
+  document.querySelector('[data-s="winter"]').textContent='❄️ Winter '+MONTHS[wi.start.getMonth()]+' '+yy(wi.start)+'–'+MONTHS[wi.end.getMonth()]+' '+yy(wi.end);
+}
+function setSeason(s,auto){if(!auto)S.seasonPicked=true;S.season=s;document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}renderDailyDeals();}
 function setMode(m){S.mode=m;document.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-m="'+m+'"]').classList.add('on');}
 function setPax(p){S.paxMode=p;document.querySelectorAll('[data-p]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-p="'+p+'"]').classList.add('on');S.adults=p==='couple'?2:4;S.children=p==='couple'?0:2;}
 function showTab(t){S.activeTab=t;['Pkg','Fly','Hot'].forEach(function(id){document.getElementById('t'+id).classList.remove('on');document.getElementById('p'+id).classList.remove('on');});document.getElementById('t'+t).classList.add('on');document.getElementById('p'+t).classList.add('on');}
@@ -483,9 +478,8 @@ function hasLiveBridge(){
   return !!(window.cowork && typeof window.cowork.callMcpTool==='function');
 }
 function allBakedDeals(){
-  if(!DAILY_DEALS||!DAILY_DEALS.weeks)return[];
   var out=[];
-  DAILY_DEALS.weeks.forEach(function(w){
+  upcomingWeeks().forEach(function(w){
     (w.destinations||[]).forEach(function(d){out.push({week:w,deal:d});});
   });
   return out;
@@ -634,7 +628,13 @@ function renderHotels(){var box=document.getElementById('hotCards');var n=nts(S.
 function renderPackages(n){var box=document.getElementById('pkgCards');if(!S.flights.length||!S.hotels.length){box.innerHTML='<div class="empty"><div class="ico">📦</div><h3>No complete packages found</h3><p>Try a different destination or dates.</p></div>';document.getElementById('bPkg').textContent='0';return;}var tf=[].concat(S.flights).sort(function(a,b){return a.price-b.price;}).slice(0,3);var th=[].concat(S.hotels).sort(function(a,b){return(a.priceUSD||0)-(b.priceUSD||0);}).slice(0,4);var pkgs=[];tf.forEach(function(f){th.forEach(function(h){pkgs.push({f:f,h:h,tot:f.price+(h.priceUSD||0)});});});pkgs.sort(function(a,b){return a.tot-b.tot;});var show=pkgs.slice(0,6);document.getElementById('bPkg').textContent=show.length;box.innerHTML=show.map(function(pkg,i){var f=pkg.f,h=pkg.h,fst=getStops(f),pp=Math.round(pkg.tot/totPax()),nights=nts(S.last&&S.last.from,S.last&&S.last.to),lbl=i===0?'🏆 Best Deal':i===1?'⭐ Runner-Up':i===2?'💼 Great Value':'🔖 Good Pick';return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+lbl+'</div><div><div class="pkgtot">$'+pkg.tot.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+pp+'/person</span></div></div><div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo"><div class="pkgtitle">Flight · '+(fst===0?'Direct':fst+' stop'+(fst>1?'s':''))+'</div><div class="pkgdetail">'+fdt(f.departure&&f.departure.local)+' '+ftm(f.departure&&f.departure.local)+' TLV → '+ftm(f.arrival&&f.arrival.local)+' · '+fdur(f.durationInSeconds||0)+'</div></div><div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div><a class="pkglink" href="'+f.deepLink+'" target="_blank" rel="noopener">Book →</a></div></div><div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div><div class="pkgdetail"><span class="rscore">'+((h.rating&&h.rating.review_score)||0).toFixed(1)+'</span> '+slbl((h.rating&&h.rating.review_score)||0)+' · '+nights+' nights</div></div><div class="pkgpcol"><div class="pkgprice">$'+(h.priceUSD||0).toLocaleString()+'</div><a class="pkglink" href="'+h.url+'" target="_blank" rel="noopener">Book →</a></div></div></div><div class="pkgfoot">✅ '+nights+' nights · '+totPax()+' travellers · from $'+pkg.tot.toLocaleString()+'</div></div>';}).join('');}
 // ── bootstrap: run after all function declarations are hoisted ──
 window.onerror=function(msg,src,line,col,err){var u=document.getElementById('updAt');var d=document.getElementById('statusDot');if(u){u.textContent='JS error: '+msg+' (line '+line+')';}if(d){d.className='status-dot stale';}return false;};
-try{setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer');}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
+try{seasonChipLabels();renderDailyDeals();loadDeals();}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
+// iOS keeps home-screen web apps suspended in memory for days; refetch the
+// deals whenever the app comes back to the foreground after a while.
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState==='visible'&&Date.now()-dealsLoadedAt>RELOAD_AFTER_MS)loadDeals();
+});
+window.addEventListener('pageshow',function(e){if(e.persisted)loadDeals();});
 
 // Adapt the search panel to whichever environment we're running in.
 try{
