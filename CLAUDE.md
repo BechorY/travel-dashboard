@@ -53,8 +53,16 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
   the Routine `/fire` → Routine JOB B searches Kiwi + Booking, writes `custom/<key>.json`,
   commit "… (Closes #n)" → page polls every 30 s for 20 min (pending kept in `localStorage`).
   The file always holds flight + hotel for the requested pax; the page derives Package /
-  Flights / Hotels from it. Cost estimate: ≈ $0.5–1 one destination, ≈ $3–5 all (unverified).
-  One-time setup: Routine API trigger (URL + token) saved as the two repo secrets.
+  Flights / Hotels from it. Cost estimate: ≈ $0.5–1 one destination, ≈ $3–5 all (unverified;
+  first real run, Dubai couple, took ≈ 2 min).
+  Setup (done 30 Sep 2026): Routine API trigger active; repo secrets `ROUTINE_FIRE_URL` and
+  `ROUTINE_TOKEN` set (GitHub *website* → Settings → Secrets → Actions; the mobile app has no
+  Settings). Verified end to end: issue #1 → Action comment → Routine → commit `1ba8eae`
+  (`custom/2027-02-21_2027-02-24_dubai_couple.json`, Dubai $850 total) → issue closed.
+  Booking `price.book` is treated as the total stay price; confirm on the booking link.
+- **Gotchas:** GitHub mobile app can't open Settings; Routine "Save" stays disabled until the
+  API trigger has a token; the Routine needs the repo attached (else push 403); never paste the
+  token in chat (Regenerate/Revoke in the Routine's API trigger if leaked).
 - **Staleness:** page shows "N days ago"; amber banner after 16 days (`STALE_AFTER_HOURS`).
 - Weeks whose Saturday has passed are hidden automatically.
 - `deals.json` schema: `updatedAt` (ISO Z), `season`, `nextSunday`, `weeks[] {label, departure,
@@ -80,3 +88,5 @@ use `page.clock.install()` to simulate data age and season dates.
 - 30 Sep 2026: Search applies Season/Destination/Search for/Passengers filters to the loaded
   deals; 4 weeks (3 Best + More weeks); Family (6) prices via optional `family` block.
   Custom Dates became an on-demand search (GitHub issue → Action → Routine API → custom/).
+  First scheduled run with the new 4-week couple+family prompt: 1 Oct 2026 09:47 (check its
+  cost and that every destination got a `family` block).
