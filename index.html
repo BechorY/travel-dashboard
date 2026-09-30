@@ -326,6 +326,7 @@ async function loadDeals(){
   }
   fillDestinationSelect();
   if(!S.applied&&!S.seasonPicked){
+    if(!hasLiveBridge()&&resumePendingCustom())return;
     // First load: default filters = loaded season, all destinations, package, couple.
     setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer',true);
     if(!hasLiveBridge())S.applied=readUiFilters();
@@ -440,9 +441,6 @@ function weekRows(week,f){
 }
 function filteredWeeks(f){
   var weeks=upcomingWeeks();
-  if(f.season==='custom'){
-    weeks=weeks.filter(function(w){return(!f.from||w.departure>=f.from)&&(!f.to||w.departure<=f.to);});
-  }
   return weeks;
 }
 function stopsLabel(fl){return fl.stops===0?'Direct':fl.stops===1?'1 stop via '+fl.stopCity:fl.stops+' stops via '+fl.stopCity;}
@@ -486,7 +484,7 @@ function filterSummary(f){
   return season+' · '+(f.dest||'All destinations')+' · '+MODE_LABEL[f.mode]+' · '+(f.pax==='family'?'Family (6)':'Couple (2)');
 }
 function destinationNames(){
-  var seen={};
+  var seen={};ALL_DESTINATIONS.forEach(function(n){seen[n]=true;});
   upcomingWeeks().forEach(function(w){(w.destinations||[]).forEach(function(d){seen[d.dest]=true;});});
   return Object.keys(seen).sort();
 }
@@ -494,6 +492,127 @@ function fillDestinationSelect(){
   var sel=document.getElementById('destSel');if(!sel)return;
   var cur=sel.value;
   sel.innerHTML='<option value="">All destinations</option>'+destinationNames().map(function(n){return'<option'+(n===cur?' selected':'')+'>'+n+'</option>';}).join('');
+}
+
+// ── Custom Dates: on-demand search ───────────────────────────────
+// The public page can't call Kiwi/Booking or hold a secret, so a custom search
+// goes: pre-filled GitHub issue (owner taps Submit) → GitHub Action
+// (custom-search.yml) → Claude Routine → custom/<key>.json on main → this page.
+const REPO='BechorY/travel-dashboard';
+const ALL_DESTINATIONS=['Budapest','Prague','Vienna','Tenerife','Dubai','Phuket','Bangkok','Maldives'];
+const CUSTOM_FRESH_HOURS=24;
+const CUSTOM_MAX_STAY_DAYS=30;
+const POLL_EVERY_MS=30*1000;
+const POLL_FOR_MS=20*60*1000;
+const PENDING_STORE='tlvPendingCustomSearch';
+var pollTimer=null;
+
+// Must match result_key() in scripts/custom_request.py.
+function customKey(f){return f.from+'_'+f.to+'_'+(f.dest?f.dest.toLowerCase():'all')+'_'+f.pax;}
+function customRequest(f){return {dest:f.dest||'all',from:f.from,to:f.to,pax:f.pax};}
+function customIssueUrl(f){
+  var req=customRequest(f);
+  var title='Deal search: '+(f.dest||'All destinations')+' '+f.from+' → '+f.to+' '+f.pax;
+  var body='```json\n'+JSON.stringify(req)+'\n```\n\nSent from the TLV Travel Deals app. '
+    +'Submitting starts a Claude search (uses your Claude plan). Results appear in the app in about 3–5 minutes.';
+  return 'https://github.com/'+REPO+'/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+}
+function readPending(){try{var p=JSON.parse(localStorage.getItem(PENDING_STORE)||'null');return p&&Date.now()-p.requestedAt<POLL_FOR_MS?p:null;}catch(e){return null;}}
+function writePending(p){try{if(p)localStorage.setItem(PENDING_STORE,JSON.stringify(p));else localStorage.removeItem(PENDING_STORE);}catch(e){}}
+async function fetchCustom(key){
+  try{var r=await fetch('custom/'+key+'.json?t='+Date.now(),{cache:'no-store'});return r.ok?await r.json():null;}catch(e){return null;}
+}
+function customProblem(f){
+  if(!f.from||!f.to)return 'Choose a departure and a return date.';
+  if(f.from<isoDate(new Date()))return 'Departure date is in the past.';
+  if(f.to<=f.from)return 'Return must be after departure.';
+  if(nts(f.from,f.to)>CUSTOM_MAX_STAY_DAYS)return 'Stay is longer than '+CUSTOM_MAX_STAY_DAYS+' days.';
+  return '';
+}
+function customHeader(f){
+  document.getElementById('dealsHeading').innerHTML='🔎 Custom search';
+  document.getElementById('weekTabsArea').innerHTML='';
+  document.getElementById('moreWeeksArea').innerHTML='';
+  document.getElementById('filterSummary').textContent=filterSummary(f)+' · '+nts(f.from,f.to)+' nights';
+}
+function customCard(icon,title,html){document.getElementById('dailyDealsArea').innerHTML='<div class="daily-empty"><div class="ico">'+icon+'</div><h3>'+title+'</h3>'+html+'</div>';}
+
+function renderCustomResult(res,f){
+  customHeader(f);
+  var rows=[];
+  (res.destinations||[]).forEach(function(d){
+    var price=modePrice(d,f.mode);            // the file holds the requested passengers' prices
+    if(price!=null)rows.push({d:d,o:d,price:price});
+  });
+  rows.sort(function(a,b){return a.price-b.price;});
+  var age=ageLabel((Date.now()-new Date(res.updatedAt))/3600000);
+  document.getElementById('dailyDealsArea').innerHTML='<div class="filter-summary">Searched '+age+' · '+fdt(f.from)+' → '+fdt(f.to)+'</div>'
+    +weekGrid({rows:rows,missingFamily:[]},f);
+}
+function renderCustomRequest(f,old){
+  customHeader(f);
+  var many=!f.dest;
+  var hint=many?'All 8 destinations: about $3–5 of Claude usage.':'One destination: about $0.5–1 of Claude usage.';
+  var oldNote=old?'<p>An older search from '+ageLabel((Date.now()-new Date(old.updatedAt))/3600000)+' exists; a new one gets current prices.</p>':'';
+  customCard('🔎','Search prices for these dates',
+    '<p>These dates aren’t searched yet. Tap below, then tap <b>Submit new issue</b> on GitHub to start the search. '+hint+' (estimate)</p>'+oldNote
+    +'<p style="margin-top:12px"><a class="cta-btn cta-pri" style="display:inline-flex;padding:10px 18px" href="'+customIssueUrl(f)+'" target="_blank" rel="noopener" onclick="startCustomPending()">🔎 Search prices on GitHub</a></p>'
+    +(old?'<p style="margin-top:10px"><a href="#" onclick="showOldCustom();return false;">Show the older results</a></p>':''));
+  S.customOld=old||null;
+}
+function showOldCustom(){if(S.customOld)renderCustomResult(S.customOld,S.applied);}
+function renderCustomPending(f,p){
+  customHeader(f);
+  var mins=Math.max(0,Math.round((Date.now()-p.requestedAt)/60000));
+  customCard('⏳','Searching…','<p>Usually 3–5 minutes (started '+mins+' min ago). This page checks every 30 seconds.</p>'
+    +'<p style="margin-top:12px"><button class="cta-btn cta-sec" style="display:inline-flex;padding:10px 18px" onclick="checkCustomNow()">🔄 Check now</button></p>'
+    +'<p style="margin-top:10px;font-size:11px">Didn’t submit the GitHub issue? <a href="'+customIssueUrl(f)+'" target="_blank" rel="noopener">Open it again</a>.</p>');
+}
+function renderCustomTimeout(f){
+  customHeader(f);
+  customCard('⌛','Still not ready','<p>The search didn’t finish within 20 minutes. Check the issue on GitHub for details.</p>'
+    +'<p style="margin-top:12px"><a class="cta-btn cta-sec" style="display:inline-flex;padding:10px 18px" href="https://github.com/'+REPO+'/issues" target="_blank" rel="noopener">Open GitHub issues</a></p>');
+}
+
+function startCustomPending(){
+  var f=S.applied;writePending({key:customKey(f),f:f,requestedAt:Date.now()});
+  renderCustomPending(f,readPending());startPolling();
+}
+function stopPolling(){if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
+function startPolling(){stopPolling();pollTimer=setInterval(checkCustomNow,POLL_EVERY_MS);}
+async function checkCustomNow(){
+  var raw=null;try{raw=JSON.parse(localStorage.getItem(PENDING_STORE)||'null');}catch(e){}
+  if(!raw){stopPolling();return;}
+  var res=await fetchCustom(raw.key);
+  var viewing=S.applied&&S.applied.season==='custom'&&customKey(S.applied)===raw.key;
+  if(res&&new Date(res.updatedAt).getTime()>=raw.requestedAt-60000){
+    writePending(null);stopPolling();
+    if(viewing)renderCustomResult(res,S.applied);
+    return;
+  }
+  if(Date.now()-raw.requestedAt>=POLL_FOR_MS){writePending(null);stopPolling();if(viewing)renderCustomTimeout(S.applied);return;}
+  if(viewing)renderCustomPending(S.applied,raw);
+}
+async function customSearch(f){
+  var problem=customProblem(f);
+  if(problem){customHeader(f);customCard('📅','Check the dates','<p>'+problem+'</p>');return;}
+  customHeader(f);customCard('🔍','Checking saved searches…','');
+  var key=customKey(f),res=await fetchCustom(key);
+  var fresh=res&&(Date.now()-new Date(res.updatedAt))/3600000<=CUSTOM_FRESH_HOURS;
+  if(fresh){renderCustomResult(res,f);return;}
+  var p=readPending();
+  if(p&&p.key===key){renderCustomPending(f,p);startPolling();return;}
+  renderCustomRequest(f,res);
+}
+// Reopening the app mid-search: go straight back to the pending search.
+function resumePendingCustom(){
+  var p=readPending();if(!p)return false;
+  S.applied=p.f;
+  setSeason('custom',true);
+  document.getElementById('dateFrom').value=p.f.from;document.getElementById('dateTo').value=p.f.to;
+  document.getElementById('destSel').value=p.f.dest||'';setMode(p.f.mode);setPax(p.f.pax);
+  renderCustomPending(p.f,p);startPolling();checkCustomNow();
+  return true;
 }
 
 function renderDailyDeals(){
@@ -504,16 +623,20 @@ function renderDailyDeals(){
   var upd=document.getElementById('updAt');
   var hd=document.getElementById('dealsHeading');
   var summary=document.getElementById('filterSummary');
-  more.innerHTML='';summary.textContent='';
-  if(DAILY_DEALS===null){dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';tabArea.innerHTML='';area.innerHTML='';return;}
   var f=S.applied||readUiFilters();
-  summary.textContent=filterSummary(f);
+  if(DAILY_DEALS===null){
+    dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';
+    if(f.season!=='custom'){more.innerHTML='';summary.textContent='';tabArea.innerHTML='';area.innerHTML='';}
+    return;
+  }
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
   var stale=ageh>STALE_AFTER_HOURS;
   var updLabel=updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   dot.className='status-dot'+(stale?' stale':'');
   upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
+  if(f.season==='custom')return;   // custom results are drawn by customSearch()/checkCustomNow()
+  more.innerHTML='';summary.textContent=filterSummary(f);
   var banner=stale?'<div class="stale-banner">⚠️ Refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
   // The data holds one season; picking the other one explains when it arrives.
   if(f.season!=='custom'&&DAILY_DEALS.season!==f.season){
@@ -529,8 +652,7 @@ function renderDailyDeals(){
   hd.innerHTML='🔥 Best Deals — '+best.length+' Week'+(best.length===1?'':'s');
   if(!best.length){
     tabArea.innerHTML='';
-    var msg=f.season==='custom'?'<h3>No loaded weeks in these dates</h3><p>Loaded weeks: '+upcomingWeeks().map(function(w){return w.label;}).join(', ')+'.</p>'
-                               :'<h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p>';
+    var msg='<h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p>';
     area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div>'+msg+'</div>';return;
   }
   if(S.activeWeek>=best.length)S.activeWeek=0;
@@ -564,14 +686,13 @@ function setSeason(s,auto){
   // Pre-loaded deals: the choice takes effect on "Search Deals".
   showCustomDates(s==='custom');
   if(s==='custom'){
-    var weeks=upcomingWeeks(),df=document.getElementById('dateFrom'),dt=document.getElementById('dateTo');
-    if(!df.value&&weeks.length)df.value=weeks[0].departure;
-    if(!dt.value&&weeks.length)dt.value=weeks[weeks.length-1].departure;
+    var today=isoDate(new Date());
+    document.getElementById('dateFrom').min=today;document.getElementById('dateTo').min=today;
   }
 }
-// Custom Dates on the public page = a From/To range over the loaded weeks.
+// Custom Dates on the public page = any departure/return dates, searched on demand.
 function showCustomDates(show){
-  [['dateFrom','From (Sunday)'],['dateTo','To (Sunday)']].forEach(function(p){
+  [['dateFrom','Departure'],['dateTo','Return']].forEach(function(p){
     var el=document.getElementById(p[0]);if(!el||!el.parentElement)return;
     el.parentElement.style.display=show?'':'none';
     var lbl=el.parentElement.querySelector('label');if(lbl)lbl.textContent=p[1];
@@ -616,7 +737,9 @@ async function doSearch(){
     document.getElementById('ldwrap').classList.remove('vis');
     await loadDeals();   // pick up a newer deals.json if one was published
     S.applied=readUiFilters();S.activeWeek=0;
-    renderDailyDeals();
+    stopPolling();
+    if(S.applied.season==='custom')await customSearch(S.applied);
+    else renderDailyDeals();
     document.querySelector('.daily-wrap').scrollIntoView({behavior:'smooth',block:'start'});
     return;
   }
@@ -721,7 +844,9 @@ try{seasonChipLabels();renderDailyDeals();loadDeals();}catch(e){var _u=document.
 // iOS keeps home-screen web apps suspended in memory for days; refetch the
 // deals whenever the app comes back to the foreground after a while.
 document.addEventListener('visibilitychange',function(){
-  if(document.visibilityState==='visible'&&Date.now()-dealsLoadedAt>RELOAD_AFTER_MS)loadDeals();
+  if(document.visibilityState!=='visible')return;
+  if(pollTimer)checkCustomNow();      // back from GitHub: check the custom search right away
+  if(Date.now()-dealsLoadedAt>RELOAD_AFTER_MS)loadDeals();
 });
 window.addEventListener('pageshow',function(e){if(e.persisted)loadDeals();});
 

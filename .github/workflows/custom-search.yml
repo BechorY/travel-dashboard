@@ -1,0 +1,64 @@
+name: Custom deal search
+
+# The app's "Custom Dates" search opens a pre-filled issue titled "Deal search: …".
+# When the repo owner submits it, this validates the request and fires the Claude
+# Routine (API trigger). The Routine writes custom/<key>.json to main and closes
+# the issue via "Closes #N" in its commit message.
+#
+# Needs repo secrets: ROUTINE_FIRE_URL, ROUTINE_TOKEN (from the Routine's API trigger).
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  fire:
+    # Only the owner can spend Claude usage: anyone can open issues on a public repo.
+    if: github.event.issue.user.login == github.repository_owner && startsWith(github.event.issue.title, 'Deal search:')
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate request
+        id: req
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          if python3 scripts/custom_request.py request > request.json; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Invalid request: $(cat request.json)"
+            gh issue close "$ISSUE" --repo "$GITHUB_REPOSITORY" --reason "not planned"
+            exit 1
+          fi
+
+      - name: Fire the Claude Routine
+        env:
+          FIRE_URL: ${{ secrets.ROUTINE_FIRE_URL }}
+          FIRE_TOKEN: ${{ secrets.ROUTINE_TOKEN }}
+        run: |
+          if [ -z "$FIRE_URL" ] || [ -z "$FIRE_TOKEN" ]; then
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Secrets ROUTINE_FIRE_URL / ROUTINE_TOKEN are not set in repo settings."
+            exit 1
+          fi
+          payload=$(jq -n --arg req "$(cat request.json)" --arg issue "$ISSUE" \
+            '{text: ("DEAL_SEARCH_REQUEST " + $req + " ISSUE " + $issue)}')
+          status=$(curl -sS -o response.json -w '%{http_code}' -X POST "$FIRE_URL" \
+            -H "Authorization: Bearer $FIRE_TOKEN" \
+            -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
+            -H "anthropic-version: 2023-06-01" \
+            -H "Content-Type: application/json" \
+            -d "$payload")
+          if [ "$status" != "200" ] && [ "$status" != "201" ]; then
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Routine fire failed (HTTP $status): $(head -c 500 response.json)"
+            exit 1
+          fi
+          session=$(jq -r '.claude_code_session_url // "n/a"' response.json)
+          gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" \
+            --body "🔎 Search started: $(jq -r '.key' request.json). Results usually appear in the app within 3–5 minutes. Run: $session"
