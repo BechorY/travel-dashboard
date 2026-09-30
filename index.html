@@ -68,6 +68,8 @@ input,button,select{font-family:inherit}a{color:inherit}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .status-dot.stale{background:var(--amber)}
 .status-dot.none{background:var(--txt3)}
+.filter-summary{font-size:11px;color:var(--txt2);margin:-6px 0 10px}
+.more-week-lbl{font-size:14px;font-weight:800;margin:14px 0 8px}
 .stale-banner{margin-bottom:12px;padding:10px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--rs);font-size:12px;color:#92400e;line-height:1.5}
 .week-tabs{display:flex;gap:4px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .week-tabs::-webkit-scrollbar{display:none}
@@ -229,7 +231,7 @@ input,button,select{font-family:inherit}a{color:inherit}
       <button class="schip" data-s="custom" onclick="setSeason('custom')">&#128197; Custom Dates</button>
     </div>
     <div class="srow">
-      <div class="fg fg-dest"><label class="lbl" style="margin-bottom:4px;">Destination</label><input type="text" id="dest" placeholder="City or country&#8230;" autocomplete="off"/></div>
+      <div class="fg fg-dest"><label class="lbl" style="margin-bottom:4px;">Destination</label><input type="text" id="dest" placeholder="City or country&#8230;" autocomplete="off"/><select id="destSel" style="display:none"><option value="">All destinations</option></select></div>
       <div class="fg fg-date"><label class="lbl" style="margin-bottom:4px;">Departure</label><input type="date" id="dateFrom"/></div>
       <div class="fg fg-date"><label class="lbl" style="margin-bottom:4px;">Return</label><input type="date" id="dateTo"/></div>
     </div>
@@ -266,7 +268,9 @@ input,button,select{font-family:inherit}a{color:inherit}
       <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Loading…</span></div>
     </div>
     <div id="weekTabsArea"></div>
+    <div class="filter-summary" id="filterSummary"></div>
     <div id="dailyDealsArea"></div>
+    <div id="moreWeeksArea"></div>
   </div>
   <div class="ldwrap" id="ldwrap"><div class="spin"></div><div class="lmsg" id="lmsg">Searching deals&#8230;</div><div class="lsub" id="lsub">Checking Booking.com &amp; Kiwi</div></div>
   <div class="res" id="res">
@@ -320,9 +324,13 @@ async function loadDeals(){
     // Keep showing previously loaded deals rather than blanking the page.
     if(DAILY_DEALS===null)dealsLoadFailed=true;
   }
-  var season=DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer';
-  // Don't override a season the user picked after the first load.
-  if(S.season==='custom'||S.seasonPicked)renderDailyDeals();else setSeason(season,true);
+  fillDestinationSelect();
+  if(!S.applied&&!S.seasonPicked){
+    // First load: default filters = loaded season, all destinations, package, couple.
+    setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer',true);
+    if(!hasLiveBridge())S.applied=readUiFilters();
+  }
+  renderDailyDeals();
 }
 const S={season:'summer',mode:'package',paxMode:'couple',adults:2,children:0,childAges:[],flights:[],hotels:[],fSort:'price',hSort:'price',activeTab:'Pkg',activeWeek:0,last:null};
 // Season windows were hard-coded to fixed 2026 dates, so once a season passed
@@ -393,17 +401,113 @@ function updateBackSearchBtn(){
 window.addEventListener('scroll',updateBackSearchBtn,{passive:true});
 window.addEventListener('resize',updateBackSearchBtn,{passive:true});
 
+// ── Pre-loaded deals: filters applied on "Search Deals" ───────────
+// S.applied holds the filters from the last Search press (or the defaults),
+// so changing a control does nothing until the user presses Search.
+const BEST_WEEKS=3;          // weeks shown as "Best Deals"; the rest go to "More weeks"
+const PAX_COUNT={couple:2,family:6};
+const TYPE_LABEL={beach:'🏖️ Beach',city:'🏙️ City',exotic:'🌴 Exotic'};
+const TYPE_CLASS={beach:'t-beach',city:'t-city',exotic:'t-exotic'};
+const MODE_LABEL={package:'Package',flights:'Flights only',hotels:'Hotels only'};
+function readUiFilters(){
+  var sel=document.getElementById('destSel');
+  return {season:S.season,dest:sel?sel.value:'',mode:S.mode,pax:S.paxMode,
+    from:document.getElementById('dateFrom').value,to:document.getElementById('dateTo').value};
+}
+// Couple prices are the destination's own fields; family prices live in d.family.
+function offerFor(d,pax){
+  if(pax==='family')return d.family||null;
+  return {flight:d.flight,hotel:d.hotel,totalUSD:d.totalUSD,perPersonUSD:d.perPersonUSD};
+}
+function modePrice(o,mode){
+  if(mode==='flights')return o.flight?o.flight.price:null;
+  if(mode==='hotels')return o.hotel?o.hotel.priceUSD:null;
+  return o.totalUSD;
+}
+// → {rows:[{d,o,price}], missingFamily:[dest names]} for one week under filters f.
+function weekRows(week,f){
+  var rows=[],missingFamily=[];
+  (week.destinations||[]).forEach(function(d){
+    if(f.dest&&d.dest!==f.dest)return;
+    var o=offerFor(d,f.pax);
+    if(!o){missingFamily.push(d.dest);return;}
+    var price=modePrice(o,f.mode);
+    if(price==null)return;
+    rows.push({d:d,o:o,price:price});
+  });
+  rows.sort(function(a,b){return a.price-b.price;});
+  return {rows:rows,missingFamily:missingFamily};
+}
+function filteredWeeks(f){
+  var weeks=upcomingWeeks();
+  if(f.season==='custom'){
+    weeks=weeks.filter(function(w){return(!f.from||w.departure>=f.from)&&(!f.to||w.departure<=f.to);});
+  }
+  return weeks;
+}
+function stopsLabel(fl){return fl.stops===0?'Direct':fl.stops===1?'1 stop via '+fl.stopCity:fl.stops+' stops via '+fl.stopCity;}
+function flightSeg(d,fl,showPrice){
+  return '<div class="deal-seg"><div class="deal-seg-lbl">✈️ Flight · '+stopsLabel(fl)+'</div>'
+    +'<div class="deal-seg-row"><span class="deal-time">'+(fl.departsLocal?fl.departsLocal.substring(11,16):'—')+'</span>'
+    +'<span class="deal-route">TLV → '+d.dest+' · '+(fl.durationSec?fdur(fl.durationSec):'')+'<br>'+fdt(fl.departsLocal)+' → returns '+fdt(fl.returnDeparts)+'</span>'
+    +(showPrice?'<span class="deal-seg-price">$'+fl.price.toLocaleString()+'</span>':'')+'</div></div>';
+}
+function hotelSeg(h,showPrice){
+  var rooms=h.rooms&&h.rooms>1?' · '+h.rooms+' rooms':'';
+  return '<div class="deal-hotel"><div><div class="deal-hotel-name">🏨 '+h.name+'</div><div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span>&nbsp;'+slbl(h.score)+' · '+h.nights+' nights'+rooms+'</div></div></div>'
+    +(showPrice?'<div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div>':'')+'</div>';
+}
+function dealCard(row,f,top){
+  var d=row.d,o=row.o,fl=o.flight,h=o.hotel,pkg=f.mode==='package';
+  var pp=Math.round(row.price/PAX_COUNT[f.pax]);
+  var body=[];
+  if(f.mode!=='hotels')body.push(flightSeg(d,fl,pkg));
+  if(f.mode!=='flights'&&h)body.push(hotelSeg(h,pkg));
+  var cta=(f.mode!=='hotels'&&fl.link?'<a class="cta-btn cta-pri" href="'+fl.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')
+         +(f.mode!=='flights'&&h&&h.link?'<a class="cta-btn '+(f.mode==='hotels'?'cta-pri':'cta-sec')+'" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'');
+  return '<div class="deal-card'+(top?' top-deal':'')+'">'
+    +'<div class="deal-card-hdr"><div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div><span class="type-badge '+TYPE_CLASS[d.type]+'">'+TYPE_LABEL[d.type]+'</span></div>'
+    +'<div class="deal-price-blk"><div class="deal-total">$'+row.price.toLocaleString()+'</div><div class="deal-pp">≈ $'+pp.toLocaleString()+'/person</div></div></div>'
+    +body.map(function(s){return'<div class="deal-divider"></div>'+s;}).join('')
+    +'<div class="deal-cta">'+cta+'</div></div>';
+}
+function weekGrid(wr,f){
+  if(!wr.rows.length){
+    var why=wr.missingFamily.length&&f.pax==='family'
+      ?'<h3>Family prices not in this refresh</h3><p>Family (6) prices are added from the next refresh.</p>'
+      :'<h3>No deals match these filters</h3><p>Try “All destinations” or another option.</p>';
+    return '<div class="daily-empty"><div class="ico">🔍</div>'+why+'</div>';
+  }
+  var note=wr.missingFamily.length?'<div class="filter-summary">Family prices not available for: '+wr.missingFamily.join(', ')+'</div>':'';
+  return note+'<div class="deals-grid">'+wr.rows.map(function(r,i){return dealCard(r,f,i===0);}).join('')+'</div>';
+}
+function filterSummary(f){
+  var season=f.season==='custom'?('Custom '+(f.from?fdt(f.from):'…')+' – '+(f.to?fdt(f.to):'…')):(f.season==='winter'?'Winter':'Summer');
+  return season+' · '+(f.dest||'All destinations')+' · '+MODE_LABEL[f.mode]+' · '+(f.pax==='family'?'Family (6)':'Couple (2)');
+}
+function destinationNames(){
+  var seen={};
+  upcomingWeeks().forEach(function(w){(w.destinations||[]).forEach(function(d){seen[d.dest]=true;});});
+  return Object.keys(seen).sort();
+}
+function fillDestinationSelect(){
+  var sel=document.getElementById('destSel');if(!sel)return;
+  var cur=sel.value;
+  sel.innerHTML='<option value="">All destinations</option>'+destinationNames().map(function(n){return'<option'+(n===cur?' selected':'')+'>'+n+'</option>';}).join('');
+}
+
 function renderDailyDeals(){
   var area=document.getElementById('dailyDealsArea');
   var tabArea=document.getElementById('weekTabsArea');
+  var more=document.getElementById('moreWeeksArea');
   var dot=document.getElementById('statusDot');
   var upd=document.getElementById('updAt');
-  if(S.season==='custom'){dot.className='status-dot none';upd.textContent='Custom dates selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">📅</div><h3>Custom Dates Mode</h3><p>Use the search below to find deals for your custom dates.</p></div>';return;}
+  var hd=document.getElementById('dealsHeading');
+  var summary=document.getElementById('filterSummary');
+  more.innerHTML='';summary.textContent='';
   if(DAILY_DEALS===null){dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';tabArea.innerHTML='';area.innerHTML='';return;}
-  if(!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Deals search not yet run')+'</h3><p>Deals refresh every 2 weeks: Sunday trips, departing Saturday night or Sunday 04:00–08:00.</p></div>';return;}
-  var weeks=upcomingWeeks();
-  var _hd=document.getElementById('dealsHeading');
-  if(_hd){var _n=weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
+  var f=S.applied||readUiFilters();
+  summary.textContent=filterSummary(f);
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
   var stale=ageh>STALE_AFTER_HOURS;
@@ -411,31 +515,35 @@ function renderDailyDeals(){
   dot.className='status-dot'+(stale?' stale':'');
   upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
   var banner=stale?'<div class="stale-banner">⚠️ Refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
-  if(!weeks.length){tabArea.innerHTML='';area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div><h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p></div>';return;}
-  if(S.activeWeek>=weeks.length)S.activeWeek=0;
-  var tabHtml='<div class="week-tabs">';
-  weeks.forEach(function(w,i){var best=w.destinations&&w.destinations.length?w.destinations[0].totalUSD:null;tabHtml+='<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')">'+'<span class="wlabel">'+w.label+'</span>'+(best?'<span class="wprice">from $'+best.toLocaleString()+'</span>':'')+'</button>';});
-  tabHtml+='</div>';tabArea.innerHTML=tabHtml;
-  var week=weeks[S.activeWeek];var items=week.destinations||[];
-  if(!items.length){area.innerHTML=banner+'<div class="daily-empty"><div class="ico">😞</div><h3>No deals found for this week</h3><p>Check back tomorrow or try the search below.</p></div>';return;}
-  var html=banner+'<div class="deals-grid">';
-  items.forEach(function(d,i){
-    var f=d.flight,h=d.hotel;
-    var typeMap={beach:'🏖️ Beach',city:'🏙️ City',exotic:'🌴 Exotic'};
-    var typeCls={beach:'t-beach',city:'t-city',exotic:'t-exotic'};
-    var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
-    html+='<div class="deal-card'+(i===0?' top-deal':'')+'">'
-      +'<div class="deal-card-hdr"><div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div><span class="type-badge '+typeCls[d.type]+'">'+typeMap[d.type]+'</span></div>'
-      +'<div class="deal-price-blk"><div class="deal-total">$'+d.totalUSD.toLocaleString()+'</div><div class="deal-pp">≈ $'+d.perPersonUSD.toLocaleString()+'/person</div></div></div>'
-      +'<div class="deal-divider"></div>'
-      +'<div class="deal-seg"><div class="deal-seg-lbl">✈️ Flight · '+stops+'</div>'
-      +'<div class="deal-seg-row"><span class="deal-time">'+(f.departsLocal?f.departsLocal.substring(11,16):'—')+'</span>'
-      +'<span class="deal-route">TLV → '+d.dest+' · '+(f.durationSec?fdur(f.durationSec):'')+'<br>'+fdt(f.departsLocal)+' → returns '+fdt(f.returnDeparts)+'</span>'
-      +'<span class="deal-seg-price">$'+f.price.toLocaleString()+'</span></div></div>'
-      +(h?'<div class="deal-divider"></div><div class="deal-hotel"><div><div class="deal-hotel-name">🏨 '+h.name+'</div><div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span>&nbsp;'+slbl(h.score)+' · '+h.nights+' nights</div></div></div><div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div></div>':'')
-      +'<div class="deal-cta">'+(f.link?'<a class="cta-btn cta-pri" href="'+f.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')+(h&&h.link?'<a class="cta-btn cta-sec" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'')+'</div></div>';
-  });
-  html+='</div>';area.innerHTML=html;
+  // The data holds one season; picking the other one explains when it arrives.
+  if(f.season!=='custom'&&DAILY_DEALS.season!==f.season){
+    var today=new Date();today.setHours(0,0,0,0);
+    var from=seasonWindow(DAILY_DEALS.season,today).end;from=new Date(from);from.setDate(from.getDate()+1);
+    var name=f.season==='winter'?'Winter':'Summer';
+    hd.innerHTML='🔥 Best Deals';tabArea.innerHTML='';
+    area.innerHTML='<div class="daily-empty"><div class="ico">'+(f.season==='winter'?'❄️':'☀️')+'</div><h3>'+name+' deals not loaded yet</h3><p>The app loads one season at a time. '+name+' deals are loaded from '+fdt(isoDate(from))+', when the current season ends.</p></div>';
+    return;
+  }
+  var weeks=filteredWeeks(f);
+  var best=weeks.slice(0,BEST_WEEKS), later=weeks.slice(BEST_WEEKS);
+  hd.innerHTML='🔥 Best Deals — '+best.length+' Week'+(best.length===1?'':'s');
+  if(!best.length){
+    tabArea.innerHTML='';
+    var msg=f.season==='custom'?'<h3>No loaded weeks in these dates</h3><p>Loaded weeks: '+upcomingWeeks().map(function(w){return w.label;}).join(', ')+'.</p>'
+                               :'<h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p>';
+    area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div>'+msg+'</div>';return;
+  }
+  if(S.activeWeek>=best.length)S.activeWeek=0;
+  var bestRows=best.map(function(w){return weekRows(w,f);});
+  tabArea.innerHTML='<div class="week-tabs">'+best.map(function(w,i){
+    var low=bestRows[i].rows.length?bestRows[i].rows[0].price:null;
+    return'<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')"><span class="wlabel">'+w.label+'</span>'+(low?'<span class="wprice">from $'+low.toLocaleString()+'</span>':'')+'</button>';
+  }).join('')+'</div>';
+  area.innerHTML=banner+weekGrid(bestRows[S.activeWeek],f);
+  if(later.length){
+    more.innerHTML='<div class="section-hdr" style="margin-top:22px;"><h2>📅 More weeks</h2></div>'
+      +later.map(function(w){return'<h3 class="more-week-lbl">'+w.label+'</h3>'+weekGrid(weekRows(w,f),f);}).join('');
+  }
 }
 
 var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -446,7 +554,29 @@ function seasonChipLabels(){
   document.querySelector('[data-s="summer"]').textContent='☀️ Summer 1 Jun – '+fmt(su.end);
   document.querySelector('[data-s="winter"]').textContent='❄️ Winter '+fmt(wi.start)+' – '+fmt(wi.end);
 }
-function setSeason(s,auto){if(!auto)S.seasonPicked=true;S.season=s;document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}renderDailyDeals();}
+function setSeason(s,auto){
+  if(!auto)S.seasonPicked=true;S.season=s;
+  document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');
+  if(hasLiveBridge()){
+    if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}
+    renderDailyDeals();return;
+  }
+  // Pre-loaded deals: the choice takes effect on "Search Deals".
+  showCustomDates(s==='custom');
+  if(s==='custom'){
+    var weeks=upcomingWeeks(),df=document.getElementById('dateFrom'),dt=document.getElementById('dateTo');
+    if(!df.value&&weeks.length)df.value=weeks[0].departure;
+    if(!dt.value&&weeks.length)dt.value=weeks[weeks.length-1].departure;
+  }
+}
+// Custom Dates on the public page = a From/To range over the loaded weeks.
+function showCustomDates(show){
+  [['dateFrom','From (Sunday)'],['dateTo','To (Sunday)']].forEach(function(p){
+    var el=document.getElementById(p[0]);if(!el||!el.parentElement)return;
+    el.parentElement.style.display=show?'':'none';
+    var lbl=el.parentElement.querySelector('label');if(lbl)lbl.textContent=p[1];
+  });
+}
 function setMode(m){S.mode=m;document.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-m="'+m+'"]').classList.add('on');}
 function setPax(p){S.paxMode=p;document.querySelectorAll('[data-p]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-p="'+p+'"]').classList.add('on');S.adults=p==='couple'?2:4;S.children=p==='couple'?0:2;}
 function showTab(t){S.activeTab=t;['Pkg','Fly','Hot'].forEach(function(id){document.getElementById('t'+id).classList.remove('on');document.getElementById('p'+id).classList.remove('on');});document.getElementById('t'+t).classList.add('on');document.getElementById('p'+t).classList.add('on');}
@@ -479,59 +609,15 @@ function nextSundayInWindow(from){var d=new Date(from+'T00:00:00');while(d.getDa
 function hasLiveBridge(){
   return !!(window.cowork && typeof window.cowork.callMcpTool==='function');
 }
-function allBakedDeals(){
-  var out=[];
-  upcomingWeeks().forEach(function(w){
-    (w.destinations||[]).forEach(function(d){out.push({week:w,deal:d});});
-  });
-  return out;
-}
-function localSearch(q){
-  var needle=(q||'').trim().toLowerCase();
-  var all=allBakedDeals();
-  if(!needle)return all;
-  return all.filter(function(x){return x.deal.dest.toLowerCase().indexOf(needle)>=0;});
-}
-function renderLocalResults(q,matches){
-  document.getElementById('rtitle').textContent=q?('Pre-loaded deals matching "'+q+'"'):'All pre-loaded deals';
-  document.getElementById('rmeta').textContent='From the latest search · '+totPax()+' travellers · from TLV';
-  document.getElementById('rcnt').textContent=matches.length+' result'+(matches.length===1?'':'s');
-  ['Fly','Hot'].forEach(function(id){document.getElementById('t'+id).style.display='none';});
-  document.getElementById('tPkg').style.display='';
-  var box=document.getElementById('pkgCards');
-  document.getElementById('bPkg').textContent=matches.length;
-  if(!matches.length){
-    box.innerHTML='<div class="empty"><div class="ico">🔍</div><h3>No pre-loaded deal for that destination</h3>'
-      +'<p>This page carries the destinations from the latest search.<br>Try one of: '
-      +allBakedDeals().map(function(x){return x.deal.dest;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ')
-      +'</p></div>';
-  }else{
-    box.innerHTML=matches.map(function(x,i){
-      var d=x.deal,f=d.flight,h=d.hotel;
-      var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
-      return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+d.flag+' '+d.dest+' · '+x.week.label+'</div>'
-        +'<div><div class="pkgtot">$'+d.totalUSD.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+d.perPersonUSD.toLocaleString()+'/person</span></div></div>'
-        +'<div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo">'
-        +'<div class="pkgtitle">Flight · '+stops+'</div><div class="pkgdetail">'+fdt(f.departsLocal)+' '+ftm(f.departsLocal)+' TLV → '+d.dest+' · '+fdur(f.durationSec)+'</div></div>'
-        +'<div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div>'+(f.link?'<a class="pkglink" href="'+f.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>'
-        +(h?'<div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div>'
-        +'<div class="pkgdetail"><span class="rscore">'+h.score.toFixed(1)+'</span> '+slbl(h.score)+' · '+h.nights+' nights</div></div>'
-        +'<div class="pkgpcol"><div class="pkgprice">$'+h.priceUSD.toLocaleString()+'</div>'+(h.link?'<a class="pkglink" href="'+h.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>':'')
-        +'</div><div class="pkgfoot">✅ '+(h?h.nights:7)+' nights · '+totPax()+' travellers · total $'+d.totalUSD.toLocaleString()+'</div></div>';
-    }).join('');
-  }
-  showTab('Pkg');
-  document.getElementById('res').classList.add('vis');
-  document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
-}
-
 async function doSearch(){
   var dest=document.getElementById('dest').value.trim(),from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value,de=document.getElementById('dest');
   // Offline (GitHub Pages): filter the baked-in deals instead of calling MCP.
   if(!hasLiveBridge()){
     document.getElementById('ldwrap').classList.remove('vis');
     await loadDeals();   // pick up a newer deals.json if one was published
-    renderLocalResults(dest,localSearch(dest));
+    S.applied=readUiFilters();S.activeWeek=0;
+    renderDailyDeals();
+    document.querySelector('.daily-wrap').scrollIntoView({behavior:'smooth',block:'start'});
     return;
   }
   if(!dest){de.classList.add('err');de.focus();setTimeout(function(){de.classList.remove('err');},2500);return;}
@@ -644,22 +730,19 @@ try{
   if(!hasLiveBridge()){
     var sb=document.getElementById('sbtn');
     if(sb)sb.innerHTML='🔍 Search Deals';
-    var dsp=document.getElementById('dest');
-    if(dsp)dsp.placeholder='Filter by destination… (leave blank for all)';
-    // Date + passenger controls don't apply to pre-loaded deals — hide them
-    // rather than leave inputs that silently do nothing.
-    ['dateFrom','dateTo'].forEach(function(id){
-      var el=document.getElementById(id);
-      if(el&&el.parentElement)el.parentElement.style.display='none';
-    });
+    // Pre-loaded deals: pick a destination from the loaded list; the date
+    // fields are only shown for "Custom Dates" (see setSeason).
+    document.getElementById('dest').style.display='none';
+    document.getElementById('destSel').style.display='';
+    showCustomDates(false);
     var flt=document.querySelector('.filters');
     if(flt)flt.style.display='none';
     var panel=document.getElementById('spanelBody');
     if(panel){
       var note=document.createElement('div');
       note.style.cssText='margin-top:10px;padding:9px 11px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;line-height:1.5';
-      note.innerHTML='ℹ️ Showing the destinations from the latest search. '
-        +'Live search over any date needs the Claude app — this public page has no API access.';
+      note.innerHTML='ℹ️ Deals come from the latest search (refreshed every 2 weeks). '
+        +'Pick your options and press Search Deals. Live search over any date needs the Claude app.';
       panel.appendChild(note);
     }
   }

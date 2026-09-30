@@ -18,7 +18,9 @@ from pathlib import Path
 
 VALID_SEASONS = {"summer", "winter"}
 VALID_TYPES = {"beach", "city", "exotic"}
-MAX_WEEKS = 4
+MAX_WEEKS = 8
+FAMILY_PAX = 6
+MIN_FAMILY_ROOMS = 2
 TOTAL_TOLERANCE_USD = 1
 
 
@@ -74,6 +76,33 @@ def check_destination(where: str, dest: dict, errors: list[str]) -> None:
     expected_total = (flight.get("price") or 0) + hotel_price
     if abs(dest["totalUSD"] - expected_total) > TOTAL_TOLERANCE_USD:
         errors.append(f"{where}: totalUSD {dest['totalUSD']} != flight + hotel {expected_total}")
+    if "family" in dest:
+        check_family(f"{where}/family", dest["family"], errors)
+
+
+def check_family(where: str, family: dict, errors: list[str]) -> None:
+    """Optional Family (6) offer: same shape as the couple offer, 2+ rooms."""
+    missing = [k for k in ("flight", "hotel", "totalUSD", "perPersonUSD") if k not in family]
+    if missing:
+        errors.append(f"{where}: missing {missing}")
+        return
+    flight, hotel = family["flight"], family["hotel"]
+    for key in ("price", "departsLocal", "durationSec", "stops", "link"):
+        if flight.get(key) in (None, ""):
+            errors.append(f"{where}: flight missing '{key}'")
+    for key in ("name", "score", "priceUSD", "nights", "link"):
+        if hotel.get(key) in (None, ""):
+            errors.append(f"{where}: hotel missing '{key}'")
+    if (hotel.get("rooms") or 0) < MIN_FAMILY_ROOMS:
+        errors.append(f"{where}: hotel.rooms must be >= {MIN_FAMILY_ROOMS}")
+    for link in (flight.get("link"), hotel.get("link")):
+        if link and not str(link).startswith("https://"):
+            errors.append(f"{where}: link is not https: {link}")
+    expected_total = (flight.get("price") or 0) + (hotel.get("priceUSD") or 0)
+    if abs(family["totalUSD"] - expected_total) > TOTAL_TOLERANCE_USD:
+        errors.append(f"{where}: totalUSD {family['totalUSD']} != flight + hotel {expected_total}")
+    if abs(family["perPersonUSD"] - family["totalUSD"] / FAMILY_PAX) > TOTAL_TOLERANCE_USD:
+        errors.append(f"{where}: perPersonUSD {family['perPersonUSD']} != totalUSD/{FAMILY_PAX}")
 
 
 def validate(data: dict, today: date) -> list[str]:
