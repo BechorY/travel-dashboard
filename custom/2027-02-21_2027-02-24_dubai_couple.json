@@ -1,0 +1,38 @@
+{
+ "request": {
+  "dest": "Dubai",
+  "from": "2027-02-21",
+  "to": "2027-02-24",
+  "pax": "couple"
+ },
+ "updatedAt": "2026-09-30T11:38:06Z",
+ "destinations": [
+  {
+   "dest": "Dubai",
+   "flag": "🇦🇪",
+   "type": "city",
+   "flight": {
+    "price": 551,
+    "departsLocal": "2027-02-21T10:35:00",
+    "arrivesLocal": "2027-02-21T16:00:00",
+    "durationSec": 12300,
+    "stops": 0,
+    "stopCity": null,
+    "returnDeparts": "2027-02-24T14:15:00",
+    "returnDuration": 12900,
+    "link": "https://kiwi.com/u/krvxwt"
+   },
+   "hotel": {
+    "name": "The First Collection Waterfront, Dubai, a Tribute Portfolio Hotel",
+    "score": 8.7,
+    "stars": 4,
+    "reviews": 7274,
+    "priceUSD": 299,
+    "nights": 3,
+    "link": "https://www.booking.com/hotel/ae/the-first-collection-waterfront.html?aid=8132308&checkin=2027-02-21&checkout=2027-02-24&no_rooms=1&group_adults=2&selected_currency=USD"
+   },
+   "totalUSD": 850,
+   "perPersonUSD": 425
+  }
+ ]
+}
