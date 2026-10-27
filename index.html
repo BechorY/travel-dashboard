@@ -18,8 +18,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="TLV Deals">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230066cc%22/%3E%3Ctext x=%2250%22 y=%2268%22 font-size=%2256%22 text-anchor=%22middle%22%3E%E2%9C%88%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <title>&#9992;&#65039; TLV Travel Deals</title>
 <style>
 :root{color-scheme:light;--pri:#0066cc;--pri-d:#004d99;--acc:#ff6b35;--green:#16a34a;--amber:#d97706;--bg:#f0f4f8;--card:#ffffff;--bdr:#e2e8f0;--txt:#1a202c;--txt2:#64748b;--txt3:#94a3b8;--shad:0 2px 12px rgba(0,0,0,.07);--shad2:0 6px 24px rgba(0,0,0,.13);--r:14px;--rs:8px;--touch:44px}
@@ -35,7 +33,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 .spanel{background:var(--card);border-radius:var(--r) var(--r) 0 0;padding:clamp(14px,4vw,20px) clamp(12px,4vw,18px);overflow:hidden}
 .spanel-body{overflow:hidden;transition:max-height .3s ease,opacity .3s ease;max-height:600px;opacity:1}
 .spanel-body.collapsed{max-height:0;opacity:0;pointer-events:none}
-.stoggle{display:none;width:100%;padding:10px 14px;background:transparent;border:none;color:var(--pri);font-size:12px;font-weight:600;cursor:pointer;text-align:center;gap:6px;align-items:center;justify-content:center}
+.stoggle{display:none;width:100%;padding:10px 14px;background:transparent;border:none;border-top:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;cursor:pointer;text-align:center;gap:6px;align-items:center;justify-content:center}
 @media(max-width:599px){.stoggle{display:flex}}
 .schips{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px;margin-bottom:14px;scrollbar-width:none}
 .schips::-webkit-scrollbar{display:none}
@@ -68,9 +66,6 @@ input,button,select{font-family:inherit}a{color:inherit}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
 .status-dot.stale{background:var(--amber)}
 .status-dot.none{background:var(--txt3)}
-.filter-summary{font-size:11px;color:var(--txt2);margin:-6px 0 10px}
-.more-week-lbl{font-size:14px;font-weight:800;margin:14px 0 8px}
-.stale-banner{margin-bottom:12px;padding:10px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--rs);font-size:12px;color:#92400e;line-height:1.5}
 .week-tabs{display:flex;gap:4px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .week-tabs::-webkit-scrollbar{display:none}
 .wtab{flex-shrink:0;padding:8px 14px;border:1.5px solid var(--bdr);border-radius:100px;background:var(--card);font-size:12px;font-weight:600;cursor:pointer;color:var(--txt2);transition:all .15s;white-space:nowrap;min-height:var(--touch);display:flex;flex-direction:column;align-items:center;gap:1px}
@@ -219,7 +214,7 @@ input,button,select{font-family:inherit}a{color:inherit}
 <div class="hdr">
   <div class="hdr-top">
     <h1>&#9992;&#65039; TLV Travel Deals</h1>
-    <div class="sub">From Tel Aviv &#183; Booking.com &amp; Kiwi &#183; Updated every 2 weeks</div>
+    <div class="sub">From Tel Aviv &#183; Booking.com &amp; Kiwi &#183; Updated daily at 10:00</div>
   </div>
   <div class="spanel">
     <button class="stoggle" id="stoggle" onclick="toggleSearch()">&#128269; Search &amp; Filters <span id="stoggleIco">&#9660;</span></button>
@@ -231,7 +226,7 @@ input,button,select{font-family:inherit}a{color:inherit}
       <button class="schip" data-s="custom" onclick="setSeason('custom')">&#128197; Custom Dates</button>
     </div>
     <div class="srow">
-      <div class="fg fg-dest"><label class="lbl" style="margin-bottom:4px;">Destination</label><input type="text" id="dest" placeholder="City or country&#8230;" autocomplete="off"/><select id="destSel" style="display:none"><option value="">All destinations</option></select></div>
+      <div class="fg fg-dest"><label class="lbl" style="margin-bottom:4px;">Destination</label><input type="text" id="dest" placeholder="City or country&#8230;" autocomplete="off"/></div>
       <div class="fg fg-date"><label class="lbl" style="margin-bottom:4px;">Departure</label><input type="date" id="dateFrom"/></div>
       <div class="fg fg-date"><label class="lbl" style="margin-bottom:4px;">Return</label><input type="date" id="dateTo"/></div>
     </div>
@@ -265,12 +260,13 @@ input,button,select{font-family:inherit}a{color:inherit}
   <div class="daily-wrap">
     <div class="section-hdr">
       <h2 id="dealsHeading">&#128293; Best Deals</h2>
-      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Loading…</span></div>
+      <div class="upd-info" id="updInfo"><div class="status-dot none" id="statusDot"></div><span id="updAt">Updated 16 Jun · 10:30</span></div>
     </div>
-    <div id="weekTabsArea"></div>
-    <div class="filter-summary" id="filterSummary"></div>
+    <div id="weekTabsArea"><div class="week-tabs">
+<button class="wtab on" onclick="setWeek(0)"><span class="wlabel">Sun 21 Jun</span><span class="wprice">from $1,942</span></button>
+<button class="wtab" onclick="setWeek(1)"><span class="wlabel">Sun 28 Jun</span><span class="wprice">from $1,661</span></button>
+</div></div>
     <div id="dailyDealsArea"></div>
-    <div id="moreWeeksArea"></div>
   </div>
   <div class="ldwrap" id="ldwrap"><div class="spin"></div><div class="lmsg" id="lmsg">Searching deals&#8230;</div><div class="lsub" id="lsub">Checking Booking.com &amp; Kiwi</div></div>
   <div class="res" id="res">
@@ -294,45 +290,684 @@ input,button,select{font-family:inherit}a{color:inherit}
 </div>
 <button class="backsearch" id="backSearchBtn" onclick="backToSearch()" aria-label="Back to search">&#128269; Back to Search</button>
 <script>
-// Deals live in deals.json (written by the daily cloud Routine) and are
-// fetched at runtime so the page never needs editing to refresh data.
-let DAILY_DEALS=null;
-const STALE_AFTER_HOURS=16*24;   // refresh runs every 2 weeks + 2 days grace
-const RELOAD_AFTER_MS=30*60*1000;   // refetch when the app is reopened after this long
-var dealsLoadFailed=false, dealsLoadedAt=0;
-// A week's flights can leave on the Saturday night before its Sunday, so it
-// stays listed until that Saturday has passed.
-function upcomingWeeks(){
-  if(!DAILY_DEALS||!DAILY_DEALS.weeks)return[];
-  var today=isoDate(new Date());
-  return DAILY_DEALS.weeks.filter(function(w){return !w.departure||addDays(w.departure,-1)>=today;});
-}
-function ageLabel(hours){
-  if(hours<1)return'just now';
-  if(hours<24)return Math.floor(hours)+'h ago';
-  var days=Math.floor(hours/24);
-  return days+' day'+(days===1?'':'s')+' ago';
-}
-async function loadDeals(){
-  try{
-    var r=await fetch('deals.json?t='+Date.now(),{cache:'no-store'});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    DAILY_DEALS=await r.json();
-    dealsLoadFailed=false;dealsLoadedAt=Date.now();
-  }catch(e){
-    console.error('deals.json load failed',e);
-    // Keep showing previously loaded deals rather than blanking the page.
-    if(DAILY_DEALS===null)dealsLoadFailed=true;
+// ═══ DAILY_DEALS_START ═══
+const DAILY_DEALS = {
+ "updatedAt": "2026-10-27T10:30:00Z",
+ "season": "winter",
+ "nextSunday": "2026-11-01",
+ "weeks": [
+  {
+   "label": "Sun 1 Nov",
+   "departure": "2026-11-01",
+   "return": "2026-11-08",
+   "destinations": [
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 439,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-10-31T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-08T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/vd3h3r"
+     },
+     "hotel": {
+      "name": "Gellerico Apartments Tolnai Street",
+      "score": 8.5,
+      "stars": 4,
+      "reviews": 890,
+      "priceUSD": 284,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/elite-green-apartments.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 723,
+     "perPersonUSD": 362
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 886,
+      "departsLocal": "2026-10-31T19:35:00",
+      "arrivesLocal": "2026-11-01T08:00:00",
+      "durationSec": 48300,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-08T17:50:00",
+      "returnDuration": 54300,
+      "link": "https://kiwi.com/u/xk2282"
+     },
+     "hotel": {
+      "name": "Nove Boutique Apartments",
+      "score": 8.5,
+      "stars": 4,
+      "reviews": 292,
+      "priceUSD": 528,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/sobieski-apartments.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1414,
+     "perPersonUSD": 707
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 748,
+      "departsLocal": "2026-10-31T19:30:00",
+      "arrivesLocal": "2026-11-01T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-08T07:25:00",
+      "returnDuration": 37500,
+      "link": "https://kiwi.com/u/q88f8h"
+     },
+     "hotel": {
+      "name": "Elizabeth Suites",
+      "score": 8.9,
+      "stars": 4,
+      "reviews": 2567,
+      "priceUSD": 769,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/elizabeth-suites.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1517,
+     "perPersonUSD": 758
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 884,
+      "departsLocal": "2026-10-31T21:35:00",
+      "arrivesLocal": "2026-11-01T15:35:00",
+      "durationSec": 72000,
+      "stops": 2,
+      "stopCity": "Palermo, Madrid",
+      "returnDeparts": "2026-11-08T19:05:00",
+      "returnDuration": 47400,
+      "link": "https://kiwi.com/u/w5yhuv6"
+     },
+     "hotel": {
+      "name": "Hotel Colon Rambla (Santa Cruz de Tenerife)",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 2279,
+      "priceUSD": 1040,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/es/a-colon-rambla.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1924,
+     "perPersonUSD": 962
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 2244,
+      "departsLocal": "2026-10-31T19:35:00",
+      "arrivesLocal": "2026-11-02T10:05:00",
+      "durationSec": 120600,
+      "stops": 3,
+      "stopCity": "Rome, Catania, Dubai",
+      "returnDeparts": "2026-11-08T06:15:00",
+      "returnDuration": 53400,
+      "link": "https://kiwi.com/u/xg4dv2x"
+     },
+     "hotel": {
+      "name": "BAO Giant Swing",
+      "score": 10,
+      "stars": 3,
+      "reviews": 3,
+      "priceUSD": 127,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/bao-swing.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2371,
+     "perPersonUSD": 1186
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1523,
+      "departsLocal": "2026-10-31T22:00:00",
+      "arrivesLocal": "2026-11-01T16:20:00",
+      "durationSec": 58800,
+      "stops": 1,
+      "stopCity": "Tbilisi",
+      "returnDeparts": "2026-11-08T13:45:00",
+      "returnDuration": 69600,
+      "link": "https://kiwi.com/u/s4wk2k"
+     },
+     "hotel": {
+      "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
+      "score": 8.6,
+      "stars": 4,
+      "reviews": 11894,
+      "priceUSD": 889,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2412,
+     "perPersonUSD": 1206
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 2092,
+      "departsLocal": "2026-10-31T22:00:00",
+      "arrivesLocal": "2026-11-02T08:05:00",
+      "durationSec": 104700,
+      "stops": 2,
+      "stopCity": "Tbilisi, Dubai",
+      "returnDeparts": "2026-11-08T20:20:00",
+      "returnDuration": 78300,
+      "link": "https://kiwi.com/u/v7k9zzy"
+     },
+     "hotel": {
+      "name": "Pearl Hotel Phuket",
+      "score": 8.2,
+      "stars": 4,
+      "reviews": 357,
+      "priceUSD": 348,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/pearl-phuket.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2440,
+     "perPersonUSD": 1220
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 2410,
+      "departsLocal": "2026-10-31T19:35:00",
+      "arrivesLocal": "2026-11-02T07:15:00",
+      "durationSec": 117600,
+      "stops": 3,
+      "stopCity": "Rome, Catania, Dubai",
+      "returnDeparts": "2026-11-08T17:45:00",
+      "returnDuration": 78300,
+      "link": "https://kiwi.com/u/buk7wyj"
+     },
+     "hotel": {
+      "name": "Royal Villa Fulidhoo",
+      "score": 9.3,
+      "stars": 3,
+      "reviews": 183,
+      "priceUSD": 983,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/royal-villa-fulidhoo.html?aid=8132308&checkin=2026-10-31&checkout=2026-11-08&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 3393,
+     "perPersonUSD": 1696
+    }
+   ]
+  },
+  {
+   "label": "Sun 8 Nov",
+   "departure": "2026-11-08",
+   "return": "2026-11-15",
+   "destinations": [
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 321,
+      "departsLocal": "2026-11-07T19:30:00",
+      "arrivesLocal": "2026-11-07T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-15T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/338cwj"
+     },
+     "hotel": {
+      "name": "Gellerico Apartments Tolnai Street",
+      "score": 8.5,
+      "stars": 4,
+      "reviews": 890,
+      "priceUSD": 291,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/elite-green-apartments.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 612,
+     "perPersonUSD": 306
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 816,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-08T10:05:00",
+      "durationSec": 59400,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-15T14:35:00",
+      "returnDuration": 42900,
+      "link": "https://kiwi.com/u/msg6dqu"
+     },
+     "hotel": {
+      "name": "Coral La Quinta Park Suites",
+      "score": 8.8,
+      "stars": 4,
+      "reviews": 595,
+      "priceUSD": 519,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/es/coral-vistas-la-quinta-apartments.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1335,
+     "perPersonUSD": 668
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 706,
+      "departsLocal": "2026-11-07T19:30:00",
+      "arrivesLocal": "2026-11-08T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-15T07:25:00",
+      "returnDuration": 36600,
+      "link": "https://kiwi.com/u/473qsf"
+     },
+     "hotel": {
+      "name": "Residence Masna",
+      "score": 8.9,
+      "stars": 4,
+      "reviews": 304,
+      "priceUSD": 792,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/residence-masna.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1498,
+     "perPersonUSD": 749
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 718,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-08T10:40:00",
+      "durationSec": 57900,
+      "stops": 2,
+      "stopCity": "Rome, Catania",
+      "returnDeparts": "2026-11-15T14:45:00",
+      "returnDuration": 12600,
+      "link": "https://kiwi.com/u/wgp4p8"
+     },
+     "hotel": {
+      "name": "Grand Hotel Palace Schönbrunn - operated by Czech Inn",
+      "score": 8.3,
+      "stars": 4,
+      "reviews": 4878,
+      "priceUSD": 924,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/doubletree-by-hilton-vienna-schonbrunn.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1642,
+     "perPersonUSD": 821
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 1825,
+      "departsLocal": "2026-11-08T06:30:00",
+      "arrivesLocal": "2026-11-09T09:50:00",
+      "durationSec": 80400,
+      "stops": 2,
+      "stopCity": "Athens, Mumbai",
+      "returnDeparts": "2026-11-15T20:15:00",
+      "returnDuration": 80400,
+      "link": "https://kiwi.com/u/ndzf87"
+     },
+     "hotel": {
+      "name": "BAO Giant Swing",
+      "score": 10,
+      "stars": 3,
+      "reviews": 3,
+      "priceUSD": 177,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/th/bao-swing.html?aid=8132308&checkin=2026-11-08&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2002,
+     "perPersonUSD": 1001
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1430,
+      "departsLocal": "2026-11-07T22:00:00",
+      "arrivesLocal": "2026-11-08T16:20:00",
+      "durationSec": 58800,
+      "stops": 1,
+      "stopCity": "Tbilisi",
+      "returnDeparts": "2026-11-15T13:45:00",
+      "returnDuration": 69600,
+      "link": "https://kiwi.com/u/6pjd9s"
+     },
+     "hotel": {
+      "name": "FORM Hotel Al Jaddaf, Dubai",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 1489,
+      "priceUSD": 647,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/form-dubai-dubai.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2077,
+     "perPersonUSD": 1038
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 1855,
+      "departsLocal": "2026-11-08T06:30:00",
+      "arrivesLocal": "2026-11-09T07:55:00",
+      "durationSec": 73500,
+      "stops": 2,
+      "stopCity": "Athens, Mumbai",
+      "returnDeparts": "2026-11-15T20:20:00",
+      "returnDuration": 128100,
+      "link": "https://kiwi.com/u/bhqzprf"
+     },
+     "hotel": {
+      "name": "The Arbern Hotel x Bistro - SHA Extra Plus",
+      "score": 8.7,
+      "stars": 3,
+      "reviews": 886,
+      "priceUSD": 321,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/th/the-arbern-hostel-x-bistro.html?aid=8132308&checkin=2026-11-08&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2176,
+     "perPersonUSD": 1088
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 2373,
+      "departsLocal": "2026-11-07T19:35:00",
+      "arrivesLocal": "2026-11-09T08:10:00",
+      "durationSec": 120900,
+      "stops": 2,
+      "stopCity": "Rome, Dubai",
+      "returnDeparts": "2026-11-15T15:50:00",
+      "returnDuration": 78000,
+      "link": "https://kiwi.com/u/gvxpwz"
+     },
+     "hotel": {
+      "name": "Royal Villa Fulidhoo",
+      "score": 9.3,
+      "stars": 3,
+      "reviews": 183,
+      "priceUSD": 983,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/royal-villa-fulidhoo.html?aid=8132308&checkin=2026-11-07&checkout=2026-11-15&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 3356,
+     "perPersonUSD": 1678
+    }
+   ]
+  },
+  {
+   "label": "Sun 15 Nov",
+   "departure": "2026-11-15",
+   "return": "2026-11-22",
+   "destinations": [
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 366,
+      "departsLocal": "2026-11-14T19:30:00",
+      "arrivesLocal": "2026-11-14T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-22T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/ujstwr"
+     },
+     "hotel": {
+      "name": "Gellerico Apartments Tolnai Street",
+      "score": 8.5,
+      "stars": 4,
+      "reviews": 890,
+      "priceUSD": 306,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/elite-green-apartments.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 672,
+     "perPersonUSD": 336
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 637,
+      "departsLocal": "2026-11-14T19:30:00",
+      "arrivesLocal": "2026-11-15T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-22T10:55:00",
+      "returnDuration": 35700,
+      "link": "https://kiwi.com/u/m6xvjj"
+     },
+     "hotel": {
+      "name": "Residence Masna",
+      "score": 8.9,
+      "stars": 4,
+      "reviews": 304,
+      "priceUSD": 774,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/residence-masna.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1411,
+     "perPersonUSD": 706
+    },
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 581,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-15T08:00:00",
+      "durationSec": 48300,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T06:20:00",
+      "returnDuration": 21900,
+      "link": "https://kiwi.com/u/747s3xc"
+     },
+     "hotel": {
+      "name": "Zoku Vienna",
+      "score": 9.1,
+      "stars": 4,
+      "reviews": 5895,
+      "priceUSD": 1057,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/zoku-vienna.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1638,
+     "perPersonUSD": 819
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 741,
+      "departsLocal": "2026-11-14T21:25:00",
+      "arrivesLocal": "2026-11-15T12:40:00",
+      "durationSec": 62100,
+      "stops": 1,
+      "stopCity": "London",
+      "returnDeparts": "2026-11-22T16:20:00",
+      "returnDuration": 57300,
+      "link": "https://kiwi.com/u/jvntrht"
+     },
+     "hotel": {
+      "name": "Hotel Best Semiramis",
+      "score": 8.4,
+      "stars": 5,
+      "reviews": 3985,
+      "priceUSD": 1038,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/es/best-semiramis.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 1779,
+     "perPersonUSD": 890
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1329,
+      "departsLocal": "2026-11-14T22:00:00",
+      "arrivesLocal": "2026-11-15T16:50:00",
+      "durationSec": 60600,
+      "stops": 1,
+      "stopCity": "Tbilisi",
+      "returnDeparts": "2026-11-22T13:45:00",
+      "returnDuration": 69600,
+      "link": "https://kiwi.com/u/4wjrr7"
+     },
+     "hotel": {
+      "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
+      "score": 8.6,
+      "stars": 4,
+      "reviews": 11894,
+      "priceUSD": 849,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2178,
+     "perPersonUSD": 1089
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 2184,
+      "departsLocal": "2026-11-15T07:10:00",
+      "arrivesLocal": "2026-11-16T18:50:00",
+      "durationSec": 110400,
+      "stops": 2,
+      "stopCity": "Rome, Doha",
+      "returnDeparts": "2026-11-22T20:35:00",
+      "returnDuration": 87300,
+      "link": "https://kiwi.com/u/z3nvjyk"
+     },
+     "hotel": {
+      "name": "BAO Giant Swing",
+      "score": 10,
+      "stars": 3,
+      "reviews": 3,
+      "priceUSD": 152,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/th/bao-swing.html?aid=8132308&checkin=2026-11-15&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2336,
+     "perPersonUSD": 1168
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 2202,
+      "departsLocal": "2026-11-15T07:00:00",
+      "arrivesLocal": "2026-11-16T08:05:00",
+      "durationSec": 72300,
+      "stops": 2,
+      "stopCity": "Tbilisi, Dubai",
+      "returnDeparts": "2026-11-22T20:20:00",
+      "returnDuration": 81300,
+      "link": "https://kiwi.com/u/jy3us4"
+     },
+     "hotel": {
+      "name": "The Passion Nest - SHA Plus Certified",
+      "score": 8.9,
+      "stars": 3,
+      "reviews": 663,
+      "priceUSD": 251,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/th/the-passion-nest.html?aid=8132308&checkin=2026-11-15&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 2453,
+     "perPersonUSD": 1226
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 2180,
+      "departsLocal": "2026-11-14T21:35:00",
+      "arrivesLocal": "2026-11-16T07:15:00",
+      "durationSec": 110400,
+      "stops": 3,
+      "stopCity": "Palermo, Milan, Dubai",
+      "returnDeparts": "2026-11-22T09:15:00",
+      "returnDuration": 101700,
+      "link": "https://kiwi.com/u/8s7j7g"
+     },
+     "hotel": {
+      "name": "Heron Beach Hotel Dhiffushi",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 565,
+      "priceUSD": 877,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/heron-beach.html?aid=8132308&checkin=2026-11-14&checkout=2026-11-22&no_rooms=1&group_adults=2&selected_currency=USD"
+     },
+     "totalUSD": 3057,
+     "perPersonUSD": 1528
+    }
+   ]
   }
-  fillDestinationSelect();
-  if(!S.applied&&!S.seasonPicked){
-    if(!hasLiveBridge()&&resumePendingCustom())return;
-    // First load: default filters = loaded season, all destinations, package, couple.
-    setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer',true);
-    if(!hasLiveBridge())S.applied=readUiFilters();
-  }
-  renderDailyDeals();
-}
+ ]
+};
+// ═══ DAILY_DEALS_END ═══
 const S={season:'summer',mode:'package',paxMode:'couple',adults:2,children:0,childAges:[],flights:[],hotels:[],fSort:'price',hSort:'price',activeTab:'Pkg',activeWeek:0,last:null};
 // Season windows were hard-coded to fixed 2026 dates, so once a season passed
 // the picker handed the search dates in the past. Compute them from today.
@@ -342,8 +977,6 @@ function isoDate(d){
 function addDays(iso,n){var d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return isoDate(d);}
 function seasonWindow(s,today){
   var y=today.getFullYear();
-  // January still belongs to the winter that began the previous November.
-  if(s==='winter'&&today.getMonth()===0)y-=1;
   var w = s==='summer'
     ? {start:new Date(y,5,1),  end:new Date(y,7,31)}      // 1 Jun – 31 Aug
     : {start:new Date(y,10,1), end:new Date(y+1,0,31)};   // 1 Nov – 31 Jan
@@ -402,302 +1035,45 @@ function updateBackSearchBtn(){
 window.addEventListener('scroll',updateBackSearchBtn,{passive:true});
 window.addEventListener('resize',updateBackSearchBtn,{passive:true});
 
-// ── Pre-loaded deals: filters applied on "Search Deals" ───────────
-// S.applied holds the filters from the last Search press (or the defaults),
-// so changing a control does nothing until the user presses Search.
-const BEST_WEEKS=3;          // weeks shown as "Best Deals"; the rest go to "More weeks"
-const PAX_COUNT={couple:2,family:6};
-const TYPE_LABEL={beach:'🏖️ Beach',city:'🏙️ City',exotic:'🌴 Exotic'};
-const TYPE_CLASS={beach:'t-beach',city:'t-city',exotic:'t-exotic'};
-const MODE_LABEL={package:'Package',flights:'Flights only',hotels:'Hotels only'};
-function readUiFilters(){
-  var sel=document.getElementById('destSel');
-  return {season:S.season,dest:sel?sel.value:'',mode:S.mode,pax:S.paxMode,
-    from:document.getElementById('dateFrom').value,to:document.getElementById('dateTo').value};
-}
-// Couple prices are the destination's own fields; family prices live in d.family.
-function offerFor(d,pax){
-  if(pax==='family')return d.family||null;
-  return {flight:d.flight,hotel:d.hotel,totalUSD:d.totalUSD,perPersonUSD:d.perPersonUSD};
-}
-function modePrice(o,mode){
-  if(mode==='flights')return o.flight?o.flight.price:null;
-  if(mode==='hotels')return o.hotel?o.hotel.priceUSD:null;
-  return o.totalUSD;
-}
-// → {rows:[{d,o,price}], missingFamily:[dest names]} for one week under filters f.
-function weekRows(week,f){
-  var rows=[],missingFamily=[];
-  (week.destinations||[]).forEach(function(d){
-    if(f.dest&&d.dest!==f.dest)return;
-    var o=offerFor(d,f.pax);
-    if(!o){missingFamily.push(d.dest);return;}
-    var price=modePrice(o,f.mode);
-    if(price==null)return;
-    rows.push({d:d,o:o,price:price});
-  });
-  rows.sort(function(a,b){return a.price-b.price;});
-  return {rows:rows,missingFamily:missingFamily};
-}
-function filteredWeeks(f){
-  var weeks=upcomingWeeks();
-  return weeks;
-}
-function stopsLabel(fl){return fl.stops===0?'Direct':fl.stops===1?'1 stop via '+fl.stopCity:fl.stops+' stops via '+fl.stopCity;}
-function flightSeg(d,fl,showPrice){
-  return '<div class="deal-seg"><div class="deal-seg-lbl">✈️ Flight · '+stopsLabel(fl)+'</div>'
-    +'<div class="deal-seg-row"><span class="deal-time">'+(fl.departsLocal?fl.departsLocal.substring(11,16):'—')+'</span>'
-    +'<span class="deal-route">TLV → '+d.dest+' · '+(fl.durationSec?fdur(fl.durationSec):'')+'<br>'+fdt(fl.departsLocal)+' → returns '+fdt(fl.returnDeparts)+'</span>'
-    +(showPrice?'<span class="deal-seg-price">$'+fl.price.toLocaleString()+'</span>':'')+'</div></div>';
-}
-function hotelSeg(h,showPrice){
-  var rooms=h.rooms&&h.rooms>1?' · '+h.rooms+' rooms':'';
-  return '<div class="deal-hotel"><div><div class="deal-hotel-name">🏨 '+h.name+'</div><div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span>&nbsp;'+slbl(h.score)+' · '+h.nights+' nights'+rooms+'</div></div></div>'
-    +(showPrice?'<div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div>':'')+'</div>';
-}
-function dealCard(row,f,top){
-  var d=row.d,o=row.o,fl=o.flight,h=o.hotel,pkg=f.mode==='package';
-  var pp=Math.round(row.price/PAX_COUNT[f.pax]);
-  var body=[];
-  if(f.mode!=='hotels')body.push(flightSeg(d,fl,pkg));
-  if(f.mode!=='flights'&&h)body.push(hotelSeg(h,pkg));
-  var cta=(f.mode!=='hotels'&&fl.link?'<a class="cta-btn cta-pri" href="'+fl.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')
-         +(f.mode!=='flights'&&h&&h.link?'<a class="cta-btn '+(f.mode==='hotels'?'cta-pri':'cta-sec')+'" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'');
-  return '<div class="deal-card'+(top?' top-deal':'')+'">'
-    +'<div class="deal-card-hdr"><div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div><span class="type-badge '+TYPE_CLASS[d.type]+'">'+TYPE_LABEL[d.type]+'</span></div>'
-    +'<div class="deal-price-blk"><div class="deal-total">$'+row.price.toLocaleString()+'</div><div class="deal-pp">≈ $'+pp.toLocaleString()+'/person</div></div></div>'
-    +body.map(function(s){return'<div class="deal-divider"></div>'+s;}).join('')
-    +'<div class="deal-cta">'+cta+'</div></div>';
-}
-function weekGrid(wr,f){
-  if(!wr.rows.length){
-    var why=wr.missingFamily.length&&f.pax==='family'
-      ?'<h3>Family prices not in this refresh</h3><p>Family (6) prices are added from the next refresh.</p>'
-      :'<h3>No deals match these filters</h3><p>Try “All destinations” or another option.</p>';
-    return '<div class="daily-empty"><div class="ico">🔍</div>'+why+'</div>';
-  }
-  var note=wr.missingFamily.length?'<div class="filter-summary">Family prices not available for: '+wr.missingFamily.join(', ')+'</div>':'';
-  return note+'<div class="deals-grid">'+wr.rows.map(function(r,i){return dealCard(r,f,i===0);}).join('')+'</div>';
-}
-function filterSummary(f){
-  var season=f.season==='custom'?('Custom '+(f.from?fdt(f.from):'…')+' – '+(f.to?fdt(f.to):'…')):(f.season==='winter'?'Winter':'Summer');
-  return season+' · '+(f.dest||'All destinations')+' · '+MODE_LABEL[f.mode]+' · '+(f.pax==='family'?'Family (6)':'Couple (2)');
-}
-function destinationNames(){
-  var seen={};ALL_DESTINATIONS.forEach(function(n){seen[n]=true;});
-  upcomingWeeks().forEach(function(w){(w.destinations||[]).forEach(function(d){seen[d.dest]=true;});});
-  return Object.keys(seen).sort();
-}
-function fillDestinationSelect(){
-  var sel=document.getElementById('destSel');if(!sel)return;
-  var cur=sel.value;
-  sel.innerHTML='<option value="">All destinations</option>'+destinationNames().map(function(n){return'<option'+(n===cur?' selected':'')+'>'+n+'</option>';}).join('');
-}
-
-// ── Custom Dates: on-demand search ───────────────────────────────
-// The public page can't call Kiwi/Booking or hold a secret, so a custom search
-// goes: pre-filled GitHub issue (owner taps Submit) → GitHub Action
-// (custom-search.yml) → Claude Routine → custom/<key>.json on main → this page.
-const REPO='BechorY/travel-dashboard';
-const ALL_DESTINATIONS=['Budapest','Prague','Vienna','Tenerife','Dubai','Phuket','Bangkok','Maldives'];
-const CUSTOM_FRESH_HOURS=24;
-const CUSTOM_MAX_STAY_DAYS=30;
-const POLL_EVERY_MS=30*1000;
-const POLL_FOR_MS=20*60*1000;
-const PENDING_STORE='tlvPendingCustomSearch';
-var pollTimer=null;
-
-// Must match result_key() in scripts/custom_request.py.
-function customKey(f){return f.from+'_'+f.to+'_'+(f.dest?f.dest.toLowerCase():'all')+'_'+f.pax;}
-function customRequest(f){return {dest:f.dest||'all',from:f.from,to:f.to,pax:f.pax};}
-function customIssueUrl(f){
-  var req=customRequest(f);
-  var title='Deal search: '+(f.dest||'All destinations')+' '+f.from+' → '+f.to+' '+f.pax;
-  var body='```json\n'+JSON.stringify(req)+'\n```\n\nSent from the TLV Travel Deals app. '
-    +'Submitting starts a Claude search (uses your Claude plan). Results appear in the app in about 3–5 minutes.';
-  return 'https://github.com/'+REPO+'/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
-}
-function readPending(){try{var p=JSON.parse(localStorage.getItem(PENDING_STORE)||'null');return p&&Date.now()-p.requestedAt<POLL_FOR_MS?p:null;}catch(e){return null;}}
-function writePending(p){try{if(p)localStorage.setItem(PENDING_STORE,JSON.stringify(p));else localStorage.removeItem(PENDING_STORE);}catch(e){}}
-async function fetchCustom(key){
-  try{var r=await fetch('custom/'+key+'.json?t='+Date.now(),{cache:'no-store'});return r.ok?await r.json():null;}catch(e){return null;}
-}
-function customProblem(f){
-  if(!f.from||!f.to)return 'Choose a departure and a return date.';
-  if(f.from<isoDate(new Date()))return 'Departure date is in the past.';
-  if(f.to<=f.from)return 'Return must be after departure.';
-  if(nts(f.from,f.to)>CUSTOM_MAX_STAY_DAYS)return 'Stay is longer than '+CUSTOM_MAX_STAY_DAYS+' days.';
-  return '';
-}
-function customHeader(f){
-  document.getElementById('dealsHeading').innerHTML='🔎 Custom search';
-  document.getElementById('weekTabsArea').innerHTML='';
-  document.getElementById('moreWeeksArea').innerHTML='';
-  document.getElementById('filterSummary').textContent=filterSummary(f)+' · '+nts(f.from,f.to)+' nights';
-}
-function customCard(icon,title,html){document.getElementById('dailyDealsArea').innerHTML='<div class="daily-empty"><div class="ico">'+icon+'</div><h3>'+title+'</h3>'+html+'</div>';}
-
-function renderCustomResult(res,f){
-  customHeader(f);
-  var rows=[];
-  (res.destinations||[]).forEach(function(d){
-    var price=modePrice(d,f.mode);            // the file holds the requested passengers' prices
-    if(price!=null)rows.push({d:d,o:d,price:price});
-  });
-  rows.sort(function(a,b){return a.price-b.price;});
-  var age=ageLabel((Date.now()-new Date(res.updatedAt))/3600000);
-  document.getElementById('dailyDealsArea').innerHTML='<div class="filter-summary">Searched '+age+' · '+fdt(f.from)+' → '+fdt(f.to)+'</div>'
-    +weekGrid({rows:rows,missingFamily:[]},f);
-}
-function renderCustomRequest(f,old){
-  customHeader(f);
-  var many=!f.dest;
-  var hint=many?'All 8 destinations: about $3–5 of Claude usage.':'One destination: about $0.5–1 of Claude usage.';
-  var oldNote=old?'<p>An older search from '+ageLabel((Date.now()-new Date(old.updatedAt))/3600000)+' exists; a new one gets current prices.</p>':'';
-  customCard('🔎','Search prices for these dates',
-    '<p>These dates aren’t searched yet. Tap below, then tap <b>Submit new issue</b> on GitHub to start the search. '+hint+' (estimate)</p>'+oldNote
-    +'<p style="margin-top:12px"><a class="cta-btn cta-pri" style="display:inline-flex;padding:10px 18px" href="'+customIssueUrl(f)+'" target="_blank" rel="noopener" onclick="startCustomPending()">🔎 Search prices on GitHub</a></p>'
-    +(old?'<p style="margin-top:10px"><a href="#" onclick="showOldCustom();return false;">Show the older results</a></p>':''));
-  S.customOld=old||null;
-}
-function showOldCustom(){if(S.customOld)renderCustomResult(S.customOld,S.applied);}
-function renderCustomPending(f,p){
-  customHeader(f);
-  var mins=Math.max(0,Math.round((Date.now()-p.requestedAt)/60000));
-  customCard('⏳','Searching…','<p>Usually 3–5 minutes (started '+mins+' min ago). This page checks every 30 seconds.</p>'
-    +'<p style="margin-top:12px"><button class="cta-btn cta-sec" style="display:inline-flex;padding:10px 18px" onclick="checkCustomNow()">🔄 Check now</button></p>'
-    +'<p style="margin-top:10px;font-size:11px">Didn’t submit the GitHub issue? <a href="'+customIssueUrl(f)+'" target="_blank" rel="noopener">Open it again</a>.</p>');
-}
-function renderCustomTimeout(f){
-  customHeader(f);
-  customCard('⌛','Still not ready','<p>The search didn’t finish within 20 minutes. Check the issue on GitHub for details.</p>'
-    +'<p style="margin-top:12px"><a class="cta-btn cta-sec" style="display:inline-flex;padding:10px 18px" href="https://github.com/'+REPO+'/issues" target="_blank" rel="noopener">Open GitHub issues</a></p>');
-}
-
-function startCustomPending(){
-  var f=S.applied;writePending({key:customKey(f),f:f,requestedAt:Date.now()});
-  renderCustomPending(f,readPending());startPolling();
-}
-function stopPolling(){if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
-function startPolling(){stopPolling();pollTimer=setInterval(checkCustomNow,POLL_EVERY_MS);}
-async function checkCustomNow(){
-  var raw=null;try{raw=JSON.parse(localStorage.getItem(PENDING_STORE)||'null');}catch(e){}
-  if(!raw){stopPolling();return;}
-  var res=await fetchCustom(raw.key);
-  var viewing=S.applied&&S.applied.season==='custom'&&customKey(S.applied)===raw.key;
-  if(res&&new Date(res.updatedAt).getTime()>=raw.requestedAt-60000){
-    writePending(null);stopPolling();
-    if(viewing)renderCustomResult(res,S.applied);
-    return;
-  }
-  if(Date.now()-raw.requestedAt>=POLL_FOR_MS){writePending(null);stopPolling();if(viewing)renderCustomTimeout(S.applied);return;}
-  if(viewing)renderCustomPending(S.applied,raw);
-}
-async function customSearch(f){
-  var problem=customProblem(f);
-  if(problem){customHeader(f);customCard('📅','Check the dates','<p>'+problem+'</p>');return;}
-  customHeader(f);customCard('🔍','Checking saved searches…','');
-  var key=customKey(f),res=await fetchCustom(key);
-  var fresh=res&&(Date.now()-new Date(res.updatedAt))/3600000<=CUSTOM_FRESH_HOURS;
-  if(fresh){renderCustomResult(res,f);return;}
-  var p=readPending();
-  if(p&&p.key===key){renderCustomPending(f,p);startPolling();return;}
-  renderCustomRequest(f,res);
-}
-// Reopening the app mid-search: go straight back to the pending search.
-function resumePendingCustom(){
-  var p=readPending();if(!p)return false;
-  S.applied=p.f;
-  setSeason('custom',true);
-  document.getElementById('dateFrom').value=p.f.from;document.getElementById('dateTo').value=p.f.to;
-  document.getElementById('destSel').value=p.f.dest||'';setMode(p.f.mode);setPax(p.f.pax);
-  renderCustomPending(p.f,p);startPolling();checkCustomNow();
-  return true;
-}
-
 function renderDailyDeals(){
   var area=document.getElementById('dailyDealsArea');
   var tabArea=document.getElementById('weekTabsArea');
-  var more=document.getElementById('moreWeeksArea');
   var dot=document.getElementById('statusDot');
   var upd=document.getElementById('updAt');
-  var hd=document.getElementById('dealsHeading');
-  var summary=document.getElementById('filterSummary');
-  var f=S.applied||readUiFilters();
-  if(DAILY_DEALS===null){
-    dot.className='status-dot '+(dealsLoadFailed?'stale':'none');upd.textContent=dealsLoadFailed?'Couldn’t load deals — pull down to refresh':'Loading…';
-    if(f.season!=='custom'){more.innerHTML='';summary.textContent='';tabArea.innerHTML='';area.innerHTML='';}
-    return;
-  }
+  if(S.season==='custom'){dot.className='status-dot none';upd.textContent='Custom dates selected';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">📅</div><h3>Custom Dates Mode</h3><p>Use the search below to find deals for your custom dates.</p></div>';return;}
+  if(!DAILY_DEALS||!DAILY_DEALS.weeks||!DAILY_DEALS.weeks.length||DAILY_DEALS.season!==S.season){dot.className='status-dot none';upd.textContent=(S.season==='winter'?'Winter':'Summer')+' deals not yet available';tabArea.innerHTML='';area.innerHTML='<div class="daily-empty"><div class="ico">'+(S.season==='winter'?'❄️':'⏰')+'</div><h3>'+(S.season==='winter'?'Winter Deals Not Yet Available':'Daily search not yet run')+'</h3><p>Every morning at 10:00 AM this page searches Sunday deals departing 04:00–08:00.</p></div>';return;}
+  var _hd=document.getElementById('dealsHeading');
+  if(_hd){var _n=DAILY_DEALS.weeks.length;_hd.innerHTML='🔥 Best Deals — '+_n+' Week'+(_n===1?'':'s');}
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
-  var stale=ageh>STALE_AFTER_HOURS;
-  var updLabel=updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-  dot.className='status-dot'+(stale?' stale':'');
-  upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
-  if(f.season==='custom')return;   // custom results are drawn by customSearch()/checkCustomNow()
-  more.innerHTML='';summary.textContent=filterSummary(f);
-  var banner=stale?'<div class="stale-banner">⚠️ Refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
-  // The data holds one season; picking the other one explains when it arrives.
-  if(f.season!=='custom'&&DAILY_DEALS.season!==f.season){
-    var today=new Date();today.setHours(0,0,0,0);
-    var from=seasonWindow(DAILY_DEALS.season,today).end;from=new Date(from);from.setDate(from.getDate()+1);
-    var name=f.season==='winter'?'Winter':'Summer';
-    hd.innerHTML='🔥 Best Deals';tabArea.innerHTML='';
-    area.innerHTML='<div class="daily-empty"><div class="ico">'+(f.season==='winter'?'❄️':'☀️')+'</div><h3>'+name+' deals not loaded yet</h3><p>The app loads one season at a time. '+name+' deals are loaded from '+fdt(isoDate(from))+', when the current season ends.</p></div>';
-    return;
-  }
-  var weeks=filteredWeeks(f);
-  var best=weeks.slice(0,BEST_WEEKS), later=weeks.slice(BEST_WEEKS);
-  hd.innerHTML='🔥 Best Deals — '+best.length+' Week'+(best.length===1?'':'s');
-  if(!best.length){
-    tabArea.innerHTML='';
-    var msg='<h3>All loaded trips have departed</h3><p>New deals appear after the next refresh.</p>';
-    area.innerHTML=banner+'<div class="daily-empty"><div class="ico">🗓️</div>'+msg+'</div>';return;
-  }
-  if(S.activeWeek>=best.length)S.activeWeek=0;
-  var bestRows=best.map(function(w){return weekRows(w,f);});
-  tabArea.innerHTML='<div class="week-tabs">'+best.map(function(w,i){
-    var low=bestRows[i].rows.length?bestRows[i].rows[0].price:null;
-    return'<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')"><span class="wlabel">'+w.label+'</span>'+(low?'<span class="wprice">from $'+low.toLocaleString()+'</span>':'')+'</button>';
-  }).join('')+'</div>';
-  area.innerHTML=banner+weekGrid(bestRows[S.activeWeek],f);
-  if(later.length){
-    more.innerHTML='<div class="section-hdr" style="margin-top:22px;"><h2>📅 More weeks</h2></div>'
-      +later.map(function(w){return'<h3 class="more-week-lbl">'+w.label+'</h3>'+weekGrid(weekRows(w,f),f);}).join('');
-  }
+  dot.className='status-dot'+(ageh>26?' stale':'');
+  upd.textContent='Updated '+updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+  var tabHtml='<div class="week-tabs">';
+  DAILY_DEALS.weeks.forEach(function(w,i){var best=w.destinations&&w.destinations.length?w.destinations[0].totalUSD:null;tabHtml+='<button class="wtab'+(i===S.activeWeek?' on':'')+'" onclick="setWeek('+i+')">'+'<span class="wlabel">'+w.label+'</span>'+(best?'<span class="wprice">from $'+best.toLocaleString()+'</span>':'')+'</button>';});
+  tabHtml+='</div>';tabArea.innerHTML=tabHtml;
+  var week=DAILY_DEALS.weeks[S.activeWeek];var items=week.destinations||[];
+  if(!items.length){area.innerHTML='<div class="daily-empty"><div class="ico">😞</div><h3>No deals found for this week</h3><p>Check back tomorrow or try the search below.</p></div>';return;}
+  var html='<div class="deals-grid">';
+  items.forEach(function(d,i){
+    var f=d.flight,h=d.hotel;
+    var typeMap={beach:'🏖️ Beach',city:'🏙️ City',exotic:'🌴 Exotic'};
+    var typeCls={beach:'t-beach',city:'t-city',exotic:'t-exotic'};
+    var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
+    html+='<div class="deal-card'+(i===0?' top-deal':'')+'">'
+      +'<div class="deal-card-hdr"><div><div style="display:flex;align-items:center;gap:8px;"><span style="font-size:22px;">'+d.flag+'</span><div class="dest-name">'+d.dest+'</div></div><span class="type-badge '+typeCls[d.type]+'">'+typeMap[d.type]+'</span></div>'
+      +'<div class="deal-price-blk"><div class="deal-total">$'+d.totalUSD.toLocaleString()+'</div><div class="deal-pp">≈ $'+d.perPersonUSD.toLocaleString()+'/person</div></div></div>'
+      +'<div class="deal-divider"></div>'
+      +'<div class="deal-seg"><div class="deal-seg-lbl">✈️ Flight · '+stops+'</div>'
+      +'<div class="deal-seg-row"><span class="deal-time">'+(f.departsLocal?f.departsLocal.substring(11,16):'—')+'</span>'
+      +'<span class="deal-route">TLV → '+d.dest+' · '+(f.durationSec?fdur(f.durationSec):'')+'<br>'+fdt(f.departsLocal)+' → returns '+fdt(f.returnDeparts)+'</span>'
+      +'<span class="deal-seg-price">$'+f.price.toLocaleString()+'</span></div></div>'
+      +(h?'<div class="deal-divider"></div><div class="deal-hotel"><div><div class="deal-hotel-name">🏨 '+h.name+'</div><div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span>&nbsp;'+slbl(h.score)+' · '+h.nights+' nights</div></div></div><div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div></div>':'')
+      +'<div class="deal-cta">'+(f.link?'<a class="cta-btn cta-pri" href="'+f.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')+(h&&h.link?'<a class="cta-btn cta-sec" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'')+'</div></div>';
+  });
+  html+='</div>';area.innerHTML=html;
 }
 
-var MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-function seasonChipLabels(){
-  var today=new Date();today.setHours(0,0,0,0);
-  var su=seasonWindow('summer',today), wi=seasonWindow('winter',today);
-  var fmt=function(d){return d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear();};
-  document.querySelector('[data-s="summer"]').textContent='☀️ Summer 1 Jun – '+fmt(su.end);
-  document.querySelector('[data-s="winter"]').textContent='❄️ Winter '+fmt(wi.start)+' – '+fmt(wi.end);
-}
-function setSeason(s,auto){
-  if(!auto)S.seasonPicked=true;S.season=s;
-  document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');
-  if(hasLiveBridge()){
-    if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}
-    renderDailyDeals();return;
-  }
-  // Pre-loaded deals: the choice takes effect on "Search Deals".
-  showCustomDates(s==='custom');
-  if(s==='custom'){
-    var today=isoDate(new Date());
-    document.getElementById('dateFrom').min=today;document.getElementById('dateTo').min=today;
-  }
-}
-// Custom Dates on the public page = any departure/return dates, searched on demand.
-function showCustomDates(show){
-  [['dateFrom','Departure'],['dateTo','Return']].forEach(function(p){
-    var el=document.getElementById(p[0]);if(!el||!el.parentElement)return;
-    el.parentElement.style.display=show?'':'none';
-    var lbl=el.parentElement.querySelector('label');if(lbl)lbl.textContent=p[1];
-  });
-}
+function setSeason(s){S.season=s;document.querySelectorAll('.schip').forEach(c=>c.classList.remove('on'));document.querySelector('[data-s="'+s+'"]').classList.add('on');if(s!=='custom'){document.getElementById('dateFrom').value=SD[s]?SD[s].from:'';document.getElementById('dateTo').value=SD[s]?SD[s].to:'';}renderDailyDeals();}
 function setMode(m){S.mode=m;document.querySelectorAll('[data-m]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-m="'+m+'"]').classList.add('on');}
 function setPax(p){S.paxMode=p;document.querySelectorAll('[data-p]').forEach(b=>b.classList.remove('on'));document.querySelector('[data-p="'+p+'"]').classList.add('on');S.adults=p==='couple'?2:4;S.children=p==='couple'?0:2;}
 function showTab(t){S.activeTab=t;['Pkg','Fly','Hot'].forEach(function(id){document.getElementById('t'+id).classList.remove('on');document.getElementById('p'+id).classList.remove('on');});document.getElementById('t'+t).classList.add('on');document.getElementById('p'+t).classList.add('on');}
@@ -730,17 +1106,59 @@ function nextSundayInWindow(from){var d=new Date(from+'T00:00:00');while(d.getDa
 function hasLiveBridge(){
   return !!(window.cowork && typeof window.cowork.callMcpTool==='function');
 }
+function allBakedDeals(){
+  if(!DAILY_DEALS||!DAILY_DEALS.weeks)return[];
+  var out=[];
+  DAILY_DEALS.weeks.forEach(function(w){
+    (w.destinations||[]).forEach(function(d){out.push({week:w,deal:d});});
+  });
+  return out;
+}
+function localSearch(q){
+  var needle=(q||'').trim().toLowerCase();
+  var all=allBakedDeals();
+  if(!needle)return all;
+  return all.filter(function(x){return x.deal.dest.toLowerCase().indexOf(needle)>=0;});
+}
+function renderLocalResults(q,matches){
+  document.getElementById('rtitle').textContent=q?('Pre-loaded deals matching "'+q+'"'):'All pre-loaded deals';
+  document.getElementById('rmeta').textContent='From today’s 10:00 update · '+totPax()+' travellers · from TLV';
+  document.getElementById('rcnt').textContent=matches.length+' result'+(matches.length===1?'':'s');
+  ['Fly','Hot'].forEach(function(id){document.getElementById('t'+id).style.display='none';});
+  document.getElementById('tPkg').style.display='';
+  var box=document.getElementById('pkgCards');
+  document.getElementById('bPkg').textContent=matches.length;
+  if(!matches.length){
+    box.innerHTML='<div class="empty"><div class="ico">🔍</div><h3>No pre-loaded deal for that destination</h3>'
+      +'<p>This page carries the destinations from today’s 10:00 search.<br>Try one of: '
+      +allBakedDeals().map(function(x){return x.deal.dest;}).filter(function(v,i,a){return a.indexOf(v)===i;}).join(', ')
+      +'</p></div>';
+  }else{
+    box.innerHTML=matches.map(function(x,i){
+      var d=x.deal,f=d.flight,h=d.hotel;
+      var stops=f.stops===0?'Direct':f.stops===1?'1 stop via '+f.stopCity:f.stops+' stops via '+f.stopCity;
+      return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+d.flag+' '+d.dest+' · '+x.week.label+'</div>'
+        +'<div><div class="pkgtot">$'+d.totalUSD.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+d.perPersonUSD.toLocaleString()+'/person</span></div></div>'
+        +'<div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo">'
+        +'<div class="pkgtitle">Flight · '+stops+'</div><div class="pkgdetail">'+fdt(f.departsLocal)+' '+ftm(f.departsLocal)+' TLV → '+d.dest+' · '+fdur(f.durationSec)+'</div></div>'
+        +'<div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div>'+(f.link?'<a class="pkglink" href="'+f.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>'
+        +(h?'<div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div>'
+        +'<div class="pkgdetail"><span class="rscore">'+h.score.toFixed(1)+'</span> '+slbl(h.score)+' · '+h.nights+' nights</div></div>'
+        +'<div class="pkgpcol"><div class="pkgprice">$'+h.priceUSD.toLocaleString()+'</div>'+(h.link?'<a class="pkglink" href="'+h.link+'" target="_blank" rel="noopener">Book →</a>':'')+'</div></div>':'')
+        +'</div><div class="pkgfoot">✅ '+(h?h.nights:7)+' nights · '+totPax()+' travellers · total $'+d.totalUSD.toLocaleString()+'</div></div>';
+    }).join('');
+  }
+  showTab('Pkg');
+  document.getElementById('res').classList.add('vis');
+  document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
 async function doSearch(){
   var dest=document.getElementById('dest').value.trim(),from=document.getElementById('dateFrom').value,to=document.getElementById('dateTo').value,de=document.getElementById('dest');
   // Offline (GitHub Pages): filter the baked-in deals instead of calling MCP.
   if(!hasLiveBridge()){
     document.getElementById('ldwrap').classList.remove('vis');
-    await loadDeals();   // pick up a newer deals.json if one was published
-    S.applied=readUiFilters();S.activeWeek=0;
-    stopPolling();
-    if(S.applied.season==='custom')await customSearch(S.applied);
-    else renderDailyDeals();
-    document.querySelector('.daily-wrap').scrollIntoView({behavior:'smooth',block:'start'});
+    renderLocalResults(dest,localSearch(dest));
     return;
   }
   if(!dest){de.classList.add('err');de.focus();setTimeout(function(){de.classList.remove('err');},2500);return;}
@@ -840,34 +1258,29 @@ function renderHotels(){var box=document.getElementById('hotCards');var n=nts(S.
 function renderPackages(n){var box=document.getElementById('pkgCards');if(!S.flights.length||!S.hotels.length){box.innerHTML='<div class="empty"><div class="ico">📦</div><h3>No complete packages found</h3><p>Try a different destination or dates.</p></div>';document.getElementById('bPkg').textContent='0';return;}var tf=[].concat(S.flights).sort(function(a,b){return a.price-b.price;}).slice(0,3);var th=[].concat(S.hotels).sort(function(a,b){return(a.priceUSD||0)-(b.priceUSD||0);}).slice(0,4);var pkgs=[];tf.forEach(function(f){th.forEach(function(h){pkgs.push({f:f,h:h,tot:f.price+(h.priceUSD||0)});});});pkgs.sort(function(a,b){return a.tot-b.tot;});var show=pkgs.slice(0,6);document.getElementById('bPkg').textContent=show.length;box.innerHTML=show.map(function(pkg,i){var f=pkg.f,h=pkg.h,fst=getStops(f),pp=Math.round(pkg.tot/totPax()),nights=nts(S.last&&S.last.from,S.last&&S.last.to),lbl=i===0?'🏆 Best Deal':i===1?'⭐ Runner-Up':i===2?'💼 Great Value':'🔖 Good Pick';return'<div class="pkgcard'+(i===0?' ptop':'')+'"><div class="pkghdr"><div class="pkglbl">'+lbl+'</div><div><div class="pkgtot">$'+pkg.tot.toLocaleString()+'</div><span class="pkgtotsub">≈ $'+pp+'/person</span></div></div><div class="pkgitems"><div class="pkgitem"><div class="pkgicon">✈️</div><div class="pkginfo"><div class="pkgtitle">Flight · '+(fst===0?'Direct':fst+' stop'+(fst>1?'s':''))+'</div><div class="pkgdetail">'+fdt(f.departure&&f.departure.local)+' '+ftm(f.departure&&f.departure.local)+' TLV → '+ftm(f.arrival&&f.arrival.local)+' · '+fdur(f.durationInSeconds||0)+'</div></div><div class="pkgpcol"><div class="pkgprice">$'+f.price.toLocaleString()+'</div><a class="pkglink" href="'+f.deepLink+'" target="_blank" rel="noopener">Book →</a></div></div><div class="pkgitem"><div class="pkgicon">🏨</div><div class="pkginfo"><div class="pkgtitle">'+h.name+'</div><div class="pkgdetail"><span class="rscore">'+((h.rating&&h.rating.review_score)||0).toFixed(1)+'</span> '+slbl((h.rating&&h.rating.review_score)||0)+' · '+nights+' nights</div></div><div class="pkgpcol"><div class="pkgprice">$'+(h.priceUSD||0).toLocaleString()+'</div><a class="pkglink" href="'+h.url+'" target="_blank" rel="noopener">Book →</a></div></div></div><div class="pkgfoot">✅ '+nights+' nights · '+totPax()+' travellers · from $'+pkg.tot.toLocaleString()+'</div></div>';}).join('');}
 // ── bootstrap: run after all function declarations are hoisted ──
 window.onerror=function(msg,src,line,col,err){var u=document.getElementById('updAt');var d=document.getElementById('statusDot');if(u){u.textContent='JS error: '+msg+' (line '+line+')';}if(d){d.className='status-dot stale';}return false;};
-try{seasonChipLabels();renderDailyDeals();loadDeals();}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
-// iOS keeps home-screen web apps suspended in memory for days; refetch the
-// deals whenever the app comes back to the foreground after a while.
-document.addEventListener('visibilitychange',function(){
-  if(document.visibilityState!=='visible')return;
-  if(pollTimer)checkCustomNow();      // back from GitHub: check the custom search right away
-  if(Date.now()-dealsLoadedAt>RELOAD_AFTER_MS)loadDeals();
-});
-window.addEventListener('pageshow',function(e){if(e.persisted)loadDeals();});
+try{setSeason(DAILY_DEALS&&DAILY_DEALS.season==='winter'?'winter':'summer');}catch(e){var _u=document.getElementById('updAt');if(_u)_u.textContent='Init error: '+e.message;}
 
 // Adapt the search panel to whichever environment we're running in.
 try{
   if(!hasLiveBridge()){
     var sb=document.getElementById('sbtn');
     if(sb)sb.innerHTML='🔍 Search Deals';
-    // Pre-loaded deals: pick a destination from the loaded list; the date
-    // fields are only shown for "Custom Dates" (see setSeason).
-    document.getElementById('dest').style.display='none';
-    document.getElementById('destSel').style.display='';
-    showCustomDates(false);
+    var dsp=document.getElementById('dest');
+    if(dsp)dsp.placeholder='Filter by destination… (leave blank for all)';
+    // Date + passenger controls don't apply to pre-loaded deals — hide them
+    // rather than leave inputs that silently do nothing.
+    ['dateFrom','dateTo'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el&&el.parentElement)el.parentElement.style.display='none';
+    });
     var flt=document.querySelector('.filters');
     if(flt)flt.style.display='none';
     var panel=document.getElementById('spanelBody');
     if(panel){
       var note=document.createElement('div');
       note.style.cssText='margin-top:10px;padding:9px 11px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;font-size:11px;color:#1e40af;line-height:1.5';
-      note.innerHTML='ℹ️ Deals come from the latest search (refreshed every 2 weeks). '
-        +'Pick your options and press Search Deals. Live search over any date needs the Claude app.';
+      note.innerHTML='ℹ️ Showing the destinations from today’s 10:00 search. '
+        +'Live search over any date needs the Claude app — this public page has no API access.';
       panel.appendChild(note);
     }
   }
