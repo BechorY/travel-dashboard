@@ -12,7 +12,9 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
 | `scripts/custom_request.py` | Custom-search request validation (`request`, reads `$BODY`) and result checks (`result <file>`). Key = `from_to_dest_pax`. |
 | `custom/<key>.json` | Custom-dates search results, written only by the Routine (JOB B). |
 | `.github/workflows/custom-search.yml` | On issue opened by the owner with title `Deal search:` → validate → fire Routine API. Secrets `ROUTINE_FIRE_URL`, `ROUTINE_TOKEN`. |
-| `.github/workflows/deals-freshness.yml` | Daily 09:00 UTC + on push: runs the validator with `--max-age-hours 384`; failure emails the owner. |
+| `.github/workflows/deals-freshness.yml` | Daily 09:00 UTC + on push (`deals.json`, `index.html`, validator): validator with `--max-age-hours 384` + guard that `index.html` loads `deals.json` and has no embedded `DAILY_DEALS`; failure emails the owner. |
+| `archive/cowork-artifact-2026-09/` | Old Cowork desktop artifact (embedded data, `versions.zip`, thumbnail, debug log). Archive only, never served or edited. |
+| `.gitignore` | `__pycache__/`, `*.pyc`, OS junk (a `.pyc` was once committed). |
 
 ## Data flow
 1. Claude cloud Routine **"TLV travel deals daily refresh"** (`trig_01FuRq1BepWztcwVU8shsAJv`).
@@ -98,3 +100,20 @@ use `page.clock.install()` to simulate data age and season dates.
   Custom Dates became an on-demand search (GitHub issue → Action → Routine API → custom/).
   First scheduled run with the new 4-week couple+family prompt: 1 Oct 2026 09:47 (check its
   cost and that every destination got a `family` block).
+- 6 Nov 2026: uploaded the old local project `travel-deals-tlv` (OneDrive, Cowork artifact) via
+  GitHub web upload (`4f9504c`). It overwrote `index.html` with the old embedded-data page; the
+  same had already happened on 27 Oct (`25e41c9`, "TLV Deals Bot", from the legacy PC task), so
+  the live page ignored `deals.json` since then. Fixed in PR #3 (`efe47cd`): `index.html`
+  restored from `332b5c0`, upload archived under `archive/cowork-artifact-2026-09/`; PR #2 removed
+  a committed `.pyc` and added `.gitignore`. Added the `index.html` CI guard.
+
+## Pending / lessons
+- **Disable the legacy scheduled task "Tlv daily travel deals" (`trig_018jozF3hQ7DYyTggN6sQqrb`,
+  daily 10:00 Asia/Jerusalem, PC folders, `push-to-github.sh`).** Claude's attempt was denied by the
+  harness, so the owner must turn it off in claude.ai Scheduled tasks. Until then it can overwrite
+  `index.html` again; the CI guard will flag it. Then revoke the GitHub token in the PC's
+  `.github-config.json` and delete that file. Keep only "TLV travel deals daily refresh".
+- Do not upload/overwrite `index.html` from the PC; edit it in this repo (a web "Upload files"
+  commit to `main` replaces files silently). Put anything new in a subfolder.
+- The cloud session cannot read PC paths; files must be pushed/attached, or the folder shared via
+  Remote Control. `bechory.github.io` is blocked from the cloud sandbox: check the live site on the phone.
