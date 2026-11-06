@@ -71,6 +71,14 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
   destinations sorted by couple `totalUSD`, `totalUSD = flight.price + hotel.priceUSD`.
   A missing `family` block shows "Family prices not available for: …".
 
+## Runs entirely on GitHub (no PC)
+Hosting = GitHub Pages (`main`); data = cloud Routine above; checks = GitHub Actions. Nothing
+depends on a local machine. The legacy PC-based scheduled task **"Tlv daily travel deals"**
+(`trig_018jozF3hQ7DYyTggN6sQqrb`, Cowork artifact + `push-to-github.sh`) must stay **disabled**:
+it overwrote `index.html` with the old embedded-data page on 27 Oct 2026 and again via the
+6 Nov upload. `deals-freshness.yml` now fails if `index.html` stops loading `deals.json`.
+Old desktop artifact files are archived in `archive/cowork-artifact-2026-09/` (not served).
+
 ## Testing
 ```bash
 python3 scripts/validate_deals.py                 # validate deals.json
