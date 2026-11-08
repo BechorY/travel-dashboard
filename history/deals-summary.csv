@@ -1,0 +1,73 @@
+run_at,job,season,dest,pax,week_dep,total,per_person,flight_price,hotel_price,hotel,score,nights
+2026-09-09T07:14:08.000Z,refresh,winter,Bangkok,couple,2026-11-08,1956,978,1630,326,Royal Princess Larn Luang - SHA Extra Plus,8.4,7
+2026-09-09T07:14:08.000Z,refresh,winter,Budapest,couple,2026-11-01,1006,503,294,712,Moxy Budapest Downtown,8.8,8
+2026-09-09T07:14:08.000Z,refresh,winter,Dubai,couple,2026-11-15,1619,810,803,816,Holiday Inn Dubai Jumeirah Village Circle by IHG,8.6,8
+2026-09-09T07:14:08.000Z,refresh,winter,Maldives,couple,2026-11-08,2914,1457,1758,1156,Luxury 3BR - Airport Pickup - Rooftop SeaView Pool Gym Terrace Near Airport,10,8
+2026-09-09T07:14:08.000Z,refresh,winter,Phuket,couple,2026-11-08,1862,931,1625,237,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-09-09T07:14:08.000Z,refresh,winter,Prague,couple,2026-11-08,1182,591,539,643,Belvedere,8.3,8
+2026-09-09T07:14:08.000Z,refresh,winter,Tenerife,couple,2026-11-15,1785,893,660,1125,Ona Alborada,8.3,8
+2026-09-09T07:14:08.000Z,refresh,winter,Vienna,couple,2026-11-08,1325,663,580,745,smartments Wien Hauptbahnhof - Serviced Apartments,8.2,8
+2026-09-29T11:24:25.000Z,refresh,winter,Bangkok,couple,2026-10-18,2001,1000,1721,280,Tinidee Trendy Bangkok Khaosan,8.8,7
+2026-09-29T11:24:25.000Z,refresh,winter,Budapest,couple,2026-10-18,1234,617,316,918,Moxy Budapest Downtown,8.9,8
+2026-09-29T11:24:25.000Z,refresh,winter,Dubai,couple,2026-10-11,2157,1078,1448,709,"The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",8.6,7
+2026-09-29T11:24:25.000Z,refresh,winter,Maldives,couple,2026-10-18,3101,1550,1999,1102,Beachfront Seaview Apartment,8.8,8
+2026-09-29T11:24:25.000Z,refresh,winter,Phuket,couple,2026-10-18,2154,1077,1971,183,Ming Shou Boutique House,8.1,7
+2026-09-29T11:24:25.000Z,refresh,winter,Prague,couple,2026-10-11,1607,804,673,934,Old Town Square Apartments,8.1,7
+2026-09-29T11:24:25.000Z,refresh,winter,Tenerife,couple,2026-10-04,1763,882,847,916,Hotel Puerto Palace,8.6,7
+2026-09-29T11:24:25.000Z,refresh,winter,Vienna,couple,2026-10-04,1308,654,641,667,The Social Hub Vienna Extended Stay,8.9,8
+2026-09-29T15:02:42.000Z,refresh,winter,Bangkok,couple,2026-11-08,2251,1126,1771,480,TARA Bangkok Riverside,8.7,8
+2026-09-29T15:02:42.000Z,refresh,winter,Budapest,couple,2026-11-01,987,494,292,695,Moxy Budapest Downtown,8.9,8
+2026-09-29T15:02:42.000Z,refresh,winter,Dubai,couple,2026-11-15,2109,1054,1193,916,Grand Mercure Business Bay,8.1,7
+2026-09-29T15:02:42.000Z,refresh,winter,Maldives,couple,2026-11-01,4211,2106,2051,2160,Malahini Kuda Bandos,8.4,8
+2026-09-29T15:02:42.000Z,refresh,winter,Phuket,couple,2026-11-15,2011,1006,1779,232,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-09-29T15:02:42.000Z,refresh,winter,Prague,couple,2026-11-01,1679,840,915,764,Eurostars Thalia,8.9,7
+2026-09-29T15:02:42.000Z,refresh,winter,Tenerife,couple,2026-11-15,1771,886,646,1125,Hotel Best Semiramis,8.3,8
+2026-09-30T11:38:06Z,custom,custom,Dubai,couple,2027-02-21,850,425,551,299,"The First Collection Waterfront, Dubai, a Tribute Portfolio Hotel",8.7,3
+2026-10-01T06:51:35.000Z,refresh,winter,Bangkok,couple,2026-11-22,2081,1040,1663,418,TARA Bangkok Riverside,8.7,7
+2026-10-01T06:51:35.000Z,refresh,winter,Bangkok,family,2026-11-22,5805,968,4756,1049,Queensland Hotel Bangkok,8.7,7
+2026-10-01T06:51:35.000Z,refresh,winter,Budapest,couple,2026-11-01,986,493,291,695,Moxy Budapest Downtown,8.9,8
+2026-10-01T06:51:35.000Z,refresh,winter,Budapest,family,2026-11-15,2375,396,923,1452,Naomi & Sophia Apartman,8.8,8
+2026-10-01T06:51:35.000Z,refresh,winter,Dubai,couple,2026-11-22,1970,985,990,980,Grand Mercure Business Bay,8.1,7
+2026-10-01T06:51:35.000Z,refresh,winter,Dubai,family,2026-11-22,4506,751,3265,1241,Premier Inn Dubai Barsha Heights,8.7,7
+2026-10-01T06:51:35.000Z,refresh,winter,Maldives,couple,2026-11-01,3349,1674,1812,1537,Marukab Plaza,8.1,8
+2026-10-01T06:51:35.000Z,refresh,winter,Maldives,family,2026-11-22,7774,1296,5996,1778,Nala Host-2BR Seaview Terrace apartment,9.1,8
+2026-10-01T06:51:35.000Z,refresh,winter,Phuket,couple,2026-11-01,1974,987,1711,263,La Moon At Phuket - SHA Extra Plus,8.2,8
+2026-10-01T06:51:35.000Z,refresh,winter,Phuket,family,2026-11-22,6137,1023,5581,556,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-10-01T06:51:35.000Z,refresh,winter,Prague,couple,2026-11-01,1398,699,655,743,Belvedere,8.3,8
+2026-10-01T06:51:35.000Z,refresh,winter,Prague,family,2026-11-15,3268,545,1996,1272,Old Town Square Apartments,8.1,8
+2026-10-01T06:51:35.000Z,refresh,winter,Tenerife,couple,2026-11-22,1753,876,674,1079,Hotel Best Semiramis,8.3,8
+2026-10-01T06:51:35.000Z,refresh,winter,Tenerife,family,2026-11-15,3392,565,1895,1497,Marinell Collection Palm-Mar,8.7,8
+2026-10-01T06:51:35.000Z,refresh,winter,Vienna,couple,2026-11-08,1351,676,557,794,Exe Vienna,8.7,8
+2026-10-01T06:51:35.000Z,refresh,winter,Vienna,family,2026-11-08,3519,586,1926,1593,Art Living Vienna,8.8,8
+2026-10-15T06:53:29.000Z,refresh,winter,Bangkok,couple,2026-11-22,2234,1117,1933,301,ibis Bangkok Sathorn,8.2,7
+2026-10-15T06:53:29.000Z,refresh,winter,Bangkok,family,2026-11-22,6668,1111,5797,871,TRIBE Living Bangkok Sukhumvit 39 by AccorHotels,8.6,7
+2026-10-15T06:53:29.000Z,refresh,winter,Budapest,couple,2026-11-01,1034,517,295,739,Heritage Home Apartments,9.1,8
+2026-10-15T06:53:29.000Z,refresh,winter,Budapest,family,2026-11-01,2304,384,955,1349,Bright Two-Bedroom Home by the New York Palace,8.8,8
+2026-10-15T06:53:29.000Z,refresh,winter,Dubai,couple,2026-11-15,1871,936,1188,683,TRYP by Wyndham Dubai,8.6,7
+2026-10-15T06:53:29.000Z,refresh,winter,Dubai,family,2026-11-22,5466,911,4218,1248,Premier Inn Dubai Barsha Heights,8.7,8
+2026-10-15T06:53:29.000Z,refresh,winter,Maldives,couple,2026-11-15,2899,1450,2131,768,Heron Beach Hotel Dhiffushi,8.8,7
+2026-10-15T06:53:29.000Z,refresh,winter,Maldives,family,2026-11-15,8723,1454,6813,1910,Sky Beach Maldives - Dhiffushi,9.0,7
+2026-10-15T06:53:29.000Z,refresh,winter,Phuket,couple,2026-11-08,2264,1132,2010,254,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-10-15T06:53:29.000Z,refresh,winter,Phuket,family,2026-11-08,7378,1230,6778,600,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-10-15T06:53:29.000Z,refresh,winter,Prague,couple,2026-11-15,1336,668,612,724,CORU House,9.3,8
+2026-10-15T06:53:29.000Z,refresh,winter,Prague,family,2026-11-08,3770,628,2272,1498,WSP Petrin Garden Apartments,9.2,8
+2026-10-15T06:53:29.000Z,refresh,winter,Tenerife,couple,2026-11-08,1585,792,721,864,Marinell Collection Palm-Mar,8.7,8
+2026-10-15T06:53:29.000Z,refresh,winter,Tenerife,family,2026-11-15,3328,555,2162,1166,Fairways Club,8.6,8
+2026-10-15T06:53:29.000Z,refresh,winter,Vienna,couple,2026-11-22,1252,626,593,659,The Social Hub Vienna Extended Stay,8.9,8
+2026-10-15T06:53:29.000Z,refresh,winter,Vienna,family,2026-11-15,3487,581,2207,1280,Vienna Experience,8.8,8
+2026-11-01T07:54:13.000Z,refresh,winter,Bangkok,couple,2026-11-29,2402,1201,1712,690,The Mandison Bangkok - Sukhumvit Soi 20,8.7,7
+2026-11-01T07:54:13.000Z,refresh,winter,Bangkok,family,2026-11-29,7599,1266,6356,1243,Nouvo City Hotel,8.5,7
+2026-11-01T07:54:13.000Z,refresh,winter,Budapest,couple,2026-11-08,1353,676,366,987,Bohem Art Hotel,9.0,8
+2026-11-01T07:54:13.000Z,refresh,winter,Budapest,family,2026-11-15,2685,448,1478,1207,Erkel Homes by STN,8.4,8
+2026-11-01T07:54:13.000Z,refresh,winter,Dubai,couple,2026-11-15,1927,964,1260,667,TRYP by Wyndham Dubai,8.6,7
+2026-11-01T07:54:13.000Z,refresh,winter,Dubai,family,2026-11-29,5949,992,4463,1486,"The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",8.6,7
+2026-11-01T07:54:13.000Z,refresh,winter,Maldives,couple,2026-11-15,3037,1518,2269,768,Heron Beach Hotel Dhiffushi,8.7,7
+2026-11-01T07:54:13.000Z,refresh,winter,Maldives,family,2026-11-15,9417,1570,7429,1988,Avyanna Gulhi Beach Hotel,8.8,7
+2026-11-01T07:54:13.000Z,refresh,winter,Phuket,couple,2026-11-29,2144,1072,1802,342,Pearl Hotel Phuket,8.2,7
+2026-11-01T07:54:13.000Z,refresh,winter,Phuket,family,2026-11-22,6875,1146,6265,610,La Moon At Phuket - SHA Extra Plus,8.2,7
+2026-11-01T07:54:13.000Z,refresh,winter,Prague,couple,2026-11-08,1389,694,769,620,Hotel William,8.4,7
+2026-11-01T07:54:13.000Z,refresh,winter,Prague,family,2026-11-08,3776,629,2307,1469,Residence Mysterius Old Town,8.7,7
+2026-11-01T07:54:13.000Z,refresh,winter,Tenerife,couple,2026-11-08,1508,754,850,658,Hotel Rural Bentor,8.0,8
+2026-11-01T07:54:13.000Z,refresh,winter,Tenerife,family,2026-11-08,3892,649,2614,1278,Medano Beach Villas,9.1,8
+2026-11-01T07:54:13.000Z,refresh,winter,Vienna,couple,2026-11-15,1718,859,607,1111,"Vienna Residence, Prater - Exhibition Center",8.5,8
+2026-11-01T07:54:13.000Z,refresh,winter,Vienna,family,2026-11-15,4433,739,2534,1899,"Vienna Residence, Hietzing - Schönbrunn",8.4,7

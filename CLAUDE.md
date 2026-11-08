@@ -12,15 +12,21 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
 | `scripts/custom_request.py` | Custom-search request validation (`request`, reads `$BODY`) and result checks (`result <file>`). Key = `from_to_dest_pax`. |
 | `custom/<key>.json` | Custom-dates search results, written only by the Routine (JOB B). |
 | `.github/workflows/custom-search.yml` | On issue opened by the owner with title `Deal search:` → validate → fire Routine API. Secrets `ROUTINE_FIRE_URL`, `ROUTINE_TOKEN`. |
-| `.github/workflows/deals-freshness.yml` | Daily 09:00 UTC + on push (`deals.json`, `index.html`, validator): validator with `--max-age-hours 384` + guard that `index.html` loads `deals.json` and has no embedded `DAILY_DEALS`; failure emails the owner. |
+| `.github/workflows/refresh-deals.yml` | On issue opened by the owner titled `Deal refresh:` (or manual *Run workflow*): skips if `deals.json` < 6 h old, else fires the Routine (`DEAL_REFRESH_REQUEST ISSUE n`) via `scripts/fire_routine.sh`. No cron. |
+| `.github/workflows/deals-freshness.yml` | On push (`deals.json`, `index.html`, validator): `validate_deals.py --allow-past` + guard that `index.html` loads `deals.json` and has no embedded `DAILY_DEALS`; failure emails the owner. No age check, no cron (data ages between searches). |
+| `scripts/fire_routine.sh` | Shared curl POST to the Routine API trigger (`ROUTINE_FIRE_URL`, `ROUTINE_TOKEN`). |
+| `scripts/export_history.py` | `append <file> --job refresh\|custom`, `backfill`, `summary` → `history/deals-history.csv` (full) + `history/deals-summary.csv` (cheapest week per run × dest × pax). |
+| `history/` | Search history: `deals-history.csv` (master, in git), `deals-summary.csv` (mirrored to Drive), `drive.json` (Drive IDs). |
+| `docs/routine-prompt-addendum.md` | Text + steps the owner applies to the Routine (connector, cron removal, prompt). |
 | `archive/cowork-artifact-2026-09/` | Old Cowork desktop artifact (embedded data, `versions.zip`, thumbnail, debug log). Archive only, never served or edited. |
 | `.gitignore` | `__pycache__/`, `*.pyc`, OS junk (a `.pyc` was once committed). |
 
 ## Data flow
 1. Claude cloud Routine **"TLV travel deals daily refresh"** (`trig_01FuRq1BepWztcwVU8shsAJv`).
    Its prompt has JOB A (scheduled refresh, below) and JOB B (custom search, see Rules).
-   Schedule:
-   cron `CRON_TZ=Asia/Jerusalem 47 9 1,15 * *` (1st and 15th, ≈ every 2 weeks).
+   **No schedule** (owner's choice 8 Nov 2026): it runs only when fired by the API trigger —
+   `refresh-deals.yml` (JOB A, on demand) or `custom-search.yml` (JOB B). Its own cron
+   (`47 9 1,15 * *`) must be removed in claude.ai (cloud session cannot edit it).
    - Needs, in the Routine config: connectors **Kiwi.com** + **Booking.com**, and repository
      **BechorY/travel-dashboard** (without the repo, `git push` gets 403).
    - Searches 8 destinations (Budapest, Prague, Vienna, Tenerife, Dubai, Phuket, Bangkok,
@@ -29,6 +35,8 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
    - Flight window: Saturday ≥ 19:00 or Sunday 04:00–08:00. Hotel: score ≥ 8.0, ≥ 50 reviews.
    - Runs the validator, commits only `deals.json`, pushes to `main`.
      Cost: ≈ $3–4 per run at 3 weeks couple-only; ≈ $10–15 estimated at 4 weeks + family.
+   - After the data commit the Routine appends to `history/` and mirrors to Google Drive
+     (folder "Travel deals": sheet "TLV deals history" + `snapshots/` JSON per run) — best effort.
 2. GitHub Pages redeploys `main` (~1 min).
 3. The page fetches `deals.json?t=…` with `cache:'no-store'` on load, on every **Search** press,
    and when the iOS app returns to the foreground after 30 min.
@@ -65,7 +73,14 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
 - **Gotchas:** GitHub mobile app can't open Settings; Routine "Save" stays disabled until the
   API trigger has a token; the Routine needs the repo attached (else push 403); never paste the
   token in chat (Regenerate/Revoke in the Routine's API trigger if leaked).
-- **Staleness:** page shows "N days ago"; amber banner after 16 days (`STALE_AFTER_HOURS`).
+- **Refresh on demand:** page shows "N days ago"; when data is older than `REFRESH_AFTER_HOURS` (72) an
+  amber card offers **Refresh now** → pre-filled issue `Deal refresh: <season> <date>` → owner taps
+  *Submit new issue* → `refresh-deals.yml` → Routine JOB A (≈ 10–20 min, ≈ $10–15) → page polls
+  `deals.json` every 60 s for 30 min (`tlvPendingRefresh` in `localStorage`) until `updatedAt` changes.
+  Fallback: GitHub → Actions → Refresh deals → Run workflow.
+- **History / Drive:** Drive folder `16qSEyL-F05CfxFwIIURMHijkCwc4HcaF` ("Travel deals"). Sheet "TLV deals history"
+  = `history/deals-summary.csv` (72 rows backfilled 8 Nov 2026); `snapshots/` = per-run JSON. Drive
+  `update_file` can't replace content → create new sheet, trash old, update `history/drive.json`.
 - Weeks whose Saturday has passed are hidden automatically.
 - `deals.json` schema: `updatedAt` (ISO Z), `season`, `nextSunday`, `weeks[] {label, departure,
   return, destinations[] {dest, flag, type, flight{…}, hotel{…}, totalUSD, perPersonUSD,
@@ -108,11 +123,12 @@ use `page.clock.install()` to simulate data age and season dates.
   a committed `.pyc` and added `.gitignore`. Added the `index.html` CI guard.
 
 ## Pending / lessons
-- **Disable the legacy scheduled task "Tlv daily travel deals" (`trig_018jozF3hQ7DYyTggN6sQqrb`,
-  daily 10:00 Asia/Jerusalem, PC folders, `push-to-github.sh`).** Claude's attempt was denied by the
-  harness, so the owner must turn it off in claude.ai Scheduled tasks. Until then it can overwrite
-  `index.html` again; the CI guard will flag it. Then revoke the GitHub token in the PC's
-  `.github-config.json` and delete that file. Keep only "TLV travel deals daily refresh".
+- **Owner must (claude.ai → Routines → "TLV travel deals daily refresh"):** add the **Google Drive**
+  connector, remove the cron, paste `docs/routine-prompt-addendum.md`. Until then refreshes still work
+  but history/Drive are not updated by the Routine (backfill is in place up to 1 Nov).
+- Legacy PC task "Tlv daily travel deals" (`trig_018jozF3hQ7DYyTggN6sQqrb`) is **disabled** (8 Nov 2026,
+  `suspension_reason: device_absent`). Still to do: revoke the GitHub token in the PC's
+  `.github-config.json` and delete that file.
 - Do not upload/overwrite `index.html` from the PC; edit it in this repo (a web "Upload files"
   commit to `main` replaces files silently). Put anything new in a subfolder.
 - The cloud session cannot read PC paths; files must be pushed/attached, or the folder shared via
