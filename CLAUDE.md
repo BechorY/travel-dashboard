@@ -18,6 +18,9 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
 | `scripts/export_history.py` | `append <file> --job refresh\|custom`, `backfill`, `summary` → `history/deals-history.csv` (full) + `history/deals-summary.csv` (cheapest week per run × dest × pax). |
 | `history/` | Search history: `deals-history.csv` (master, in git), `deals-summary.csv` (mirrored to Drive), `drive.json` (Drive IDs). |
 | `docs/routine-prompt-addendum.md` | Text + steps the owner applies to the Routine (connector, cron removal, prompt). |
+| `momondo.json` | Optional momondo prices `{checkedAt, quotes[{dest, pax, depart, return, price(total USD), airline, stops, departsLocal, link}]}`. Written only by the `momondo-deals` skill. |
+| `scripts/momondo_quotes.py` | `plan` (search list + momondo URLs from `deals.json`, or `--from/--to` custom) and `validate`. |
+| `.claude/skills/momondo-deals/SKILL.md` | Skill: check momondo in the owner's Chrome (Claude in Chrome, PC only), write `momondo.json`, push. Never types credentials; login/captcha → `AskUserQuestion` pop-up (+ push notification). |
 | `archive/cowork-artifact-2026-09/` | Old Cowork desktop artifact (embedded data, `versions.zip`, thumbnail, debug log). Archive only, never served or edited. |
 | `.gitignore` | `__pycache__/`, `*.pyc`, OS junk (a `.pyc` was once committed). |
 
@@ -81,6 +84,14 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
 - **History / Drive:** Drive folder `16qSEyL-F05CfxFwIIURMHijkCwc4HcaF` ("Travel deals"). Sheet "TLV deals history"
   = `history/deals-summary.csv` (72 rows backfilled 8 Nov 2026); `snapshots/` = per-run JSON. Drive
   `update_file` can't replace content → create new sheet, trash old, update `history/drive.json`.
+- **momondo (second price source, 11 Nov 2026):** `/momondo-deals [dest|all] [week N|all] [couple|family]`
+  or `custom <dest> <from> <to> <pax>`, run on the owner's PC with Claude in Chrome (momondo is blocked
+  from the cloud sandbox, has bot detection, and its terms forbid scraping, so it is not in the
+  Routine). Searches the same day as Kiwi's flight (Sat ≥ 19:00 / Sun 04–08 filter), cheapest
+  qualifying total in USD. The app shows "momondo $X · airline" under the flight on matching cards
+  (dest + pax + depart + return), green when cheaper than Kiwi; quotes > 7 days old are ignored
+  (`MOMONDO_MAX_AGE_HOURS`). `deals.json` is never changed by it. Family URL path
+  `4adults/children-8-12` is unverified — the skill checks passengers on the page.
 - Weeks whose Saturday has passed are hidden automatically.
 - `deals.json` schema: `updatedAt` (ISO Z), `season`, `nextSunday`, `weeks[] {label, departure,
   return, destinations[] {dest, flag, type, flight{…}, hotel{…}, totalUSD, perPersonUSD,
@@ -123,6 +134,8 @@ use `page.clock.install()` to simulate data age and season dates.
   a committed `.pyc` and added `.gitignore`. Added the `index.html` CI guard.
 
 ## Pending / lessons
+- 11 Nov 2026 refresh via issue #5 worked end to end (Action → Routine → `d37f8a5`, ≈ 5 min) but
+  did not write `history/` or close #5 → the Routine prompt addendum is not applied yet.
 - **Owner must (claude.ai → Routines → "TLV travel deals daily refresh"):** add the **Google Drive**
   connector, remove the cron, paste `docs/routine-prompt-addendum.md`. Until then refreshes still work
   but history/Drive are not updated by the Routine (backfill is in place up to 1 Nov).
