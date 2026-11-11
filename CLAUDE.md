@@ -92,6 +92,12 @@ GitHub Pages from `main` and used mainly as an iPhone home-screen web app.
   (dest + pax + depart + return), green when cheaper than Kiwi; quotes > 7 days old are ignored
   (`MOMONDO_MAX_AGE_HOURS`). `deals.json` is never changed by it. Family URL path
   `4adults/children-8-12` is unverified — the skill checks passengers on the page.
+  **Status (12 Nov 2026): skill merged (PR #6), never run against live momondo yet** (no
+  `momondo.json` in the repo). Local setup on the owner's PC is done: repo cloned to
+  `C:\Users\boris\Documents\travel-dashboard`, Python 3.13, Claude Code v2.1.312 logged in,
+  Claude in Chrome extension installed and enabled (`/chrome`: Enabled). Two Chrome browsers are
+  connected → on the browser question pick "confirmation screen" and click **Connect** in the
+  usual profile. Fallback if it never works: add a "Compare on momondo" link per card (not built).
 - Weeks whose Saturday has passed are hidden automatically.
 - `deals.json` schema: `updatedAt` (ISO Z), `season`, `nextSunday`, `weeks[] {label, departure,
   return, destinations[] {dest, flag, type, flight{…}, hotel{…}, totalUSD, perPersonUSD,
@@ -126,6 +132,11 @@ use `page.clock.install()` to simulate data age and season dates.
   Custom Dates became an on-demand search (GitHub issue → Action → Routine API → custom/).
   First scheduled run with the new 4-week couple+family prompt: 1 Oct 2026 09:47 (check its
   cost and that every destination got a `family` block).
+- 8 Nov 2026 (PR #4): on-demand refresh (`Deal refresh:` issue → `refresh-deals.yml` → Routine),
+  no cron, `history/` + Drive sheet "TLV deals history" (72 rows) + `snapshots/`, `deals-freshness.yml`
+  without age check (`--allow-past`). Legacy PC task `trig_018jozF3hQ7DYyTggN6sQqrb` disabled.
+- 11 Nov 2026: first on-demand refresh (issue #5 → run → `d37f8a5`, ≈ 5 min, 32 deals). PR #6 added the
+  `momondo-deals` skill + `momondo.json` display in the app.
 - 6 Nov 2026: uploaded the old local project `travel-deals-tlv` (OneDrive, Cowork artifact) via
   GitHub web upload (`4f9504c`). It overwrote `index.html` with the old embedded-data page; the
   same had already happened on 27 Oct (`25e41c9`, "TLV Deals Bot", from the legacy PC task), so
@@ -134,6 +145,10 @@ use `page.clock.install()` to simulate data age and season dates.
   a committed `.pyc` and added `.gitignore`. Added the `index.html` CI guard.
 
 ## Pending / lessons
+- **Next step: run `/momondo-deals` in the Windows terminal (local session).** Typing it in the
+  cloud session only reproduces "no Chrome + momondo blocked (403)". A local session shows a Windows
+  path in its header; a cloud one shows `/home/user/...`. Check first-run issues: prices in USD,
+  family passenger count, Saturday ≥ 19:00 / Sunday 04–08 filter, login/captcha pop-up.
 - 11 Nov 2026 refresh via issue #5 worked end to end (Action → Routine → `d37f8a5`, ≈ 5 min) but
   did not write `history/` or close #5 → the Routine prompt addendum is not applied yet.
 - **Owner must (claude.ai → Routines → "TLV travel deals daily refresh"):** add the **Google Drive**
@@ -144,5 +159,7 @@ use `page.clock.install()` to simulate data age and season dates.
   `.github-config.json` and delete that file.
 - Do not upload/overwrite `index.html` from the PC; edit it in this repo (a web "Upload files"
   commit to `main` replaces files silently). Put anything new in a subfolder.
+- The terminal said "API Usage Billing" before `/login`; after logging in with the Claude account it
+  should use the Pro plan. If it still says API billing, check for an `ANTHROPIC_API_KEY` env var.
 - The cloud session cannot read PC paths; files must be pushed/attached, or the folder shared via
   Remote Control. `bechory.github.io` is blocked from the cloud sandbox: check the live site on the phone.
