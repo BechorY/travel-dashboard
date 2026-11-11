@@ -70,6 +70,9 @@ input,button,select{font-family:inherit}a{color:inherit}
 .status-dot.none{background:var(--txt3)}
 .filter-summary{font-size:11px;color:var(--txt2);margin:-6px 0 10px}
 .more-week-lbl{font-size:14px;font-weight:800;margin:14px 0 8px}
+.momondo-line{margin-top:6px;padding:6px 10px;border-radius:var(--rs);background:#f8fafc;border:1px solid #e2e8f0;font-size:12px;color:var(--txt2);display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.momondo-line.cheaper{background:#ecfdf5;border-color:#a7f3d0;color:#065f46;font-weight:600}
+.momondo-line a{color:var(--pri);font-weight:700;text-decoration:none}
 .stale-banner{margin-bottom:12px;padding:10px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:var(--rs);font-size:12px;color:#92400e;line-height:1.5}
 .week-tabs{display:flex;gap:4px;margin-bottom:14px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
 .week-tabs::-webkit-scrollbar{display:none}
@@ -297,6 +300,9 @@ input,button,select{font-family:inherit}a{color:inherit}
 // Deals live in deals.json (written by the daily cloud Routine) and are
 // fetched at runtime so the page never needs editing to refresh data.
 let DAILY_DEALS=null;
+// momondo.json: prices read on momondo by the momondo-deals skill (user's Chrome). Optional.
+let MOMONDO=null;
+const MOMONDO_MAX_AGE_HOURS=7*24;
 const REFRESH_AFTER_HOURS=72;   // data older than this -> offer "Refresh now" (no automatic schedule)
 const REFRESH_POLL_EVERY_MS=60*1000;
 const REFRESH_POLL_FOR_MS=30*60*1000;
@@ -323,6 +329,7 @@ async function loadDeals(){
     if(!r.ok)throw new Error('HTTP '+r.status);
     DAILY_DEALS=await r.json();
     dealsLoadFailed=false;dealsLoadedAt=Date.now();
+    try{var mr=await fetch('momondo.json?t='+Date.now(),{cache:'no-store'});MOMONDO=mr.ok?await mr.json():null;}catch(me){MOMONDO=null;}
   }catch(e){
     console.error('deals.json load failed',e);
     // Keep showing previously loaded deals rather than blanking the page.
@@ -460,11 +467,30 @@ function hotelSeg(h,showPrice){
   return '<div class="deal-hotel"><div><div class="deal-hotel-name">🏨 '+h.name+'</div><div class="deal-hotel-meta"><div class="rev-pill"><span class="rscore">'+h.score.toFixed(1)+'</span>&nbsp;'+slbl(h.score)+' · '+h.nights+' nights'+rooms+'</div></div></div>'
     +(showPrice?'<div class="deal-hotel-price">$'+h.priceUSD.toLocaleString()+'</div>':'')+'</div>';
 }
+function momondoQuote(dest,pax,fl){
+  if(!MOMONDO||!MOMONDO.quotes||!fl||!fl.departsLocal)return null;
+  if((Date.now()-new Date(MOMONDO.checkedAt))/3600000>MOMONDO_MAX_AGE_HOURS)return null;
+  var dep=fl.departsLocal.substring(0,10),ret=fl.returnDeparts?fl.returnDeparts.substring(0,10):null;
+  for(var i=0;i<MOMONDO.quotes.length;i++){
+    var q=MOMONDO.quotes[i];
+    if(q.dest===dest&&q.pax===pax&&q.depart===dep&&(!ret||q.return===ret))return q;
+  }
+  return null;
+}
+function escHtml(t){return String(t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function momondoLine(d,fl,f){
+  var q=momondoQuote(d.dest,f.pax,fl);if(!q)return'';
+  var diff=Math.round(fl.price-q.price),cheaper=diff>0;
+  return '<div class="momondo-line'+(cheaper?' cheaper':'')+'">'
+    +'<span>momondo $'+Math.round(q.price).toLocaleString()+(q.airline?' · '+escHtml(q.airline):'')+'</span>'
+    +(cheaper?'<span>$'+diff.toLocaleString()+' cheaper than Kiwi</span>':'<span>Kiwi is cheaper</span>')
+    +'<a href="'+escHtml(q.link)+'" target="_blank" rel="noopener">View ›</a></div>';
+}
 function dealCard(row,f,top){
   var d=row.d,o=row.o,fl=o.flight,h=o.hotel,pkg=f.mode==='package';
   var pp=Math.round(row.price/PAX_COUNT[f.pax]);
   var body=[];
-  if(f.mode!=='hotels')body.push(flightSeg(d,fl,pkg));
+  if(f.mode!=='hotels')body.push(flightSeg(d,fl,pkg)+momondoLine(d,fl,f));
   if(f.mode!=='flights'&&h)body.push(hotelSeg(h,pkg));
   var cta=(f.mode!=='hotels'&&fl.link?'<a class="cta-btn cta-pri" href="'+fl.link+'" target="_blank" rel="noopener">✈️ Book Flight</a>':'')
          +(f.mode!=='flights'&&h&&h.link?'<a class="cta-btn '+(f.mode==='hotels'?'cta-pri':'cta-sec')+'" href="'+h.link+'" target="_blank" rel="noopener">🏨 Book Hotel</a>':'');
