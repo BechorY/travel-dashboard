@@ -1,431 +1,8 @@
 {
- "updatedAt": "2026-11-01T07:54:13.000Z",
+ "updatedAt": "2026-11-11T19:05:19.000Z",
  "season": "winter",
- "nextSunday": "2026-11-08",
+ "nextSunday": "2026-11-15",
  "weeks": [
-  {
-   "label": "Sun 8 Nov",
-   "departure": "2026-11-08",
-   "return": "2026-11-15",
-   "destinations": [
-    {
-     "dest": "Budapest",
-     "flag": "🇭🇺",
-     "type": "city",
-     "flight": {
-      "price": 366,
-      "departsLocal": "2026-11-07T19:30:00",
-      "arrivesLocal": "2026-11-07T22:05:00",
-      "durationSec": 12900,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-15T05:00:00",
-      "returnDuration": 11700,
-      "link": "https://kiwi.com/u/3h376x"
-     },
-     "hotel": {
-      "name": "Bohem Art Hotel",
-      "score": 9.0,
-      "stars": 4,
-      "reviews": 3602,
-      "priceUSD": 987,
-      "nights": 8,
-      "link": "https://www.booking.com/hotel/hu/bohem-art.html?checkin=2026-11-07&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1353,
-     "perPersonUSD": 676,
-     "family": {
-      "flight": {
-       "price": 1115,
-       "departsLocal": "2026-11-07T19:30:00",
-       "arrivesLocal": "2026-11-07T22:05:00",
-       "durationSec": 12900,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-15T05:00:00",
-       "returnDuration": 11700,
-       "link": "https://kiwi.com/u/pcdrcy"
-      },
-      "hotel": {
-       "name": "Collect Residence",
-       "score": 9.3,
-       "stars": 4,
-       "reviews": 2308,
-       "priceUSD": 1895,
-       "nights": 8,
-       "link": "https://www.booking.com/hotel/hu/collect-residence.html?checkin=2026-11-07&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 3010,
-      "perPersonUSD": 502
-     }
-    },
-    {
-     "dest": "Prague",
-     "flag": "🇨🇿",
-     "type": "city",
-     "flight": {
-      "price": 769,
-      "departsLocal": "2026-11-08T05:35:00",
-      "arrivesLocal": "2026-11-08T08:45:00",
-      "durationSec": 15000,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-15T14:50:00",
-      "returnDuration": 13500,
-      "link": "https://kiwi.com/u/nr3dyju"
-     },
-     "hotel": {
-      "name": "Hotel William",
-      "score": 8.4,
-      "stars": 3,
-      "reviews": 3834,
-      "priceUSD": 620,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/cz/hotelwilliam.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1389,
-     "perPersonUSD": 694,
-     "family": {
-      "flight": {
-       "price": 2307,
-       "departsLocal": "2026-11-08T05:35:00",
-       "arrivesLocal": "2026-11-08T08:45:00",
-       "durationSec": 15000,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-15T14:50:00",
-       "returnDuration": 13500,
-       "link": "https://kiwi.com/u/zdyz23q"
-      },
-      "hotel": {
-       "name": "Residence Mysterius Old Town",
-       "score": 8.7,
-       "stars": 4,
-       "reviews": 147,
-       "priceUSD": 1469,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/cz/residence-prague-superbyke-masna-9.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 3776,
-      "perPersonUSD": 629
-     }
-    },
-    {
-     "dest": "Tenerife",
-     "flag": "🇪🇸",
-     "type": "beach",
-     "flight": {
-      "price": 850,
-      "departsLocal": "2026-11-07T21:25:00",
-      "arrivesLocal": "2026-11-08T12:40:00",
-      "durationSec": 62100,
-      "stops": 1,
-      "stopCity": "London",
-      "returnDeparts": "2026-11-15T17:55:00",
-      "returnDuration": 50400,
-      "link": "https://kiwi.com/u/54uy7w"
-     },
-     "hotel": {
-      "name": "Hotel Rural Bentor",
-      "score": 8.0,
-      "stars": 1,
-      "reviews": 179,
-      "priceUSD": 658,
-      "nights": 8,
-      "link": "https://www.booking.com/hotel/es/rural-bentor.html?checkin=2026-11-07&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1508,
-     "perPersonUSD": 754,
-     "family": {
-      "flight": {
-       "price": 2614,
-       "departsLocal": "2026-11-07T21:25:00",
-       "arrivesLocal": "2026-11-08T11:35:00",
-       "durationSec": 58200,
-       "stops": 1,
-       "stopCity": "London",
-       "returnDeparts": "2026-11-15T14:55:00",
-       "returnDuration": 41700,
-       "link": "https://kiwi.com/u/rxx72tx"
-      },
-      "hotel": {
-       "name": "Medano Beach Villas",
-       "score": 9.1,
-       "stars": 4,
-       "reviews": 329,
-       "priceUSD": 1278,
-       "nights": 8,
-       "link": "https://www.booking.com/hotel/es/medano-beach-villas.html?checkin=2026-11-07&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 3892,
-      "perPersonUSD": 649
-     }
-    },
-    {
-     "dest": "Vienna",
-     "flag": "🇦🇹",
-     "type": "city",
-     "flight": {
-      "price": 854,
-      "departsLocal": "2026-11-08T05:55:00",
-      "arrivesLocal": "2026-11-08T08:40:00",
-      "durationSec": 13500,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-15T14:45:00",
-      "returnDuration": 12600,
-      "link": "https://kiwi.com/u/spd97hr"
-     },
-     "hotel": {
-      "name": "Margot",
-      "score": 8.6,
-      "stars": 3,
-      "reviews": 996,
-      "priceUSD": 938,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/at/margot.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1792,
-     "perPersonUSD": 896,
-     "family": {
-      "flight": {
-       "price": 2467,
-       "departsLocal": "2026-11-08T05:55:00",
-       "arrivesLocal": "2026-11-08T08:40:00",
-       "durationSec": 13500,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-15T14:45:00",
-       "returnDuration": 12600,
-       "link": "https://kiwi.com/u/4782ctt"
-      },
-      "hotel": {
-       "name": "Margot",
-       "score": 8.6,
-       "stars": 3,
-       "reviews": 996,
-       "priceUSD": 2099,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/at/margot.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 4566,
-      "perPersonUSD": 761
-     }
-    },
-    {
-     "dest": "Dubai",
-     "flag": "🇦🇪",
-     "type": "city",
-     "flight": {
-      "price": 1422,
-      "departsLocal": "2026-11-08T07:00:00",
-      "arrivesLocal": "2026-11-08T16:20:00",
-      "durationSec": 26400,
-      "stops": 1,
-      "stopCity": "Tbilisi",
-      "returnDeparts": "2026-11-15T23:55:00",
-      "returnDuration": 57000,
-      "link": "https://kiwi.com/u/s8skk6"
-     },
-     "hotel": {
-      "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
-      "score": 8.6,
-      "stars": 4,
-      "reviews": 11844,
-      "priceUSD": 743,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2165,
-     "perPersonUSD": 1082,
-     "family": {
-      "flight": {
-       "price": 4423,
-       "departsLocal": "2026-11-08T07:00:00",
-       "arrivesLocal": "2026-11-08T16:20:00",
-       "durationSec": 26400,
-       "stops": 1,
-       "stopCity": "Tbilisi",
-       "returnDeparts": "2026-11-15T03:25:00",
-       "returnDuration": 47700,
-       "link": "https://kiwi.com/u/w2xnhv4"
-      },
-      "hotel": {
-       "name": "Barcelo Business Bay Dubai",
-       "score": 8.8,
-       "stars": 4,
-       "reviews": 2958,
-       "priceUSD": 2084,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/ae/barcelo-business-bay-dubai.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 6507,
-      "perPersonUSD": 1084
-     }
-    },
-    {
-     "dest": "Phuket",
-     "flag": "🇹🇭",
-     "type": "beach",
-     "flight": {
-      "price": 2039,
-      "departsLocal": "2026-11-08T06:30:00",
-      "arrivesLocal": "2026-11-09T07:55:00",
-      "durationSec": 73500,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-15T20:20:00",
-      "returnDuration": 112200,
-      "link": "https://kiwi.com/u/3hw4um"
-     },
-     "hotel": {
-      "name": "Pearl Hotel Phuket",
-      "score": 8.2,
-      "stars": 4,
-      "reviews": 362,
-      "priceUSD": 327,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/pearl-phuket.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2366,
-     "perPersonUSD": 1183,
-     "family": {
-      "flight": {
-       "price": 8614,
-       "departsLocal": "2026-11-08T06:30:00",
-       "arrivesLocal": "2026-11-09T07:55:00",
-       "durationSec": 73500,
-       "stops": 2,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-11-15T12:45:00",
-       "returnDuration": 54600,
-       "link": "https://kiwi.com/u/8ggn9r"
-      },
-      "hotel": {
-       "name": "Pearl Hotel Phuket",
-       "score": 8.2,
-       "stars": 4,
-       "reviews": 362,
-       "priceUSD": 944,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/th/pearl-phuket.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 9558,
-      "perPersonUSD": 1593
-     }
-    },
-    {
-     "dest": "Bangkok",
-     "flag": "🇹🇭",
-     "type": "exotic",
-     "flight": {
-      "price": 2038,
-      "departsLocal": "2026-11-08T06:30:00",
-      "arrivesLocal": "2026-11-09T09:50:00",
-      "durationSec": 80400,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-15T20:15:00",
-      "returnDuration": 80400,
-      "link": "https://kiwi.com/u/v62jh5"
-     },
-     "hotel": {
-      "name": "Grand Mercure Bangkok Asoke Residence",
-      "score": 8.2,
-      "stars": 5,
-      "reviews": 347,
-      "priceUSD": 832,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/asoke-residence.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2870,
-     "perPersonUSD": 1435,
-     "family": {
-      "flight": {
-       "price": 7884,
-       "departsLocal": "2026-11-07T19:20:00",
-       "arrivesLocal": "2026-11-08T23:40:00",
-       "durationSec": 84000,
-       "stops": 1,
-       "stopCity": "Abu Dhabi",
-       "returnDeparts": "2026-11-15T14:40:00",
-       "returnDuration": 49800,
-       "link": "https://kiwi.com/u/f5dw9k"
-      },
-      "hotel": {
-       "name": "SureStay by Best Western Siriraj Bangkok",
-       "score": 9.0,
-       "stars": 3,
-       "reviews": 145,
-       "priceUSD": 828,
-       "nights": 8,
-       "link": "https://www.booking.com/hotel/th/surestay-by-best-western-siriraj-bangkok.html?checkin=2026-11-07&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 8712,
-      "perPersonUSD": 1452
-     }
-    },
-    {
-     "dest": "Maldives",
-     "flag": "🇲🇻",
-     "type": "beach",
-     "flight": {
-      "price": 2626,
-      "departsLocal": "2026-11-08T06:30:00",
-      "arrivesLocal": "2026-11-09T06:35:00",
-      "durationSec": 75900,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-15T19:05:00",
-      "returnDuration": 71400,
-      "link": "https://kiwi.com/u/tf8zw5"
-     },
-     "hotel": {
-      "name": "Rattehi Inn at Rakeedhoo",
-      "score": 9.8,
-      "stars": 3,
-      "reviews": 140,
-      "priceUSD": 751,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/mv/rattehi-inn-at-rakeedhoo.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 3377,
-     "perPersonUSD": 1688,
-     "family": {
-      "flight": {
-       "price": 7890,
-       "departsLocal": "2026-11-08T06:30:00",
-       "arrivesLocal": "2026-11-09T06:35:00",
-       "durationSec": 75900,
-       "stops": 2,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-11-15T19:05:00",
-       "returnDuration": 71400,
-       "link": "https://kiwi.com/u/c289yj8"
-      },
-      "hotel": {
-       "name": "Rattehi Inn at Rakeedhoo",
-       "score": 9.8,
-       "stars": 3,
-       "reviews": 140,
-       "priceUSD": 1853,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/mv/rattehi-inn-at-rakeedhoo.html?checkin=2026-11-08&checkout=2026-11-15&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 9743,
-      "perPersonUSD": 1624
-     }
-    }
-   ]
-  },
   {
    "label": "Sun 15 Nov",
    "departure": "2026-11-15",
@@ -436,103 +13,51 @@
      "flag": "🇨🇿",
      "type": "city",
      "flight": {
-      "price": 811,
-      "departsLocal": "2026-11-15T05:35:00",
-      "arrivesLocal": "2026-11-15T08:45:00",
-      "durationSec": 15000,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-22T14:50:00",
-      "returnDuration": 13500,
-      "link": "https://kiwi.com/u/fb3vhh"
+      "price": 653,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-15T08:40:00",
+      "durationSec": 50700,
+      "stops": 1,
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T10:55:00",
+      "returnDuration": 35700,
+      "link": "https://kiwi.com/u/79q5sf9"
      },
      "hotel": {
-      "name": "Hotel William",
-      "score": 8.4,
-      "stars": 3,
-      "reviews": 3834,
-      "priceUSD": 717,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/cz/hotelwilliam.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1528,
-     "perPersonUSD": 764,
-     "family": {
-      "flight": {
-       "price": 2435,
-       "departsLocal": "2026-11-15T05:35:00",
-       "arrivesLocal": "2026-11-15T08:45:00",
-       "durationSec": 15000,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-22T14:50:00",
-       "returnDuration": 13500,
-       "link": "https://kiwi.com/u/ks7rv9"
-      },
-      "hotel": {
-       "name": "Pytloun Bristol Residence Prague",
-       "score": 8.4,
-       "stars": 4,
-       "reviews": 2931,
-       "priceUSD": 1550,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/cz/residence-dlouha-old-town.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 3985,
-      "perPersonUSD": 664
-     }
-    },
-    {
-     "dest": "Budapest",
-     "flag": "🇭🇺",
-     "type": "city",
-     "flight": {
-      "price": 485,
-      "departsLocal": "2026-11-14T19:30:00",
-      "arrivesLocal": "2026-11-14T22:05:00",
-      "durationSec": 12900,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-22T05:00:00",
-      "returnDuration": 11700,
-      "link": "https://kiwi.com/u/kcm4phv"
-     },
-     "hotel": {
-      "name": "Nemzeti Hotel Budapest - MGallery Collection",
-      "score": 8.9,
+      "name": "Figaro Suites",
+      "score": 8.8,
       "stars": 4,
-      "reviews": 766,
-      "priceUSD": 1169,
+      "reviews": 5762,
+      "priceUSD": 588,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/hu/nemzeti-budapest.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/cz/figaro-suites.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1654,
-     "perPersonUSD": 827,
+     "totalUSD": 1241,
+     "perPersonUSD": 621,
      "family": {
       "flight": {
-       "price": 1478,
-       "departsLocal": "2026-11-14T19:30:00",
-       "arrivesLocal": "2026-11-14T22:05:00",
-       "durationSec": 12900,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-22T05:00:00",
-       "returnDuration": 11700,
-       "link": "https://kiwi.com/u/xkdj9z"
+       "price": 2175,
+       "departsLocal": "2026-11-14T23:30:00",
+       "arrivesLocal": "2026-11-15T09:25:00",
+       "durationSec": 39300,
+       "stops": 1,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-11-22T10:55:00",
+       "returnDuration": 35700,
+       "link": "https://kiwi.com/u/t34rfk6"
       },
       "hotel": {
-       "name": "Erkel Homes by STN",
-       "score": 8.4,
+       "name": "Prague City Residence",
+       "score": 8.5,
        "stars": 3,
-       "reviews": 68,
-       "priceUSD": 1207,
+       "reviews": 4340,
+       "priceUSD": 1283,
        "nights": 8,
-       "link": "https://www.booking.com/hotel/hu/erkel-homes-by-stn.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/cz/residence-invalidovna.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 2685,
-      "perPersonUSD": 448
+      "totalUSD": 3458,
+      "perPersonUSD": 576
      }
     },
     {
@@ -540,103 +65,103 @@
      "flag": "🇦🇹",
      "type": "city",
      "flight": {
-      "price": 607,
-      "departsLocal": "2026-11-14T23:30:00",
-      "arrivesLocal": "2026-11-15T07:25:00",
-      "durationSec": 32100,
+      "price": 620,
+      "departsLocal": "2026-11-14T19:35:00",
+      "arrivesLocal": "2026-11-15T08:00:00",
+      "durationSec": 48300,
       "stops": 1,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-22T06:20:00",
-      "returnDuration": 21900,
-      "link": "https://kiwi.com/u/28u8gnb"
+      "stopCity": "Rome",
+      "returnDeparts": "2026-11-22T05:55:00",
+      "returnDuration": 53700,
+      "link": "https://kiwi.com/u/w85pwd"
      },
      "hotel": {
-      "name": "Vienna Residence, Prater - Exhibition Center",
-      "score": 8.5,
+      "name": "The Social Hub Vienna Extended Stay",
+      "score": 8.9,
       "stars": 4,
-      "reviews": 816,
-      "priceUSD": 1111,
+      "reviews": 629,
+      "priceUSD": 730,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/at/vienna-residence-theme-park-exhibition-center.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1718,
-     "perPersonUSD": 859,
+     "totalUSD": 1350,
+     "perPersonUSD": 675,
      "family": {
       "flight": {
-       "price": 2534,
-       "departsLocal": "2026-11-15T05:55:00",
-       "arrivesLocal": "2026-11-15T08:40:00",
-       "durationSec": 13500,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-22T14:45:00",
-       "returnDuration": 12600,
-       "link": "https://kiwi.com/u/pcqmdf"
+       "price": 2191,
+       "departsLocal": "2026-11-14T19:35:00",
+       "arrivesLocal": "2026-11-15T08:00:00",
+       "durationSec": 48300,
+       "stops": 1,
+       "stopCity": "Rome",
+       "returnDeparts": "2026-11-22T06:20:00",
+       "returnDuration": 21900,
+       "link": "https://kiwi.com/u/rzt4vh"
       },
       "hotel": {
-       "name": "Vienna Residence, Hietzing - Schönbrunn",
-       "score": 8.4,
+       "name": "Melody Apartments Vienna - Modern & Spacious with Terrace",
+       "score": 9.5,
        "stars": 4,
-       "reviews": 673,
-       "priceUSD": 1899,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/at/vienna-residence-hietzinger-kai-75.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "reviews": 119,
+       "priceUSD": 1843,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/at/melody-apartments-vienna.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 4433,
-      "perPersonUSD": 739
+      "totalUSD": 4034,
+      "perPersonUSD": 672
      }
     },
     {
-     "dest": "Dubai",
-     "flag": "🇦🇪",
+     "dest": "Budapest",
+     "flag": "🇭🇺",
      "type": "city",
      "flight": {
-      "price": 1260,
-      "departsLocal": "2026-11-15T06:30:00",
-      "arrivesLocal": "2026-11-15T20:15:00",
-      "durationSec": 42300,
-      "stops": 1,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-22T13:45:00",
-      "returnDuration": 69600,
-      "link": "https://kiwi.com/u/vv7qdb"
+      "price": 555,
+      "departsLocal": "2026-11-14T19:30:00",
+      "arrivesLocal": "2026-11-14T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-22T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/4mcsghr"
      },
      "hotel": {
-      "name": "TRYP by Wyndham Dubai",
-      "score": 8.6,
+      "name": "Váralja Home",
+      "score": 9.1,
       "stars": 4,
-      "reviews": 13890,
-      "priceUSD": 667,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/ae/tryp-by-wyndham-dubai.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 1949,
+      "priceUSD": 814,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/varalja-home.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1927,
-     "perPersonUSD": 964,
+     "totalUSD": 1369,
+     "perPersonUSD": 685,
      "family": {
       "flight": {
-       "price": 4574,
-       "departsLocal": "2026-11-15T08:00:00",
-       "arrivesLocal": "2026-11-15T17:00:00",
-       "durationSec": 25200,
-       "stops": 1,
-       "stopCity": "Larnaca",
-       "returnDeparts": "2026-11-22T18:00:00",
-       "returnDuration": 54300,
-       "link": "https://kiwi.com/u/4r4ycz"
+       "price": 1681,
+       "departsLocal": "2026-11-14T19:30:00",
+       "arrivesLocal": "2026-11-14T22:05:00",
+       "durationSec": 12900,
+       "stops": 0,
+       "stopCity": null,
+       "returnDeparts": "2026-11-22T05:00:00",
+       "returnDuration": 11700,
+       "link": "https://kiwi.com/u/c258vd"
       },
       "hotel": {
-       "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
-       "score": 8.6,
+       "name": "Central Passage Apartments by Vagabond Downtown",
+       "score": 8.1,
        "stars": 4,
-       "reviews": 11844,
-       "priceUSD": 1486,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "reviews": 369,
+       "priceUSD": 2262,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/hu/central-passage-budapest-apartments.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 6060,
-      "perPersonUSD": 1010
+      "totalUSD": 3943,
+      "perPersonUSD": 657
      }
     },
     {
@@ -644,51 +169,103 @@
      "flag": "🇪🇸",
      "type": "beach",
      "flight": {
-      "price": 917,
+      "price": 868,
       "departsLocal": "2026-11-14T21:25:00",
       "arrivesLocal": "2026-11-15T11:15:00",
       "durationSec": 57000,
       "stops": 1,
       "stopCity": "London",
-      "returnDeparts": "2026-11-22T19:05:00",
-      "returnDuration": 47400,
-      "link": "https://kiwi.com/u/qkz4xhv"
+      "returnDeparts": "2026-11-22T16:20:00",
+      "returnDuration": 36600,
+      "link": "https://kiwi.com/u/68n2bk"
      },
      "hotel": {
-      "name": "Hotel Puerto Palace",
-      "score": 8.6,
-      "stars": 4,
-      "reviews": 5389,
-      "priceUSD": 1202,
+      "name": "Route Active Hotel",
+      "score": 8.4,
+      "stars": 3,
+      "reviews": 1418,
+      "priceUSD": 1026,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/es/puerto-palace.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/es/route-active.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2119,
-     "perPersonUSD": 1060,
+     "totalUSD": 1894,
+     "perPersonUSD": 947,
      "family": {
       "flight": {
-       "price": 2765,
+       "price": 2576,
        "departsLocal": "2026-11-14T21:25:00",
        "arrivesLocal": "2026-11-15T11:15:00",
        "durationSec": 57000,
        "stops": 1,
        "stopCity": "London",
-       "returnDeparts": "2026-11-22T19:05:00",
-       "returnDuration": 47400,
-       "link": "https://kiwi.com/u/j8cjj7k"
+       "returnDeparts": "2026-11-22T16:20:00",
+       "returnDuration": 36600,
+       "link": "https://kiwi.com/u/dbj3sds"
       },
       "hotel": {
-       "name": "Santa Barbara Golf and Ocean Club",
-       "score": 8.8,
+       "name": "Marinell Collection Palm-Mar",
+       "score": 8.7,
        "stars": 4,
-       "reviews": 5377,
-       "priceUSD": 2258,
+       "reviews": 5370,
+       "priceUSD": 1376,
        "nights": 8,
-       "link": "https://www.booking.com/hotel/es/santa-barbara-golf-and-ocean-club.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/es/palm-mar-apartments.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 5023,
-      "perPersonUSD": 837
+      "totalUSD": 3952,
+      "perPersonUSD": 659
+     }
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1300,
+      "departsLocal": "2026-11-14T23:30:00",
+      "arrivesLocal": "2026-11-15T20:15:00",
+      "durationSec": 67500,
+      "stops": 1,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-11-22T13:45:00",
+      "returnDuration": 69600,
+      "link": "https://kiwi.com/u/d7bhd4x"
+     },
+     "hotel": {
+      "name": "Grand Heights Dubai Hotel Apartments",
+      "score": 8.7,
+      "stars": 4,
+      "reviews": 3266,
+      "priceUSD": 728,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/grand-midwest-reve.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2028,
+     "perPersonUSD": 1014,
+     "family": {
+      "flight": {
+       "price": 4657,
+       "departsLocal": "2026-11-14T22:00:00",
+       "arrivesLocal": "2026-11-15T16:50:00",
+       "durationSec": 60600,
+       "stops": 1,
+       "stopCity": "Tbilisi",
+       "returnDeparts": "2026-11-22T07:50:00",
+       "returnDuration": 35400,
+       "link": "https://kiwi.com/u/ws2stw"
+      },
+      "hotel": {
+       "name": "Flora Al Barsha Hotel At The Mall",
+       "score": 8.5,
+       "stars": 4,
+       "reviews": 6393,
+       "priceUSD": 1541,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/ae/flora-al-barsha.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6198,
+      "perPersonUSD": 1033
      }
     },
     {
@@ -696,51 +273,51 @@
      "flag": "🇹🇭",
      "type": "beach",
      "flight": {
-      "price": 1964,
-      "departsLocal": "2026-11-15T06:30:00",
+      "price": 2000,
+      "departsLocal": "2026-11-14T23:30:00",
       "arrivesLocal": "2026-11-16T10:15:00",
-      "durationSec": 81900,
+      "durationSec": 107100,
       "stops": 2,
       "stopCity": "Athens",
       "returnDeparts": "2026-11-22T20:20:00",
-      "returnDuration": 81300,
-      "link": "https://kiwi.com/u/jyhsuhb"
+      "returnDuration": 112200,
+      "link": "https://kiwi.com/u/ybj9fgy"
      },
      "hotel": {
-      "name": "The Arbern Hotel x Bistro - SHA Extra Plus",
-      "score": 8.7,
+      "name": "XAYA Pool Access Resort - Phuket",
+      "score": 8.3,
       "stars": 3,
-      "reviews": 885,
-      "priceUSD": 328,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/the-arbern-hostel-x-bistro.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 179,
+      "priceUSD": 231,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/xaya-pool-access-resort-phuket.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2292,
-     "perPersonUSD": 1146,
+     "totalUSD": 2231,
+     "perPersonUSD": 1116,
      "family": {
       "flight": {
-       "price": 7243,
-       "departsLocal": "2026-11-15T06:30:00",
-       "arrivesLocal": "2026-11-16T08:05:00",
-       "durationSec": 74100,
-       "stops": 2,
+       "price": 7602,
+       "departsLocal": "2026-11-14T19:10:00",
+       "arrivesLocal": "2026-11-15T23:30:00",
+       "durationSec": 84000,
+       "stops": 3,
        "stopCity": "Athens",
-       "returnDeparts": "2026-11-22T22:40:00",
-       "returnDuration": 60600,
-       "link": "https://kiwi.com/u/46kfkd"
+       "returnDeparts": "2026-11-22T15:15:00",
+       "returnDuration": 92400,
+       "link": "https://kiwi.com/u/wbyjpb"
       },
       "hotel": {
-       "name": "WOW PHUKET",
-       "score": 8.8,
-       "stars": 4,
-       "reviews": 318,
-       "priceUSD": 1095,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/th/wow-phuket.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "name": "Mayfa Hotel - SHA extra plus",
+       "score": 8.1,
+       "stars": 3,
+       "reviews": 50,
+       "priceUSD": 506,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/th/mayfa.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 8338,
-      "perPersonUSD": 1390
+      "totalUSD": 8108,
+      "perPersonUSD": 1351
      }
     },
     {
@@ -748,51 +325,51 @@
      "flag": "🇹🇭",
      "type": "exotic",
      "flight": {
-      "price": 1910,
-      "departsLocal": "2026-11-15T06:30:00",
-      "arrivesLocal": "2026-11-16T10:25:00",
-      "durationSec": 82500,
+      "price": 2271,
+      "departsLocal": "2026-11-15T06:00:00",
+      "arrivesLocal": "2026-11-16T10:05:00",
+      "durationSec": 83100,
       "stops": 2,
-      "stopCity": "Athens",
+      "stopCity": "Tirana",
       "returnDeparts": "2026-11-22T20:15:00",
-      "returnDuration": 81600,
-      "link": "https://kiwi.com/u/cnd7p5"
+      "returnDuration": 112500,
+      "link": "https://kiwi.com/u/565tggy"
      },
      "hotel": {
-      "name": "Holiday Inn Express Bangkok Siam by IHG",
-      "score": 8.0,
-      "stars": 4,
-      "reviews": 2057,
-      "priceUSD": 828,
+      "name": "Amarin Inn",
+      "score": 8.8,
+      "stars": 2,
+      "reviews": 200,
+      "priceUSD": 148,
       "nights": 7,
-      "link": "https://www.booking.com/hotel/th/holiday-inn-express-bangkok-siam.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/th/amarin-inn.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2738,
-     "perPersonUSD": 1369,
+     "totalUSD": 2419,
+     "perPersonUSD": 1210,
      "family": {
       "flight": {
-       "price": 7600,
-       "departsLocal": "2026-11-15T07:00:00",
-       "arrivesLocal": "2026-11-16T14:50:00",
-       "durationSec": 96600,
-       "stops": 1,
-       "stopCity": "Munich",
-       "returnDeparts": "2026-11-22T23:30:00",
-       "returnDuration": 77700,
-       "link": "https://kiwi.com/u/59gbrtx"
+       "price": 6697,
+       "departsLocal": "2026-11-15T06:00:00",
+       "arrivesLocal": "2026-11-16T10:05:00",
+       "durationSec": 83100,
+       "stops": 2,
+       "stopCity": "Tirana",
+       "returnDeparts": "2026-11-22T19:55:00",
+       "returnDuration": 75600,
+       "link": "https://kiwi.com/u/ycnd9c"
       },
       "hotel": {
-       "name": "SureStay by Best Western Siriraj Bangkok",
-       "score": 9.0,
-       "stars": 3,
-       "reviews": 145,
-       "priceUSD": 705,
+       "name": "Tuk Tuk Hostel",
+       "score": 8.1,
+       "stars": 2,
+       "reviews": 336,
+       "priceUSD": 320,
        "nights": 7,
-       "link": "https://www.booking.com/hotel/th/surestay-by-best-western-siriraj-bangkok.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/th/tuktuk-hostel.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 8305,
-      "perPersonUSD": 1384
+      "totalUSD": 7017,
+      "perPersonUSD": 1170
      }
     },
     {
@@ -800,51 +377,51 @@
      "flag": "🇲🇻",
      "type": "beach",
      "flight": {
-      "price": 2269,
-      "departsLocal": "2026-11-15T06:30:00",
-      "arrivesLocal": "2026-11-16T08:10:00",
-      "durationSec": 81600,
+      "price": 2084,
+      "departsLocal": "2026-11-14T23:50:00",
+      "arrivesLocal": "2026-11-16T07:50:00",
+      "durationSec": 104400,
       "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-22T17:45:00",
-      "returnDuration": 78300,
-      "link": "https://kiwi.com/u/z2674gt"
+      "stopCity": "Baku",
+      "returnDeparts": "2026-11-22T20:45:00",
+      "returnDuration": 104700,
+      "link": "https://kiwi.com/u/6hb6dp"
      },
      "hotel": {
-      "name": "Heron Beach Hotel Dhiffushi",
-      "score": 8.7,
+      "name": "Araamu Hotels Maldives at Dhiffushi",
+      "score": 8.8,
       "stars": 4,
-      "reviews": 567,
-      "priceUSD": 768,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/mv/heron-beach.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 335,
+      "priceUSD": 870,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/araamu-holidays-amp-spa.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 3037,
-     "perPersonUSD": 1518,
+     "totalUSD": 2954,
+     "perPersonUSD": 1477,
      "family": {
       "flight": {
-       "price": 7429,
-       "departsLocal": "2026-11-15T07:10:00",
+       "price": 6064,
+       "departsLocal": "2026-11-14T23:50:00",
        "arrivesLocal": "2026-11-16T07:50:00",
-       "durationSec": 78000,
+       "durationSec": 104400,
        "stops": 2,
-       "stopCity": "Rome",
-       "returnDeparts": "2026-11-22T21:05:00",
-       "returnDuration": 78300,
-       "link": "https://kiwi.com/u/vq7yq3"
+       "stopCity": "Baku",
+       "returnDeparts": "2026-11-22T20:45:00",
+       "returnDuration": 78900,
+       "link": "https://kiwi.com/u/sx3txh"
       },
       "hotel": {
        "name": "Avyanna Gulhi Beach Hotel",
        "score": 8.8,
        "stars": 4,
-       "reviews": 245,
-       "priceUSD": 1988,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/mv/avyanna-gulhi-beach.html?checkin=2026-11-15&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "reviews": 256,
+       "priceUSD": 2097,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/mv/avyanna-gulhi-beach.html?checkin=2026-11-14&checkout=2026-11-22&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 9417,
-      "perPersonUSD": 1570
+      "totalUSD": 8161,
+      "perPersonUSD": 1360
      }
     }
    ]
@@ -855,159 +432,107 @@
    "return": "2026-11-29",
    "destinations": [
     {
-     "dest": "Prague",
-     "flag": "🇨🇿",
-     "type": "city",
-     "flight": {
-      "price": 673,
-      "departsLocal": "2026-11-21T19:30:00",
-      "arrivesLocal": "2026-11-22T07:00:00",
-      "durationSec": 45000,
-      "stops": 1,
-      "stopCity": "Budapest",
-      "returnDeparts": "2026-11-29T09:10:00",
-      "returnDuration": 29400,
-      "link": "https://kiwi.com/u/fh5fh9"
-     },
-     "hotel": {
-      "name": "Residence Masna",
-      "score": 8.9,
-      "stars": 4,
-      "reviews": 301,
-      "priceUSD": 966,
-      "nights": 8,
-      "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1639,
-     "perPersonUSD": 820,
-     "family": {
-      "flight": {
-       "price": 2429,
-       "departsLocal": "2026-11-22T05:55:00",
-       "arrivesLocal": "2026-11-22T10:20:00",
-       "durationSec": 19500,
-       "stops": 1,
-       "stopCity": "Vienna",
-       "returnDeparts": "2026-11-29T14:50:00",
-       "returnDuration": 13500,
-       "link": "https://kiwi.com/u/jpwfnxm"
-      },
-      "hotel": {
-       "name": "Residence Masna",
-       "score": 8.9,
-       "stars": 4,
-       "reviews": 301,
-       "priceUSD": 2068,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 4497,
-      "perPersonUSD": 750
-     }
-    },
-    {
      "dest": "Tenerife",
      "flag": "🇪🇸",
      "type": "beach",
      "flight": {
-      "price": 721,
+      "price": 766,
       "departsLocal": "2026-11-21T19:35:00",
       "arrivesLocal": "2026-11-22T10:05:00",
       "durationSec": 59400,
       "stops": 1,
       "stopCity": "Rome",
-      "returnDeparts": "2026-11-29T19:35:00",
-      "returnDuration": 60300,
-      "link": "https://kiwi.com/u/6g7r2bg"
+      "returnDeparts": "2026-11-29T09:00:00",
+      "returnDuration": 63000,
+      "link": "https://kiwi.com/u/yqqhdx"
      },
      "hotel": {
-      "name": "Hotel Best Semiramis",
-      "score": 8.3,
-      "stars": 5,
-      "reviews": 3969,
-      "priceUSD": 984,
+      "name": "Coral La Quinta Park Suites",
+      "score": 8.8,
+      "stars": 4,
+      "reviews": 592,
+      "priceUSD": 546,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/es/best-semiramis.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/es/coral-vistas-la-quinta-apartments.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1705,
-     "perPersonUSD": 852,
+     "totalUSD": 1312,
+     "perPersonUSD": 656,
      "family": {
       "flight": {
-       "price": 3463,
-       "departsLocal": "2026-11-22T06:00:00",
-       "arrivesLocal": "2026-11-22T14:10:00",
-       "durationSec": 36600,
+       "price": 2560,
+       "departsLocal": "2026-11-21T21:25:00",
+       "arrivesLocal": "2026-11-22T11:15:00",
+       "durationSec": 57000,
        "stops": 1,
-       "stopCity": "Madrid",
-       "returnDeparts": "2026-11-29T19:35:00",
-       "returnDuration": 60300,
-       "link": "https://kiwi.com/u/v9y636w"
+       "stopCity": "London",
+       "returnDeparts": "2026-11-29T09:00:00",
+       "returnDuration": 53700,
+       "link": "https://kiwi.com/u/qnv8gbu"
       },
       "hotel": {
-       "name": "Costa Adeje Garden Aparthotel",
-       "score": 9.3,
-       "stars": 3,
-       "reviews": 870,
-       "priceUSD": 2866,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/es/costa-adeje-garden.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "name": "Fairways Club",
+       "score": 8.6,
+       "stars": 4,
+       "reviews": 1364,
+       "priceUSD": 1384,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/es/fairways-club-amarilla-golf-country-club.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 6329,
-      "perPersonUSD": 1055
+      "totalUSD": 3944,
+      "perPersonUSD": 657
      }
     },
     {
-     "dest": "Budapest",
-     "flag": "🇭🇺",
+     "dest": "Prague",
+     "flag": "🇨🇿",
      "type": "city",
      "flight": {
-      "price": 546,
+      "price": 671,
       "departsLocal": "2026-11-21T19:30:00",
-      "arrivesLocal": "2026-11-21T22:05:00",
-      "durationSec": 12900,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-11-29T05:00:00",
-      "returnDuration": 11700,
-      "link": "https://kiwi.com/u/u97vrh"
+      "arrivesLocal": "2026-11-22T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-11-29T14:50:00",
+      "returnDuration": 13500,
+      "link": "https://kiwi.com/u/xyrffy"
      },
      "hotel": {
-      "name": "Nemzeti Hotel Budapest - MGallery Collection",
-      "score": 8.9,
+      "name": "Figaro Suites",
+      "score": 8.8,
       "stars": 4,
-      "reviews": 766,
-      "priceUSD": 1257,
+      "reviews": 5762,
+      "priceUSD": 841,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/hu/nemzeti-budapest.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/cz/figaro-suites.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1803,
-     "perPersonUSD": 902,
+     "totalUSD": 1512,
+     "perPersonUSD": 756,
      "family": {
       "flight": {
-       "price": 1652,
+       "price": 2030,
        "departsLocal": "2026-11-21T19:30:00",
-       "arrivesLocal": "2026-11-21T22:05:00",
-       "durationSec": 12900,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-11-29T05:00:00",
-       "returnDuration": 11700,
-       "link": "https://kiwi.com/u/8pv8kzv"
+       "arrivesLocal": "2026-11-22T07:00:00",
+       "durationSec": 45000,
+       "stops": 1,
+       "stopCity": "Budapest",
+       "returnDeparts": "2026-11-29T14:50:00",
+       "returnDuration": 13500,
+       "link": "https://kiwi.com/u/6ryh5g8"
       },
       "hotel": {
-       "name": "Bohem Art Hotel",
-       "score": 9,
+       "name": "MIZU House by Prague Days",
+       "score": 9.0,
        "stars": 4,
-       "reviews": 3602,
-       "priceUSD": 2977,
+       "reviews": 417,
+       "priceUSD": 1785,
        "nights": 8,
-       "link": "https://www.booking.com/hotel/hu/bohem-art.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/cz/mizu-house-by-prague-days.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 4629,
-      "perPersonUSD": 772
+      "totalUSD": 3815,
+      "perPersonUSD": 636
      }
     },
     {
@@ -1015,155 +540,103 @@
      "flag": "🇦🇹",
      "type": "city",
      "flight": {
-      "price": 657,
-      "departsLocal": "2026-11-21T19:35:00",
-      "arrivesLocal": "2026-11-22T08:00:00",
-      "durationSec": 48300,
+      "price": 661,
+      "departsLocal": "2026-11-21T19:15:00",
+      "arrivesLocal": "2026-11-22T07:25:00",
+      "durationSec": 47400,
       "stops": 1,
-      "stopCity": "Rome",
+      "stopCity": "Athens",
       "returnDeparts": "2026-11-29T06:20:00",
-      "returnDuration": 39600,
-      "link": "https://kiwi.com/u/muwxmk"
+      "returnDuration": 56100,
+      "link": "https://kiwi.com/u/fm4qdzf"
      },
      "hotel": {
-      "name": "Vienna Residence, Prater - Exhibition Center",
-      "score": 8.5,
+      "name": "The Social Hub Vienna Extended Stay",
+      "score": 8.9,
       "stars": 4,
-      "reviews": 816,
-      "priceUSD": 1282,
+      "reviews": 629,
+      "priceUSD": 883,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/at/vienna-residence-theme-park-exhibition-center.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1939,
-     "perPersonUSD": 970,
+     "totalUSD": 1544,
+     "perPersonUSD": 772,
      "family": {
       "flight": {
-       "price": 2628,
+       "price": 2188,
        "departsLocal": "2026-11-22T05:55:00",
        "arrivesLocal": "2026-11-22T08:40:00",
        "durationSec": 13500,
        "stops": 0,
        "stopCity": null,
-       "returnDeparts": "2026-11-29T10:20:00",
+       "returnDeparts": "2026-11-29T23:55:00",
        "returnDuration": 12300,
-       "link": "https://kiwi.com/u/96tmhb"
+       "link": "https://kiwi.com/u/hshb8f"
       },
       "hotel": {
-       "name": "Vienna Residence, Prater - Exhibition Center",
-       "score": 8.5,
+       "name": "Somerset Schönbrunn Vienna",
+       "score": 9.0,
        "stars": 4,
-       "reviews": 816,
-       "priceUSD": 3236,
+       "reviews": 7346,
+       "priceUSD": 2027,
        "nights": 7,
-       "link": "https://www.booking.com/hotel/at/vienna-residence-theme-park-exhibition-center.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/at/somerset-schonbrunn-vienna-wien.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 5864,
-      "perPersonUSD": 977
+      "totalUSD": 4215,
+      "perPersonUSD": 703
      }
     },
     {
-     "dest": "Dubai",
-     "flag": "🇦🇪",
+     "dest": "Budapest",
+     "flag": "🇭🇺",
      "type": "city",
      "flight": {
-      "price": 1554,
-      "departsLocal": "2026-11-22T05:20:00",
-      "arrivesLocal": "2026-11-22T16:10:00",
-      "durationSec": 31800,
-      "stops": 1,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-29T17:25:00",
-      "returnDuration": 41400,
-      "link": "https://kiwi.com/u/7d92kz"
+      "price": 513,
+      "departsLocal": "2026-11-21T19:30:00",
+      "arrivesLocal": "2026-11-21T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-11-29T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/3uqvzb"
      },
      "hotel": {
-      "name": "TRYP by Wyndham Dubai",
-      "score": 8.6,
+      "name": "Adina Apartment Hotel Budapest",
+      "score": 9.3,
       "stars": 4,
-      "reviews": 13890,
-      "priceUSD": 699,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/ae/tryp-by-wyndham-dubai.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 1177,
+      "priceUSD": 1384,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/sydneyapartment.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2253,
-     "perPersonUSD": 1126,
+     "totalUSD": 1897,
+     "perPersonUSD": 949,
      "family": {
       "flight": {
-       "price": 4645,
-       "departsLocal": "2026-11-22T05:20:00",
-       "arrivesLocal": "2026-11-22T16:10:00",
-       "durationSec": 31800,
-       "stops": 1,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-11-29T17:25:00",
-       "returnDuration": 41400,
-       "link": "https://kiwi.com/u/d6pwbh"
+       "price": 1539,
+       "departsLocal": "2026-11-21T19:30:00",
+       "arrivesLocal": "2026-11-21T22:05:00",
+       "durationSec": 12900,
+       "stops": 0,
+       "stopCity": null,
+       "returnDeparts": "2026-11-29T05:00:00",
+       "returnDuration": 11700,
+       "link": "https://kiwi.com/u/dz3xzk6"
       },
       "hotel": {
-       "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
-       "score": 8.6,
+       "name": "CZECH INN Hotel Ferenc",
+       "score": 8.9,
        "stars": 4,
-       "reviews": 11844,
-       "priceUSD": 1582,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "reviews": 5022,
+       "priceUSD": 2678,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/hu/achat-premium-budapest.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 6227,
-      "perPersonUSD": 1038
-     }
-    },
-    {
-     "dest": "Phuket",
-     "flag": "🇹🇭",
-     "type": "beach",
-     "flight": {
-      "price": 2059,
-      "departsLocal": "2026-11-22T06:30:00",
-      "arrivesLocal": "2026-11-23T07:55:00",
-      "durationSec": 73500,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-29T16:25:00",
-      "returnDuration": 94200,
-      "link": "https://kiwi.com/u/4vwkcfp"
-     },
-     "hotel": {
-      "name": "Pearl Hotel Phuket",
-      "score": 8.2,
-      "stars": 4,
-      "reviews": 362,
-      "priceUSD": 342,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/pearl-phuket.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2401,
-     "perPersonUSD": 1200,
-     "family": {
-      "flight": {
-       "price": 6265,
-       "departsLocal": "2026-11-22T06:30:00",
-       "arrivesLocal": "2026-11-23T07:55:00",
-       "durationSec": 73500,
-       "stops": 2,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-11-29T20:20:00",
-       "returnDuration": 80100,
-       "link": "https://kiwi.com/u/zn3g9y"
-      },
-      "hotel": {
-       "name": "La Moon At Phuket - SHA Extra Plus",
-       "score": 8.2,
-       "stars": 3,
-       "reviews": 890,
-       "priceUSD": 610,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/th/phuket-resotel.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 6875,
-      "perPersonUSD": 1146
+      "totalUSD": 4217,
+      "perPersonUSD": 703
      }
     },
     {
@@ -1171,51 +644,155 @@
      "flag": "🇹🇭",
      "type": "exotic",
      "flight": {
-      "price": 1933,
-      "departsLocal": "2026-11-22T06:30:00",
-      "arrivesLocal": "2026-11-23T07:20:00",
-      "durationSec": 71400,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-11-29T20:15:00",
-      "returnDuration": 80400,
-      "link": "https://kiwi.com/u/ss56bct"
+      "price": 1774,
+      "departsLocal": "2026-11-21T19:20:00",
+      "arrivesLocal": "2026-11-22T11:35:00",
+      "durationSec": 40500,
+      "stops": 1,
+      "stopCity": "Abu Dhabi",
+      "returnDeparts": "2026-11-29T15:15:00",
+      "returnDuration": 86700,
+      "link": "https://kiwi.com/u/nrutgw"
      },
      "hotel": {
-      "name": "Maitria Hotel Sukhumvit 18 Bangkok – A Chatrium Collection",
-      "score": 8.8,
-      "stars": 4,
-      "reviews": 2008,
-      "priceUSD": 684,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/maitria-sukhumvit-18.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "name": "J PLACE HOTEL",
+      "score": 8.6,
+      "stars": 3,
+      "reviews": 239,
+      "priceUSD": 167,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/j-place.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2617,
-     "perPersonUSD": 1308,
+     "totalUSD": 1941,
+     "perPersonUSD": 970,
      "family": {
       "flight": {
-       "price": 6758,
-       "departsLocal": "2026-11-22T06:30:00",
-       "arrivesLocal": "2026-11-23T11:35:00",
-       "durationSec": 86700,
-       "stops": 2,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-11-29T20:50:00",
-       "returnDuration": 72300,
-       "link": "https://kiwi.com/u/25hssd"
+       "price": 5319,
+       "departsLocal": "2026-11-21T19:20:00",
+       "arrivesLocal": "2026-11-22T11:35:00",
+       "durationSec": 40500,
+       "stops": 1,
+       "stopCity": "Abu Dhabi",
+       "returnDeparts": "2026-11-29T15:15:00",
+       "returnDuration": 86700,
+       "link": "https://kiwi.com/u/y5cxhhr"
       },
       "hotel": {
-       "name": "Queensland Hotel Bangkok",
-       "score": 8.7,
-       "stars": 4,
-       "reviews": 1332,
-       "priceUSD": 1263,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/th/queensland-bangkok.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "name": "J PLACE HOTEL",
+       "score": 8.6,
+       "stars": 3,
+       "reviews": 239,
+       "priceUSD": 335,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/th/j-place.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 8021,
-      "perPersonUSD": 1337
+      "totalUSD": 5654,
+      "perPersonUSD": 942
+     }
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1553,
+      "departsLocal": "2026-11-21T22:00:00",
+      "arrivesLocal": "2026-11-22T16:05:00",
+      "durationSec": 57900,
+      "stops": 1,
+      "stopCity": "Tbilisi",
+      "returnDeparts": "2026-11-29T12:30:00",
+      "returnDuration": 64800,
+      "link": "https://kiwi.com/u/xn46dr2"
+     },
+     "hotel": {
+      "name": "Citymax Hotel Business Bay",
+      "score": 8.2,
+      "stars": 4,
+      "reviews": 5269,
+      "priceUSD": 561,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/citymax-business-bay.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2114,
+     "perPersonUSD": 1057,
+     "family": {
+      "flight": {
+       "price": 5359,
+       "departsLocal": "2026-11-21T22:00:00",
+       "arrivesLocal": "2026-11-22T16:05:00",
+       "durationSec": 57900,
+       "stops": 1,
+       "stopCity": "Tbilisi",
+       "returnDeparts": "2026-11-29T18:00:00",
+       "returnDuration": 24900,
+       "link": "https://kiwi.com/u/wnsbz6"
+      },
+      "hotel": {
+       "name": "Barcelo Business Bay Dubai",
+       "score": 8.8,
+       "stars": 4,
+       "reviews": 2952,
+       "priceUSD": 1412,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/ae/barcelo-business-bay-dubai.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6771,
+      "perPersonUSD": 1129
+     }
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 2115,
+      "departsLocal": "2026-11-21T23:30:00",
+      "arrivesLocal": "2026-11-23T09:40:00",
+      "durationSec": 105000,
+      "stops": 3,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-11-29T20:20:00",
+      "returnDuration": 81300,
+      "link": "https://kiwi.com/u/ck9t9qk"
+     },
+     "hotel": {
+      "name": "The Palms Residence - SHA Extra Plus",
+      "score": 8.1,
+      "stars": 2,
+      "reviews": 308,
+      "priceUSD": 229,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/the-palms-residence.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2344,
+     "perPersonUSD": 1172,
+     "family": {
+      "flight": {
+       "price": 7819,
+       "departsLocal": "2026-11-21T19:20:00",
+       "arrivesLocal": "2026-11-22T23:30:00",
+       "durationSec": 83400,
+       "stops": 1,
+       "stopCity": "Abu Dhabi",
+       "returnDeparts": "2026-11-29T15:15:00",
+       "returnDuration": 87600,
+       "link": "https://kiwi.com/u/3urm6p8"
+      },
+      "hotel": {
+       "name": "Phuket Sunny Hostel",
+       "score": 8.5,
+       "stars": 2,
+       "reviews": 704,
+       "priceUSD": 464,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/th/phuket-sunny-hostel.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 8283,
+      "perPersonUSD": 1381
      }
     },
     {
@@ -1223,51 +800,51 @@
      "flag": "🇲🇻",
      "type": "beach",
      "flight": {
-      "price": 2123,
-      "departsLocal": "2026-11-22T06:30:00",
-      "arrivesLocal": "2026-11-23T08:10:00",
-      "durationSec": 81600,
-      "stops": 2,
-      "stopCity": "Athens",
+      "price": 1974,
+      "departsLocal": "2026-11-21T23:50:00",
+      "arrivesLocal": "2026-11-23T09:45:00",
+      "durationSec": 111300,
+      "stops": 1,
+      "stopCity": "Baku",
       "returnDeparts": "2026-11-29T09:15:00",
       "returnDuration": 101700,
-      "link": "https://kiwi.com/u/5hc3j2m"
+      "link": "https://kiwi.com/u/nsyb4f2"
      },
      "hotel": {
-      "name": "Kaani Palm Beach",
-      "score": 8.6,
-      "stars": 4,
-      "reviews": 2691,
-      "priceUSD": 1117,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/mv/kaani-palm-beach.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
+      "name": "Dhoani Maldives Guesthouse",
+      "score": 9.6,
+      "stars": 3,
+      "reviews": 105,
+      "priceUSD": 635,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/dhoani-maldives-guesthouse.html?checkin=2026-11-21&checkout=2026-11-29&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 3240,
-     "perPersonUSD": 1620,
+     "totalUSD": 2609,
+     "perPersonUSD": 1305,
      "family": {
       "flight": {
-       "price": 7282,
+       "price": 7199,
        "departsLocal": "2026-11-22T06:30:00",
        "arrivesLocal": "2026-11-23T05:05:00",
        "durationSec": 70500,
        "stops": 2,
        "stopCity": "Athens",
-       "returnDeparts": "2026-11-29T15:50:00",
-       "returnDuration": 78000,
-       "link": "https://kiwi.com/u/7ptnxbb"
+       "returnDeparts": "2026-11-29T09:15:00",
+       "returnDuration": 101700,
+       "link": "https://kiwi.com/u/fu8x9r"
       },
       "hotel": {
-       "name": "Kaani Palm Beach",
-       "score": 8.6,
-       "stars": 4,
-       "reviews": 2691,
-       "priceUSD": 3139,
+       "name": "Rattehi Inn at Rakeedhoo",
+       "score": 9.8,
+       "stars": 3,
+       "reviews": 140,
+       "priceUSD": 1628,
        "nights": 7,
-       "link": "https://www.booking.com/hotel/mv/kaani-palm-beach.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/mv/rattehi-inn-at-rakeedhoo.html?checkin=2026-11-22&checkout=2026-11-29&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 10421,
-      "perPersonUSD": 1737
+      "totalUSD": 8827,
+      "perPersonUSD": 1471
      }
     }
    ]
@@ -1278,211 +855,55 @@
    "return": "2026-12-06",
    "destinations": [
     {
-     "dest": "Prague",
-     "flag": "🇨🇿",
-     "type": "city",
-     "flight": {
-      "price": 743,
-      "departsLocal": "2026-11-29T05:20:00",
-      "arrivesLocal": "2026-11-29T12:10:00",
-      "durationSec": 28200,
-      "stops": 1,
-      "stopCity": "Warsaw",
-      "returnDeparts": "2026-12-06T19:40:00",
-      "returnDuration": 25500,
-      "link": "https://kiwi.com/u/8c2xgrs"
-     },
-     "hotel": {
-      "name": "Residence Masna",
-      "score": 8.9,
-      "stars": 4,
-      "reviews": 301,
-      "priceUSD": 823,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 1566,
-     "perPersonUSD": 783,
-     "family": {
-      "flight": {
-       "price": 2231,
-       "departsLocal": "2026-11-29T05:20:00",
-       "arrivesLocal": "2026-11-29T12:10:00",
-       "durationSec": 28200,
-       "stops": 1,
-       "stopCity": "Warsaw",
-       "returnDeparts": "2026-12-06T19:40:00",
-       "returnDuration": 25500,
-       "link": "https://kiwi.com/u/cnbcbun"
-      },
-      "hotel": {
-       "name": "Residence Masna",
-       "score": 8.9,
-       "stars": 4,
-       "reviews": 301,
-       "priceUSD": 2043,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 4274,
-      "perPersonUSD": 712
-     }
-    },
-    {
      "dest": "Tenerife",
      "flag": "🇪🇸",
      "type": "beach",
      "flight": {
-      "price": 629,
-      "departsLocal": "2026-11-28T19:35:00",
-      "arrivesLocal": "2026-11-29T10:05:00",
-      "durationSec": 59400,
+      "price": 671,
+      "departsLocal": "2026-11-28T21:25:00",
+      "arrivesLocal": "2026-11-29T11:15:00",
+      "durationSec": 57000,
       "stops": 1,
-      "stopCity": "Rome",
-      "returnDeparts": "2026-12-06T18:35:00",
-      "returnDuration": 48000,
-      "link": "https://kiwi.com/u/dpyypbx"
+      "stopCity": "London",
+      "returnDeparts": "2026-12-06T17:40:00",
+      "returnDuration": 51300,
+      "link": "https://kiwi.com/u/b2n5ycg"
      },
      "hotel": {
-      "name": "Meliá Costa Atlantis Tenerife",
-      "score": 8.6,
-      "stars": 4,
-      "reviews": 774,
-      "priceUSD": 1254,
+      "name": "Hotel Best Semiramis",
+      "score": 8.3,
+      "stars": 5,
+      "reviews": 3978,
+      "priceUSD": 888,
       "nights": 8,
-      "link": "https://www.booking.com/hotel/es/melia-costa-atlantis-tenerife.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/es/best-semiramis.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 1883,
-     "perPersonUSD": 942,
+     "totalUSD": 1559,
+     "perPersonUSD": 780,
      "family": {
       "flight": {
-       "price": 2916,
-       "departsLocal": "2026-11-29T06:00:00",
-       "arrivesLocal": "2026-11-29T14:10:00",
-       "durationSec": 36600,
+       "price": 2143,
+       "departsLocal": "2026-11-28T19:35:00",
+       "arrivesLocal": "2026-11-29T10:05:00",
+       "durationSec": 59400,
        "stops": 1,
-       "stopCity": "Madrid",
-       "returnDeparts": "2026-12-06T17:55:00",
-       "returnDuration": 50400,
-       "link": "https://kiwi.com/u/7k4dyn"
+       "stopCity": "Rome",
+       "returnDeparts": "2026-12-06T14:45:00",
+       "returnDuration": 42300,
+       "link": "https://kiwi.com/u/3bjqfp"
       },
       "hotel": {
-       "name": "Parque Santiago III Official",
-       "score": 8.8,
-       "stars": 3,
-       "reviews": 4394,
-       "priceUSD": 2408,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/es/parque-santiago-iii-arona.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 5324,
-      "perPersonUSD": 887
-     }
-    },
-    {
-     "dest": "Dubai",
-     "flag": "🇦🇪",
-     "type": "city",
-     "flight": {
-      "price": 1361,
-      "departsLocal": "2026-11-29T07:10:00",
-      "arrivesLocal": "2026-11-29T20:15:00",
-      "durationSec": 39900,
-      "stops": 1,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-12-06T05:25:00",
-      "returnDuration": 41400,
-      "link": "https://kiwi.com/u/6hup2w"
-     },
-     "hotel": {
-      "name": "TRYP by Wyndham Dubai",
-      "score": 8.6,
-      "stars": 4,
-      "reviews": 13890,
-      "priceUSD": 650,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/ae/tryp-by-wyndham-dubai.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2011,
-     "perPersonUSD": 1006,
-     "family": {
-      "flight": {
-       "price": 4463,
-       "departsLocal": "2026-11-29T08:00:00",
-       "arrivesLocal": "2026-11-29T17:00:00",
-       "durationSec": 25200,
-       "stops": 1,
-       "stopCity": "Larnaca",
-       "returnDeparts": "2026-12-06T18:00:00",
-       "returnDuration": 54300,
-       "link": "https://kiwi.com/u/mhpcdh"
-      },
-      "hotel": {
-       "name": "The First Collection Business Bay, Dubai, a Tribute Portfolio Hotel",
+       "name": "Ramada Residences by Wyndham Costa Adeje",
        "score": 8.6,
-       "stars": 4,
-       "reviews": 11844,
-       "priceUSD": 1486,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/ae/the-first-collection-business-bay-dubai-a-tribute-portfolio-hotel.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
-       "rooms": 2
-      },
-      "totalUSD": 5949,
-      "perPersonUSD": 992
-     }
-    },
-    {
-     "dest": "Budapest",
-     "flag": "🇭🇺",
-     "type": "city",
-     "flight": {
-      "price": 437,
-      "departsLocal": "2026-11-28T19:30:00",
-      "arrivesLocal": "2026-11-28T22:05:00",
-      "durationSec": 12900,
-      "stops": 0,
-      "stopCity": null,
-      "returnDeparts": "2026-12-06T13:35:00",
-      "returnDuration": 26100,
-      "link": "https://kiwi.com/u/3jppd9r"
-     },
-     "hotel": {
-      "name": "Ensana Grand Margaret Island",
-      "score": 8.9,
-      "stars": 4,
-      "reviews": 6652,
-      "priceUSD": 1584,
-      "nights": 8,
-      "link": "https://www.booking.com/hotel/hu/margitszigetgrand.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
-     },
-     "totalUSD": 2021,
-     "perPersonUSD": 1010,
-     "family": {
-      "flight": {
-       "price": 1478,
-       "departsLocal": "2026-11-28T19:30:00",
-       "arrivesLocal": "2026-11-28T22:05:00",
-       "durationSec": 12900,
-       "stops": 0,
-       "stopCity": null,
-       "returnDeparts": "2026-12-06T05:00:00",
-       "returnDuration": 11700,
-       "link": "https://kiwi.com/u/ux5r4h8"
-      },
-      "hotel": {
-       "name": "MT Suites ApartHotel",
-       "score": 9.1,
        "stars": 3,
-       "reviews": 1658,
-       "priceUSD": 3311,
+       "reviews": 3394,
+       "priceUSD": 1938,
        "nights": 8,
-       "link": "https://www.booking.com/hotel/hu/mt-suites-budapest.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/es/clc-paradise-santa-cruz-de-tenerife.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 4789,
-      "perPersonUSD": 798
+      "totalUSD": 4081,
+      "perPersonUSD": 680
      }
     },
     {
@@ -1490,103 +911,155 @@
      "flag": "🇦🇹",
      "type": "city",
      "flight": {
-      "price": 675,
-      "departsLocal": "2026-11-29T08:00:00",
-      "arrivesLocal": "2026-11-29T13:20:00",
-      "durationSec": 22800,
+      "price": 633,
+      "departsLocal": "2026-11-28T21:25:00",
+      "arrivesLocal": "2026-11-29T09:50:00",
+      "durationSec": 48300,
       "stops": 1,
-      "stopCity": "Larnaca",
-      "returnDeparts": "2026-12-06T06:20:00",
-      "returnDuration": 36000,
-      "link": "https://kiwi.com/u/879y6n"
+      "stopCity": "London",
+      "returnDeparts": "2026-12-06T20:05:00",
+      "returnDuration": 46500,
+      "link": "https://kiwi.com/u/gtnp5cm"
      },
      "hotel": {
-      "name": "Zoku Vienna",
-      "score": 9.1,
+      "name": "The Social Hub Vienna Extended Stay",
+      "score": 8.9,
       "stars": 4,
-      "reviews": 5909,
-      "priceUSD": 1382,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/at/zoku-vienna.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 629,
+      "priceUSD": 974,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2057,
-     "perPersonUSD": 1028,
+     "totalUSD": 1607,
+     "perPersonUSD": 804,
      "family": {
       "flight": {
-       "price": 2120,
-       "departsLocal": "2026-11-28T21:35:00",
-       "arrivesLocal": "2026-11-29T13:35:00",
-       "durationSec": 61200,
-       "stops": 2,
-       "stopCity": "Palermo",
-       "returnDeparts": "2026-12-06T06:20:00",
-       "returnDuration": 27300,
-       "link": "https://kiwi.com/u/hsfyd2f"
+       "price": 1989,
+       "departsLocal": "2026-11-29T05:20:00",
+       "arrivesLocal": "2026-11-29T16:50:00",
+       "durationSec": 45000,
+       "stops": 1,
+       "stopCity": "Warsaw",
+       "returnDeparts": "2026-12-06T17:30:00",
+       "returnDuration": 33300,
+       "link": "https://kiwi.com/u/d6pjxc"
       },
       "hotel": {
-       "name": "The Social Hub Vienna Extended Stay",
-       "score": 8.9,
-       "stars": 4,
-       "reviews": 626,
-       "priceUSD": 2888,
-       "nights": 8,
-       "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "name": "Vienna Residence, Philips Haus - Europlaza",
+       "score": 8.5,
+       "stars": 3,
+       "reviews": 1330,
+       "priceUSD": 2697,
+       "nights": 7,
+       "link": "https://www.booking.com/hotel/at/vienna-residence-philips-haus-europlaza.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 5008,
-      "perPersonUSD": 835
+      "totalUSD": 4686,
+      "perPersonUSD": 781
      }
     },
     {
-     "dest": "Phuket",
-     "flag": "🇹🇭",
-     "type": "beach",
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
      "flight": {
-      "price": 1802,
-      "departsLocal": "2026-11-29T07:10:00",
-      "arrivesLocal": "2026-11-30T07:55:00",
-      "durationSec": 71100,
-      "stops": 2,
-      "stopCity": "Athens",
-      "returnDeparts": "2026-12-06T09:10:00",
-      "returnDuration": 108300,
-      "link": "https://kiwi.com/u/s64q5s"
+      "price": 371,
+      "departsLocal": "2026-11-28T19:30:00",
+      "arrivesLocal": "2026-11-28T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-12-06T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/4spzvct"
      },
      "hotel": {
-      "name": "Pearl Hotel Phuket",
-      "score": 8.2,
+      "name": "Váralja Home",
+      "score": 9.1,
       "stars": 4,
-      "reviews": 362,
-      "priceUSD": 342,
-      "nights": 7,
-      "link": "https://www.booking.com/hotel/th/pearl-phuket.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+      "reviews": 1949,
+      "priceUSD": 1459,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/varalja-home.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2144,
-     "perPersonUSD": 1072,
+     "totalUSD": 1830,
+     "perPersonUSD": 915,
      "family": {
       "flight": {
-       "price": 6869,
-       "departsLocal": "2026-11-29T07:10:00",
-       "arrivesLocal": "2026-11-30T07:55:00",
-       "durationSec": 71100,
-       "stops": 2,
-       "stopCity": "Athens",
-       "returnDeparts": "2026-12-06T22:40:00",
-       "returnDuration": 67800,
-       "link": "https://kiwi.com/u/fns7k59"
+       "price": 1118,
+       "departsLocal": "2026-11-28T19:30:00",
+       "arrivesLocal": "2026-11-28T22:05:00",
+       "durationSec": 12900,
+       "stops": 0,
+       "stopCity": null,
+       "returnDeparts": "2026-12-06T05:00:00",
+       "returnDuration": 11700,
+       "link": "https://kiwi.com/u/6g234np"
       },
       "hotel": {
-       "name": "La Moon At Phuket - SHA Extra Plus",
-       "score": 8.2,
-       "stars": 3,
-       "reviews": 890,
-       "priceUSD": 724,
-       "nights": 7,
-       "link": "https://www.booking.com/hotel/th/phuket-resotel.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "name": "CZECH INN Hotel Ferenc",
+       "score": 8.9,
+       "stars": 4,
+       "reviews": 5022,
+       "priceUSD": 3485,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/hu/achat-premium-budapest.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 7593,
-      "perPersonUSD": 1266
+      "totalUSD": 4603,
+      "perPersonUSD": 767
+     }
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 539,
+      "departsLocal": "2026-11-28T19:30:00",
+      "arrivesLocal": "2026-11-29T07:00:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-12-06T06:15:00",
+      "returnDuration": 52500,
+      "link": "https://kiwi.com/u/yz54v7r"
+     },
+     "hotel": {
+      "name": "Figaro Suites",
+      "score": 8.8,
+      "stars": 4,
+      "reviews": 5762,
+      "priceUSD": 1291,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/figaro-suites.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 1830,
+     "perPersonUSD": 915,
+     "family": {
+      "flight": {
+       "price": 2066,
+       "departsLocal": "2026-11-29T05:20:00",
+       "arrivesLocal": "2026-11-29T12:10:00",
+       "durationSec": 28200,
+       "stops": 1,
+       "stopCity": "Warsaw",
+       "returnDeparts": "2026-12-06T09:35:00",
+       "returnDuration": 61800,
+       "link": "https://kiwi.com/u/gj3bzc"
+      },
+      "hotel": {
+       "name": "Kinsky Garden Apartments and Suites by Dwellfort",
+       "score": 9.1,
+       "stars": 4,
+       "reviews": 1079,
+       "priceUSD": 1575,
+       "nights": 7,
+       "link": "https://www.booking.com/hotel/cz/kinsky-garden-apartments-and-suites.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 3641,
+      "perPersonUSD": 607
      }
     },
     {
@@ -1594,7 +1067,7 @@
      "flag": "🇹🇭",
      "type": "exotic",
      "flight": {
-      "price": 1712,
+      "price": 1825,
       "departsLocal": "2026-11-29T07:10:00",
       "arrivesLocal": "2026-11-30T07:20:00",
       "durationSec": 69000,
@@ -1602,43 +1075,597 @@
       "stopCity": "Athens",
       "returnDeparts": "2026-12-06T09:20:00",
       "returnDuration": 106500,
-      "link": "https://kiwi.com/u/35ph35"
+      "link": "https://kiwi.com/u/qdp2v5m"
      },
      "hotel": {
-      "name": "The Mandison Bangkok - Sukhumvit Soi 20",
-      "score": 8.7,
-      "stars": 4,
-      "reviews": 4348,
-      "priceUSD": 690,
+      "name": "Samsen Sam Place",
+      "score": 8.4,
+      "stars": 2,
+      "reviews": 2318,
+      "priceUSD": 138,
       "nights": 7,
-      "link": "https://www.booking.com/hotel/th/golden-tulip-mandison-suites.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+      "link": "https://www.booking.com/hotel/th/sam-sen-sam-place.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
      },
-     "totalUSD": 2402,
-     "perPersonUSD": 1201,
+     "totalUSD": 1963,
+     "perPersonUSD": 982,
      "family": {
       "flight": {
-       "price": 6356,
+       "price": 5657,
        "departsLocal": "2026-11-29T07:10:00",
        "arrivesLocal": "2026-11-30T07:20:00",
        "durationSec": 69000,
        "stops": 2,
        "stopCity": "Athens",
-       "returnDeparts": "2026-12-06T19:25:00",
-       "returnDuration": 65100,
-       "link": "https://kiwi.com/u/yp87w6f"
+       "returnDeparts": "2026-12-06T20:50:00",
+       "returnDuration": 72300,
+       "link": "https://kiwi.com/u/q3byyn"
       },
       "hotel": {
-       "name": "Nouvo City Hotel",
-       "score": 8.5,
-       "stars": 4,
-       "reviews": 8914,
-       "priceUSD": 1243,
+       "name": "Wayha Hostel Don Mueang Airport",
+       "score": 8.6,
+       "stars": 3,
+       "reviews": 825,
+       "priceUSD": 385,
        "nights": 7,
-       "link": "https://www.booking.com/hotel/th/nouvo-city.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "link": "https://www.booking.com/hotel/th/wayha.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
        "rooms": 2
       },
-      "totalUSD": 7599,
-      "perPersonUSD": 1266
+      "totalUSD": 6042,
+      "perPersonUSD": 1007
+     }
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1683,
+      "departsLocal": "2026-11-29T07:10:00",
+      "arrivesLocal": "2026-11-29T20:15:00",
+      "durationSec": 39900,
+      "stops": 1,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-12-06T17:25:00",
+      "returnDuration": 41400,
+      "link": "https://kiwi.com/u/b95fuy"
+     },
+     "hotel": {
+      "name": "Citymax Hotel Business Bay",
+      "score": 8.2,
+      "stars": 4,
+      "reviews": 5269,
+      "priceUSD": 491,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/ae/citymax-business-bay.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2174,
+     "perPersonUSD": 1087,
+     "family": {
+      "flight": {
+       "price": 5358,
+       "departsLocal": "2026-11-29T07:10:00",
+       "arrivesLocal": "2026-11-29T20:15:00",
+       "durationSec": 39900,
+       "stops": 1,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-06T18:00:00",
+       "returnDuration": 24900,
+       "link": "https://kiwi.com/u/zz2cxt"
+      },
+      "hotel": {
+       "name": "Hotel Local Dubai, Jumeirah Village Triangle, Autograph Collection",
+       "score": 8.8,
+       "stars": 4,
+       "reviews": 1800,
+       "priceUSD": 1242,
+       "nights": 7,
+       "link": "https://www.booking.com/hotel/ae/local-at-jumeirah-village-triangle-by-the-first-collection.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6600,
+      "perPersonUSD": 1100
+     }
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 1946,
+      "departsLocal": "2026-11-28T19:30:00",
+      "arrivesLocal": "2026-11-30T10:15:00",
+      "durationSec": 121500,
+      "stops": 3,
+      "stopCity": "Budapest",
+      "returnDeparts": "2026-12-06T21:00:00",
+      "returnDuration": 71700,
+      "link": "https://kiwi.com/u/yszvbp"
+     },
+     "hotel": {
+      "name": "The Passion Nest - SHA Plus Certified",
+      "score": 9.0,
+      "stars": 3,
+      "reviews": 673,
+      "priceUSD": 262,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/the-passion-nest.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2208,
+     "perPersonUSD": 1104
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 2192,
+      "departsLocal": "2026-11-28T23:50:00",
+      "arrivesLocal": "2026-11-30T09:45:00",
+      "durationSec": 111300,
+      "stops": 1,
+      "stopCity": "Baku",
+      "returnDeparts": "2026-12-06T11:45:00",
+      "returnDuration": 95700,
+      "link": "https://kiwi.com/u/jdgrmv"
+     },
+     "hotel": {
+      "name": "Splendour Grand",
+      "score": 9.0,
+      "stars": 5,
+      "reviews": 50,
+      "priceUSD": 477,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/splendour-inn.html?checkin=2026-11-28&checkout=2026-12-06&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2669,
+     "perPersonUSD": 1335,
+     "family": {
+      "flight": {
+       "price": 7036,
+       "departsLocal": "2026-11-29T07:10:00",
+       "arrivesLocal": "2026-11-30T05:05:00",
+       "durationSec": 68100,
+       "stops": 2,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-06T21:35:00",
+       "returnDuration": 62400,
+       "link": "https://kiwi.com/u/hkr4n6u"
+      },
+      "hotel": {
+       "name": "Aasna Inn",
+       "score": 8.9,
+       "stars": 4,
+       "reviews": 321,
+       "priceUSD": 1195,
+       "nights": 7,
+       "link": "https://www.booking.com/hotel/mv/aasna-inn.html?checkin=2026-11-29&checkout=2026-12-06&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 8231,
+      "perPersonUSD": 1372
+     }
+    }
+   ]
+  },
+  {
+   "label": "Sun 6 Dec",
+   "departure": "2026-12-06",
+   "return": "2026-12-13",
+   "destinations": [
+    {
+     "dest": "Vienna",
+     "flag": "🇦🇹",
+     "type": "city",
+     "flight": {
+      "price": 793,
+      "departsLocal": "2026-12-06T05:20:00",
+      "arrivesLocal": "2026-12-06T16:50:00",
+      "durationSec": 45000,
+      "stops": 1,
+      "stopCity": "Warsaw",
+      "returnDeparts": "2026-12-13T06:20:00",
+      "returnDuration": 36000,
+      "link": "https://kiwi.com/u/gjpyk6x"
+     },
+     "hotel": {
+      "name": "The Social Hub Vienna Extended Stay",
+      "score": 8.9,
+      "stars": 4,
+      "reviews": 629,
+      "priceUSD": 880,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-12-06&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 1673,
+     "perPersonUSD": 837,
+     "family": {
+      "flight": {
+       "price": 2832,
+       "departsLocal": "2026-12-05T23:30:00",
+       "arrivesLocal": "2026-12-06T07:25:00",
+       "durationSec": 32100,
+       "stops": 1,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-13T06:20:00",
+       "returnDuration": 56100,
+       "link": "https://kiwi.com/u/w9n3jh"
+      },
+      "hotel": {
+       "name": "The Social Hub Vienna Extended Stay",
+       "score": 8.9,
+       "stars": 4,
+       "reviews": 629,
+       "priceUSD": 3045,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/at/the-social-hub-vienna-extended-stay.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 5877,
+      "perPersonUSD": 980
+     }
+    },
+    {
+     "dest": "Tenerife",
+     "flag": "🇪🇸",
+     "type": "beach",
+     "flight": {
+      "price": 1009,
+      "departsLocal": "2026-12-06T05:20:00",
+      "arrivesLocal": "2026-12-06T22:45:00",
+      "durationSec": 69900,
+      "stops": 2,
+      "stopCity": "Warsaw",
+      "returnDeparts": "2026-12-13T06:50:00",
+      "returnDuration": 68100,
+      "link": "https://kiwi.com/u/tbvnvcf"
+     },
+     "hotel": {
+      "name": "Hotel Best Semiramis",
+      "score": 8.3,
+      "stars": 5,
+      "reviews": 3978,
+      "priceUSD": 775,
+      "nights": 7,
+      "link": "https://www.booking.com/hotel/es/best-semiramis.html?checkin=2026-12-06&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 1784,
+     "perPersonUSD": 892,
+     "family": {
+      "flight": {
+       "price": 3108,
+       "departsLocal": "2026-12-05T19:35:00",
+       "arrivesLocal": "2026-12-06T10:05:00",
+       "durationSec": 59400,
+       "stops": 1,
+       "stopCity": "Rome",
+       "returnDeparts": "2026-12-13T19:05:00",
+       "returnDuration": 47400,
+       "link": "https://kiwi.com/u/x9nss6"
+      },
+      "hotel": {
+       "name": "Parque Santiago IV Official",
+       "score": 9.0,
+       "stars": 3,
+       "reviews": 2286,
+       "priceUSD": 3324,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/es/parque-santiago-iv.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6432,
+      "perPersonUSD": 1072
+     }
+    },
+    {
+     "dest": "Prague",
+     "flag": "🇨🇿",
+     "type": "city",
+     "flight": {
+      "price": 923,
+      "departsLocal": "2026-12-05T21:35:00",
+      "arrivesLocal": "2026-12-06T12:20:00",
+      "durationSec": 56700,
+      "stops": 1,
+      "stopCity": "Palermo",
+      "returnDeparts": "2026-12-13T09:10:00",
+      "returnDuration": 25800,
+      "link": "https://kiwi.com/u/mcshu6"
+     },
+     "hotel": {
+      "name": "Residence Masna",
+      "score": 8.8,
+      "stars": 4,
+      "reviews": 301,
+      "priceUSD": 1116,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2039,
+     "perPersonUSD": 1020,
+     "family": {
+      "flight": {
+       "price": 3281,
+       "departsLocal": "2026-12-05T20:30:00",
+       "arrivesLocal": "2026-12-06T08:35:00",
+       "durationSec": 47100,
+       "stops": 1,
+       "stopCity": "Larnaca",
+       "returnDeparts": "2026-12-13T09:10:00",
+       "returnDuration": 25800,
+       "link": "https://kiwi.com/u/xvcgm8y"
+      },
+      "hotel": {
+       "name": "Residence Masna",
+       "score": 8.8,
+       "stars": 4,
+       "reviews": 301,
+       "priceUSD": 2821,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/cz/residence-masna.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6102,
+      "perPersonUSD": 1017
+     }
+    },
+    {
+     "dest": "Budapest",
+     "flag": "🇭🇺",
+     "type": "city",
+     "flight": {
+      "price": 832,
+      "departsLocal": "2026-12-05T19:30:00",
+      "arrivesLocal": "2026-12-05T22:05:00",
+      "durationSec": 12900,
+      "stops": 0,
+      "stopCity": null,
+      "returnDeparts": "2026-12-13T05:00:00",
+      "returnDuration": 11700,
+      "link": "https://kiwi.com/u/up6b6y"
+     },
+     "hotel": {
+      "name": "CZECH INN Hotel Ferenc",
+      "score": 8.9,
+      "stars": 4,
+      "reviews": 5022,
+      "priceUSD": 1270,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/hu/achat-premium-budapest.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2102,
+     "perPersonUSD": 1051,
+     "family": {
+      "flight": {
+       "price": 2537,
+       "departsLocal": "2026-12-05T19:30:00",
+       "arrivesLocal": "2026-12-05T22:05:00",
+       "durationSec": 12900,
+       "stops": 0,
+       "stopCity": null,
+       "returnDeparts": "2026-12-13T05:00:00",
+       "returnDuration": 11700,
+       "link": "https://kiwi.com/u/bqpftvq"
+      },
+      "hotel": {
+       "name": "Dagály Apartments by FirstHost",
+       "score": 9.1,
+       "stars": 4,
+       "reviews": 181,
+       "priceUSD": 2686,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/hu/dagaly-residence.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 5223,
+      "perPersonUSD": 871
+     }
+    },
+    {
+     "dest": "Bangkok",
+     "flag": "🇹🇭",
+     "type": "exotic",
+     "flight": {
+      "price": 2084,
+      "departsLocal": "2026-12-05T21:35:00",
+      "arrivesLocal": "2026-12-07T07:15:00",
+      "durationSec": 103200,
+      "stops": 3,
+      "stopCity": "Palermo",
+      "returnDeparts": "2026-12-13T20:50:00",
+      "returnDuration": 72300,
+      "link": "https://kiwi.com/u/c79wdk8"
+     },
+     "hotel": {
+      "name": "HOUSEMODE - BAANYAI @ Wongwian Yai",
+      "score": 8.5,
+      "stars": 4,
+      "reviews": 172,
+      "priceUSD": 240,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/housemode-baanyai-wongwian-yai.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2324,
+     "perPersonUSD": 1162,
+     "family": {
+      "flight": {
+       "price": 6784,
+       "departsLocal": "2026-12-05T19:10:00",
+       "arrivesLocal": "2026-12-06T18:50:00",
+       "durationSec": 67200,
+       "stops": 3,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-13T20:50:00",
+       "returnDuration": 72300,
+       "link": "https://kiwi.com/u/666f26"
+      },
+      "hotel": {
+       "name": "Tuk Tuk Hostel",
+       "score": 8.1,
+       "stars": 2,
+       "reviews": 336,
+       "priceUSD": 371,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/th/tuktuk-hostel.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 7155,
+      "perPersonUSD": 1192
+     }
+    },
+    {
+     "dest": "Dubai",
+     "flag": "🇦🇪",
+     "type": "city",
+     "flight": {
+      "price": 1808,
+      "departsLocal": "2026-12-05T23:30:00",
+      "arrivesLocal": "2026-12-06T20:15:00",
+      "durationSec": 67500,
+      "stops": 1,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-12-13T17:30:00",
+      "returnDuration": 12900,
+      "link": "https://kiwi.com/u/33gfusx"
+     },
+     "hotel": {
+      "name": "Citymax Hotel Business Bay",
+      "score": 8.2,
+      "stars": 4,
+      "reviews": 5269,
+      "priceUSD": 561,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/ae/citymax-business-bay.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2369,
+     "perPersonUSD": 1185,
+     "family": {
+      "flight": {
+       "price": 5352,
+       "departsLocal": "2026-12-05T23:30:00",
+       "arrivesLocal": "2026-12-06T20:15:00",
+       "durationSec": 67500,
+       "stops": 1,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-13T17:30:00",
+       "returnDuration": 12900,
+       "link": "https://kiwi.com/u/j8tfg7"
+      },
+      "hotel": {
+       "name": "Citymax Hotel Business Bay",
+       "score": 8.2,
+       "stars": 4,
+       "reviews": 5269,
+       "priceUSD": 1291,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/ae/citymax-business-bay.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 6643,
+      "perPersonUSD": 1107
+     }
+    },
+    {
+     "dest": "Phuket",
+     "flag": "🇹🇭",
+     "type": "beach",
+     "flight": {
+      "price": 2293,
+      "departsLocal": "2026-12-05T23:30:00",
+      "arrivesLocal": "2026-12-07T10:15:00",
+      "durationSec": 107100,
+      "stops": 2,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-12-13T20:20:00",
+      "returnDuration": 83400,
+      "link": "https://kiwi.com/u/qxp6vds"
+     },
+     "hotel": {
+      "name": "The Passion Nest - SHA Plus Certified",
+      "score": 9.0,
+      "stars": 3,
+      "reviews": 673,
+      "priceUSD": 262,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/th/the-passion-nest.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 2555,
+     "perPersonUSD": 1278,
+     "family": {
+      "flight": {
+       "price": 8478,
+       "departsLocal": "2026-12-05T19:10:00",
+       "arrivesLocal": "2026-12-06T18:55:00",
+       "durationSec": 67500,
+       "stops": 3,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-13T22:30:00",
+       "returnDuration": 54000,
+       "link": "https://kiwi.com/u/qbvk46h"
+      },
+      "hotel": {
+       "name": "Mayfa Hotel - SHA extra plus",
+       "score": 8.1,
+       "stars": 3,
+       "reviews": 50,
+       "priceUSD": 506,
+       "nights": 8,
+       "link": "https://www.booking.com/hotel/th/mayfa.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 8984,
+      "perPersonUSD": 1497
+     }
+    },
+    {
+     "dest": "Maldives",
+     "flag": "🇲🇻",
+     "type": "beach",
+     "flight": {
+      "price": 2669,
+      "departsLocal": "2026-12-05T23:30:00",
+      "arrivesLocal": "2026-12-07T08:10:00",
+      "durationSec": 106800,
+      "stops": 2,
+      "stopCity": "Athens",
+      "returnDeparts": "2026-12-13T15:10:00",
+      "returnDuration": 73200,
+      "link": "https://kiwi.com/u/6473xr"
+     },
+     "hotel": {
+      "name": "Koimala Hotel",
+      "score": 9.5,
+      "stars": 4,
+      "reviews": 409,
+      "priceUSD": 408,
+      "nights": 8,
+      "link": "https://www.booking.com/hotel/mv/koimala.html?checkin=2026-12-05&checkout=2026-12-13&group_adults=2&no_rooms=1&selected_currency=USD"
+     },
+     "totalUSD": 3077,
+     "perPersonUSD": 1539,
+     "family": {
+      "flight": {
+       "price": 8311,
+       "departsLocal": "2026-12-06T06:30:00",
+       "arrivesLocal": "2026-12-07T05:05:00",
+       "durationSec": 70500,
+       "stops": 2,
+       "stopCity": "Athens",
+       "returnDeparts": "2026-12-13T21:35:00",
+       "returnDuration": 62400,
+       "link": "https://kiwi.com/u/4yjft5x"
+      },
+      "hotel": {
+       "name": "Koimala Hotel",
+       "score": 9.5,
+       "stars": 4,
+       "reviews": 409,
+       "priceUSD": 803,
+       "nights": 7,
+       "link": "https://www.booking.com/hotel/mv/koimala.html?checkin=2026-12-06&checkout=2026-12-13&group_adults=4&group_children=2&age=8&age=12&no_rooms=2&selected_currency=USD",
+       "rooms": 2
+      },
+      "totalUSD": 9114,
+      "perPersonUSD": 1519
      }
     }
    ]
