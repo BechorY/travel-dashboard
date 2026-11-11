@@ -105,7 +105,7 @@ def check_family(where: str, family: dict, errors: list[str]) -> None:
         errors.append(f"{where}: perPersonUSD {family['perPersonUSD']} != totalUSD/{FAMILY_PAX}")
 
 
-def validate(data: dict, today: date) -> list[str]:
+def validate(data: dict, today: date, allow_past: bool = False) -> list[str]:
     errors: list[str] = []
     try:
         parse_iso_datetime(data["updatedAt"])
@@ -129,7 +129,7 @@ def validate(data: dict, today: date) -> list[str]:
             errors.append(f"{label}: departure/return missing or not YYYY-MM-DD")
             continue
         # Saturday-night flights leave the day before the week's Sunday.
-        if departure - timedelta(days=1) < today:
+        if not allow_past and departure - timedelta(days=1) < today:
             errors.append(f"{label}: departure {departure} is in the past")
         if window and not window[0] <= departure <= window[1]:
             errors.append(
@@ -150,6 +150,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("path", nargs="?", default=Path(__file__).resolve().parent.parent / "deals.json")
     parser.add_argument("--max-age-hours", type=float, default=None)
+    parser.add_argument("--allow-past", action="store_true",
+                        help="CI mode: data may have aged, so past departures are not an error")
     args = parser.parse_args()
 
     try:
@@ -158,7 +160,7 @@ def main() -> int:
         print(f"ERROR: cannot read {args.path}: {exc}")
         return 1
 
-    errors = validate(data, date.today())
+    errors = validate(data, date.today(), args.allow_past)
     if args.max_age_hours is not None and "updatedAt" in data:
         try:
             age = datetime.now(timezone.utc) - parse_iso_datetime(data["updatedAt"])

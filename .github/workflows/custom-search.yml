@@ -47,18 +47,9 @@ jobs:
             gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Secrets ROUTINE_FIRE_URL / ROUTINE_TOKEN are not set in repo settings."
             exit 1
           fi
-          payload=$(jq -n --arg req "$(cat request.json)" --arg issue "$ISSUE" \
-            '{text: ("DEAL_SEARCH_REQUEST " + $req + " ISSUE " + $issue)}')
-          status=$(curl -sS -o response.json -w '%{http_code}' -X POST "$FIRE_URL" \
-            -H "Authorization: Bearer $FIRE_TOKEN" \
-            -H "anthropic-beta: experimental-cc-routine-2026-04-01" \
-            -H "anthropic-version: 2023-06-01" \
-            -H "Content-Type: application/json" \
-            -d "$payload")
-          if [ "$status" != "200" ] && [ "$status" != "201" ]; then
-            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Routine fire failed (HTTP $status): $(head -c 500 response.json)"
+          if ! session=$(scripts/fire_routine.sh "DEAL_SEARCH_REQUEST $(cat request.json) ISSUE $ISSUE" 2>err.txt); then
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "❌ Routine fire failed: $(cat err.txt)"
             exit 1
           fi
-          session=$(jq -r '.claude_code_session_url // "n/a"' response.json)
           gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" \
             --body "🔎 Search started: $(jq -r '.key' request.json). Results usually appear in the app within 3–5 minutes. Run: $session"

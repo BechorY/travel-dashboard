@@ -1,0 +1,9 @@
+{
+  "folderId": "16qSEyL-F05CfxFwIIURMHijkCwc4HcaF",
+  "folderName": "Travel deals",
+  "folderUrl": "https://drive.google.com/drive/folders/16qSEyL-F05CfxFwIIURMHijkCwc4HcaF",
+  "snapshotsFolderId": "1zdJ7CevwXINztsaMZAnbEzh2_sDEd9z5",
+  "historySheetTitle": "TLV deals history",
+  "historySheetId": "1imEVePPGkRV5a26pKZWqXTNM7kXZuD7ZqurLTmEg8WE",
+  "note": "Drive is a mirror. Master copy: history/deals-history.csv (full) and history/deals-summary.csv (sheet). Drive update_file cannot replace content: create the new sheet, then trash the old one, then update historySheetId here."
+}

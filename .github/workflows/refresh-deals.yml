@@ -1,0 +1,71 @@
+name: Refresh deals
+
+# On-demand refresh of deals.json. The app shows a "Refresh now" card when its data is old; the
+# card opens an issue titled "Deal refresh: ..." which the owner submits. This workflow fires the
+# Claude Routine (JOB A). The Routine writes deals.json + history, commits "(Closes #N)".
+# Manual alternative: Actions -> Refresh deals -> Run workflow (works in the GitHub mobile app).
+# No schedule on purpose: a full refresh costs ~$10-15 of Claude usage.
+#
+# Needs repo secrets: ROUTINE_FIRE_URL, ROUTINE_TOKEN.
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: refresh-deals
+  cancel-in-progress: false
+
+env:
+  MIN_AGE_HOURS: 6    # skip if deals.json is younger than this (avoids paying twice)
+
+jobs:
+  fire:
+    # Anyone can open issues on a public repo; only the owner may spend Claude usage.
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.issue.user.login == github.repository_owner && startsWith(github.event.issue.title, 'Deal refresh:'))
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      ISSUE: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skip if already fresh
+        id: age
+        run: |
+          age=$(python3 -c "import json,datetime as d;u=json.load(open('deals.json'))['updatedAt'].replace('Z','+00:00');print(int((d.datetime.now(d.timezone.utc)-d.datetime.fromisoformat(u)).total_seconds()//3600))")
+          echo "age=$age" >> "$GITHUB_OUTPUT"
+          if [ "$age" -lt "$MIN_AGE_HOURS" ]; then
+            echo "fresh=true" >> "$GITHUB_OUTPUT"
+            if [ -n "$ISSUE" ]; then
+              gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "✅ Deals are already fresh (updated ${age}h ago); no new search needed."
+              gh issue close "$ISSUE" --repo "$GITHUB_REPOSITORY" --reason completed
+            fi
+          fi
+
+      - name: Fire the Claude Routine
+        if: steps.age.outputs.fresh != 'true'
+        env:
+          FIRE_URL: ${{ secrets.ROUTINE_FIRE_URL }}
+          FIRE_TOKEN: ${{ secrets.ROUTINE_TOKEN }}
+        run: |
+          if [ -z "$FIRE_URL" ] || [ -z "$FIRE_TOKEN" ]; then
+            msg="❌ Secrets ROUTINE_FIRE_URL / ROUTINE_TOKEN are not set in repo settings."
+            [ -n "$ISSUE" ] && gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "$msg"
+            echo "$msg"; exit 1
+          fi
+          if session=$(scripts/fire_routine.sh "DEAL_REFRESH_REQUEST ISSUE ${ISSUE:-0}" 2>err.txt); then
+            msg="🔎 Refresh started (data was ${{ steps.age.outputs.age }}h old). The app updates in about 10–20 minutes. Run: $session"
+          else
+            msg="❌ Routine fire failed: $(cat err.txt)"
+            [ -n "$ISSUE" ] && gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "$msg"
+            echo "$msg"; exit 1
+          fi
+          [ -n "$ISSUE" ] && gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body "$msg"
+          echo "$msg"

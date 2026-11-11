@@ -297,7 +297,11 @@ input,button,select{font-family:inherit}a{color:inherit}
 // Deals live in deals.json (written by the daily cloud Routine) and are
 // fetched at runtime so the page never needs editing to refresh data.
 let DAILY_DEALS=null;
-const STALE_AFTER_HOURS=16*24;   // refresh runs every 2 weeks + 2 days grace
+const REFRESH_AFTER_HOURS=72;   // data older than this -> offer "Refresh now" (no automatic schedule)
+const REFRESH_POLL_EVERY_MS=60*1000;
+const REFRESH_POLL_FOR_MS=30*60*1000;
+const REFRESH_PENDING_STORE='tlvPendingRefresh';
+var refreshTimer=null;
 const RELOAD_AFTER_MS=30*60*1000;   // refetch when the app is reopened after this long
 var dealsLoadFailed=false, dealsLoadedAt=0;
 // A week's flights can leave on the Saturday night before its Sunday, so it
@@ -332,6 +336,7 @@ async function loadDeals(){
     if(!hasLiveBridge())S.applied=readUiFilters();
   }
   renderDailyDeals();
+  if(!hasLiveBridge()&&readRefreshPending())startRefreshPolling();
 }
 const S={season:'summer',mode:'package',paxMode:'couple',adults:2,children:0,childAges:[],flights:[],hotels:[],fSort:'price',hSort:'price',activeTab:'Pkg',activeWeek:0,last:null};
 // Season windows were hard-coded to fixed 2026 dates, so once a season passed
@@ -615,6 +620,45 @@ function resumePendingCustom(){
   return true;
 }
 
+// ── On-demand refresh ───────────────────────────────────────────────────────
+// GitHub Pages cannot run a search itself, so when the loaded deals are old the page offers a
+// pre-filled "Deal refresh:" issue. The owner submits it -> refresh-deals.yml fires the Claude
+// Routine -> deals.json (+ history) is committed -> this page polls deals.json until it changes.
+function refreshIssueUrl(){
+  var title='Deal refresh: '+(DAILY_DEALS&&DAILY_DEALS.season||'')+' '+isoDate(new Date());
+  var body='Refresh deals.json from the TLV Travel Deals app. Submitting starts a full Claude search '
+    +'(uses your Claude plan, about 10–20 minutes). The app updates itself when it finishes.';
+  return 'https://github.com/'+REPO+'/issues/new?title='+encodeURIComponent(title)+'&body='+encodeURIComponent(body);
+}
+function readRefreshPending(){
+  try{var p=JSON.parse(localStorage.getItem(REFRESH_PENDING_STORE)||'null');
+    return p&&Date.now()-p.requestedAt<REFRESH_POLL_FOR_MS?p:null;}catch(e){return null;}
+}
+function writeRefreshPending(p){try{if(p)localStorage.setItem(REFRESH_PENDING_STORE,JSON.stringify(p));else localStorage.removeItem(REFRESH_PENDING_STORE);}catch(e){}}
+function markRefreshRequested(){
+  writeRefreshPending({requestedAt:Date.now(),prevUpdatedAt:DAILY_DEALS&&DAILY_DEALS.updatedAt||''});
+  startRefreshPolling();
+  setTimeout(renderDailyDeals,300);
+}
+function startRefreshPolling(){
+  if(refreshTimer)return;
+  refreshTimer=setInterval(checkRefreshNow,REFRESH_POLL_EVERY_MS);
+}
+function stopRefreshPolling(){if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null;}}
+async function checkRefreshNow(){
+  var p=readRefreshPending();
+  if(!p){stopRefreshPolling();renderDailyDeals();return;}
+  await loadDeals();
+  if(DAILY_DEALS&&DAILY_DEALS.updatedAt!==p.prevUpdatedAt){writeRefreshPending(null);stopRefreshPolling();renderDailyDeals();}
+}
+function refreshBannerHtml(updLabel,ageh){
+  if(readRefreshPending())
+    return '<div class="stale-banner">⏳ Refresh in progress — new prices appear here in about 10–20 minutes. You can close the app.</div>';
+  return '<div class="stale-banner">⚠️ Prices are from '+updLabel+' ('+ageLabel(ageh)+') and may have changed.'
+    +'<p style="margin-top:8px"><a class="cta-btn cta-sec" style="display:inline-flex;padding:9px 16px" href="'+refreshIssueUrl()+'" target="_blank" rel="noopener" onclick="markRefreshRequested()">🔄 Refresh now (≈ 10–20 min)</a></p>'
+    +'<p style="margin-top:6px;font-size:11px;color:var(--txt2)">Opens a GitHub issue — tap <b>Submit new issue</b> to start the search.</p></div>';
+}
+
 function renderDailyDeals(){
   var area=document.getElementById('dailyDealsArea');
   var tabArea=document.getElementById('weekTabsArea');
@@ -631,13 +675,13 @@ function renderDailyDeals(){
   }
   var updTime=new Date(DAILY_DEALS.updatedAt);
   var ageh=(Date.now()-updTime)/3600000;
-  var stale=ageh>STALE_AFTER_HOURS;
+  var stale=ageh>REFRESH_AFTER_HOURS;
   var updLabel=updTime.toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
   dot.className='status-dot'+(stale?' stale':'');
   upd.textContent='Updated '+updLabel+' · '+ageLabel(ageh);
   if(f.season==='custom')return;   // custom results are drawn by customSearch()/checkCustomNow()
   more.innerHTML='';summary.textContent=filterSummary(f);
-  var banner=stale?'<div class="stale-banner">⚠️ Refresh hasn’t run since '+updLabel+' — prices may have changed.</div>':'';
+  var banner=(stale||(!hasLiveBridge()&&readRefreshPending()))?refreshBannerHtml(updLabel,ageh):'';
   // The data holds one season; picking the other one explains when it arrives.
   if(f.season!=='custom'&&DAILY_DEALS.season!==f.season){
     var today=new Date();today.setHours(0,0,0,0);
